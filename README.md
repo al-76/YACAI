@@ -13,7 +13,7 @@ The project uses:
 ## Key ideas
 Clean architecture is all about layers.
 One suggests to use the following layers
-![Architecture layers](https://github.com/al-76/YACAI/blob/main/Ska%CC%88rmavbild.png)
+![Architecture layers](https://github.com/al-76/YACAI/blob/main/Images/Ska%CC%88rmavbild.png)
 
 Any lower layer is dependent on a higher layer.
 When a higher layer uses a lower layer we create a protocol on the higher layer and put the implementation to the lower layer.
@@ -25,7 +25,7 @@ So, Domain can use Data but Data is dependent on Domain.
 ## Application (PLOS client)
 The architectural approach is demonstrated on a very simple client of [open academic journal PLOS](https://plos.org/)
 
-![PLOS client](https://github.com/al-76/YACAI/blob/main/Simulator%20Screen%20Recording%20-%20iPhone%2011.gif)
+![PLOS client](https://github.com/al-76/YACAI/blob/main/Images/Simulator%20Screen%20Recording%20-%20iPhone%2011.gif)
 
 
 ## Unit tests

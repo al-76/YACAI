@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Resolver",
+        "repositoryURL": "https://github.com/hmlongco/Resolver.git",
+        "state": {
+          "branch": null,
+          "revision": "48e26b8fdf22877cd89b4a1f3927a56cc9f34d46",
+          "version": "1.4.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
