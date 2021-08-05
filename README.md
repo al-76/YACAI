@@ -12,7 +12,7 @@ The project uses:
 
 ## Key ideas
 Clean architecture is all about layers.
-One suggests to use the following layers
+One suggests using the following layers.
 ![Architecture layers](https://github.com/al-76/YACAI/blob/main/Images/Sk%C3%A4rmavbild.png)
 
 Any lower layer is dependent on a higher layer.
