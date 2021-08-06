@@ -19,7 +19,7 @@ Any lower layer is dependent on a higher layer.
 When a higher layer uses a lower layer we create a protocol on the higher layer and put the implementation to the lower layer.
 That way the higher layer dictates his rules to the lower layer (we force to use dependency inversion principle).
 
-For example, we need a use case using a repository. For that, we have repository protocols to Domain/Repository but repository implementations are located to Data/Repository.
+For example, we need a use case using a repository. For that, we have repository protocols in Domain/Repository but repository implementations are located in Data/Repository.
 So, Domain can use Data but Data is dependent on Domain.
 
 ## Application (PLOS client)
