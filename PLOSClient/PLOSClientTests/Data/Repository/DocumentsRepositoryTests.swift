@@ -12,10 +12,6 @@ import XCTest
 
 private let testErrorString = "error"
 
-private enum TestError: Error {
-    case someError
-}
-
 class MockNetwork: Network {
     func get(with url: String, completion: @escaping Completion) {
         if url.contains(testErrorString) {
@@ -55,8 +51,12 @@ class MockMapper: Mapper {
 }
 
 class DocumentsRepositoryTests: XCTestCase {
-    let repository = DocumentsRepository(network: MockNetwork(),
+    var repository: DocumentsRepository!
+    
+    override func setUp() {
+        repository = DocumentsRepository(network: MockNetwork(),
                                          mapper: AnyMapper(wrapped: MockMapper()))
+    }
     
     func testRead() throws {
         // Arrange

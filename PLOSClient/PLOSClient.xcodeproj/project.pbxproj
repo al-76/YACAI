@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F01719A26B6A3DD001DDC8E /* SearchResultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719926B6A3DD001DDC8E /* SearchResultViewModelTests.swift */; };
+		6F01719A26B6A3DD001DDC8E /* DocumentsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719926B6A3DD001DDC8E /* DocumentsViewModelTests.swift */; };
 		6F01719C26B6A3EB001DDC8E /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719B26B6A3EB001DDC8E /* HistoryViewModelTests.swift */; };
 		6F01719F26B6A842001DDC8E /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 6F01719E26B6A842001DDC8E /* Resolver */; };
 		6F0171A526B6AB13001DDC8E /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0171A426B6AB13001DDC8E /* AppDelegate+Injection.swift */; };
@@ -50,6 +50,8 @@
 		6FE1640F26B0133500FD3DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1640E26B0133500FD3DC7 /* Assets.xcassets */; };
 		6FE1641226B0133500FD3DC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1641126B0133500FD3DC7 /* Preview Assets.xcassets */; };
 		6FE1642826B0133500FD3DC7 /* PLOSClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1642726B0133500FD3DC7 /* PLOSClientUITests.swift */; };
+		CD16BB2726BDA50A00609AB1 /* ViewError+Equa.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2626BDA50A00609AB1 /* ViewError+Equa.swift */; };
+		CD16BB2926BDA57200609AB1 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2826BDA57200609AB1 /* TestError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6F01719926B6A3DD001DDC8E /* SearchResultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModelTests.swift; sourceTree = "<group>"; };
+		6F01719926B6A3DD001DDC8E /* DocumentsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewModelTests.swift; sourceTree = "<group>"; };
 		6F01719B26B6A3EB001DDC8E /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
 		6F0171A426B6AB13001DDC8E /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		6F0171A926B6AC2C001DDC8E /* Domain+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Domain+Injection.swift"; sourceTree = "<group>"; };
@@ -118,6 +120,8 @@
 		6FE1642326B0133500FD3DC7 /* PLOSClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLOSClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE1642726B0133500FD3DC7 /* PLOSClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLOSClientUITests.swift; sourceTree = "<group>"; };
 		6FE1642926B0133500FD3DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD16BB2626BDA50A00609AB1 /* ViewError+Equa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewError+Equa.swift"; sourceTree = "<group>"; };
+		CD16BB2826BDA57200609AB1 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +153,7 @@
 		6F01719826B6A3C5001DDC8E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				6F01719926B6A3DD001DDC8E /* SearchResultViewModelTests.swift */,
+				6F01719926B6A3DD001DDC8E /* DocumentsViewModelTests.swift */,
 				6F01719B26B6A3EB001DDC8E /* HistoryViewModelTests.swift */,
 			);
 			path = ViewModel;
@@ -420,6 +424,8 @@
 				6F03DE6626BBE104002996AF /* Data */,
 				6F2B8EF326B44FC6007C2445 /* Domain */,
 				6F82D9B326B561A0003BC8EE /* UI */,
+				CD16BB2826BDA57200609AB1 /* TestError.swift */,
+				CD16BB2626BDA50A00609AB1 /* ViewError+Equa.swift */,
 				6F2B8EF726B4501C007C2445 /* XCTestCase+Await.swift */,
 				6FE1641E26B0133500FD3DC7 /* Info.plist */,
 			);
@@ -630,10 +636,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F03DE6926BBE131002996AF /* DocumentsRepositoryTests.swift in Sources */,
-				6F01719A26B6A3DD001DDC8E /* SearchResultViewModelTests.swift in Sources */,
+				6F01719A26B6A3DD001DDC8E /* DocumentsViewModelTests.swift in Sources */,
 				6F82D9B026B54745003BC8EE /* SearchHistoryUseCaseTests.swift in Sources */,
+				CD16BB2726BDA50A00609AB1 /* ViewError+Equa.swift in Sources */,
 				6F2B8EF626B44FE2007C2445 /* SearchDocumentUseCaseTests.swift in Sources */,
 				6F03DE6B26BBFAD5002996AF /* HistoryRepositoryTests.swift in Sources */,
+				CD16BB2926BDA57200609AB1 /* TestError.swift in Sources */,
 				6F82D9AE26B54722003BC8EE /* AddHistoryUseCaseTests.swift in Sources */,
 				6F01719C26B6A3EB001DDC8E /* HistoryViewModelTests.swift in Sources */,
 				6F2B8EF826B4501C007C2445 /* XCTestCase+Await.swift in Sources */,

@@ -12,16 +12,6 @@ import XCTest
 
 private let testErrorString = "error"
 
-extension ViewError: Equatable {
-    public static func == (lhs: ViewError, rhs: ViewError) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-private enum TestError: Error {
-    case someError
-}
-
 class MockSearchHistoryUseCase: UseCase {
     typealias Input = String
     typealias Output = [History]
@@ -53,8 +43,12 @@ class MockAddHistoryUseCase: UseCase {
 }
 
 class HistoryViewModelTests: XCTestCase {
-    let viewModel = HistoryViewModel(searchHistoryUseCase: AnyUseCase(wrapped: MockSearchHistoryUseCase()),
-                                    addHistoryUseCase: AnyUseCase(wrapped: MockAddHistoryUseCase()))
+    var viewModel: HistoryViewModel!
+    
+    override func setUp() {
+        viewModel = HistoryViewModel(searchHistoryUseCase: AnyUseCase(wrapped: MockSearchHistoryUseCase()),
+                     addHistoryUseCase: AnyUseCase(wrapped: MockAddHistoryUseCase()))
+    }
     
     func testHistorySearch() throws {
         // Arrange
@@ -65,7 +59,7 @@ class HistoryViewModelTests: XCTestCase {
         viewModel.searchHistory = testQuery
         
         // Assert
-        let res = try await(viewModel.$history.dropFirst())
+        let res = try await(viewModel.$history.dropFirst(2))
         XCTAssertEqual(res, expected)
     }
     

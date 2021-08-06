@@ -12,10 +12,6 @@ import XCTest
 
 private let testErrorString = "error"
 
-private enum TestError: Error {
-    case someError
-}
-
 class MockStorage: Storage {
     private let data: Data
     
