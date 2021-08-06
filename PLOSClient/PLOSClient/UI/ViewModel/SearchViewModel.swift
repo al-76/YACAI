@@ -32,13 +32,19 @@ class SearchViewModel: ObservableObject {
     
     private func bindInputToOutput() {
         let foundHistory = $text
-            .flatMap { [searchHistoryUseCase] value in
-                searchHistoryUseCase.execute(with: value)
+            .flatMap { [weak searchHistoryUseCase] value in
+                searchHistoryUseCase?.execute(with: value) ??
+                    Just([])
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
             }
         let updatedHistory = $historyText
             .filter { !$0.isEmpty }
-            .flatMap { [addHistoryUseCase] value in
-                addHistoryUseCase.execute(with: value)
+            .flatMap { [weak addHistoryUseCase] value in
+                addHistoryUseCase?.execute(with: value) ??
+                    Just(false)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
             }
             .flatMap { _ in
                 foundHistory
