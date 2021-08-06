@@ -32,6 +32,7 @@ struct ContentView: View {
             .navigationTitle("Search")
             .navigationBarSearch($viewModel.searchHistory,
                                  placeholder: "Type...",
+                                 hidesSearchBarWhenScrolling: false,
                                  cancelClicked: { search = false },
                                  searchClicked: {
                                     viewModel.addHistory = viewModel.searchHistory
