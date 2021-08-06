@@ -14,6 +14,6 @@ extension Resolver {
         register { AnyUseCase(wrapped:
                                 AddHistoryUseCase(repository: resolve())) }
         register { AnyUseCase(wrapped:
-                                SearchUseCase(repository: resolve())) }
+                                SearchDocumentUseCase(repository: resolve())) }
     }
 }

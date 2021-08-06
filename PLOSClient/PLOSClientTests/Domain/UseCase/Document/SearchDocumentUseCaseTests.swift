@@ -1,5 +1,5 @@
 //
-//  SearchUseCaseTests.swift
+//  SearchDocumentUseCaseTests.swift
 //  PLOSClientTests
 //
 //  Created by Vyacheslav Konopkin on 30.07.2021.
@@ -46,12 +46,12 @@ private class MockRepository: QueryRepository {
     }
 }
 
-class SearchUseCaseTests: XCTestCase {
+class SearchDocumentUseCaseTests: XCTestCase {
     func testExecute() throws {
         // Arrange
         let expected = [Document("test")]
         let repository = MockRepository(documents: expected)
-        let useCase = SearchUseCase(repository: AnyQueryRepository(wrapped: repository))
+        let useCase = SearchDocumentUseCase(repository: AnyQueryRepository(wrapped: repository))
 
         // Act
         let res = try await(useCase.execute(with: "test"))

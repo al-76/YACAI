@@ -1,5 +1,5 @@
 //
-//  SearchUseCase.swift
+//  SearchDocumentUseCase.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 28.07.2021.
@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class SearchUseCase: UseCase {
+class SearchDocumentUseCase: UseCase {
     typealias Input = String
     typealias Output = [Document]
     

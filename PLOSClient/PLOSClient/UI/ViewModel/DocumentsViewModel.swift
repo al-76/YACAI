@@ -1,5 +1,5 @@
 //
-//  SearchResultViewModel.swift
+//  DocumentsViewModel.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 29.07.2021.
@@ -11,24 +11,24 @@ import Resolver
 
 class DocumentsViewModel: ObservableObject {
     // Input
-    @Published var text: String = ""
+    @Published var searchDocument: String = ""
 
     // Output
     @Published private(set) var documents: [Document] = []
     @Published var error: ViewError?
 
-    private let searchUseCase: AnyUseCase<String, [Document]>
+    private let searchDocumentUseCase: AnyUseCase<String, [Document]>
 
     init(searchUseCase: AnyUseCase<String, [Document]>) {
-        self.searchUseCase = searchUseCase
+        self.searchDocumentUseCase = searchUseCase
 
         bindInputToOutput()
     }
 
     private func bindInputToOutput() {
-        $text.filter { !$0.isEmpty }
-            .flatMap { [weak searchUseCase] value in
-                searchUseCase?.execute(with: value) ??
+        $searchDocument.filter { !$0.isEmpty }
+            .flatMap { [weak searchDocumentUseCase] value in
+                searchDocumentUseCase?.execute(with: value) ??
                     Just([])
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()

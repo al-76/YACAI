@@ -1,5 +1,5 @@
 //
-//  SearchViewModelTests.swift
+//  HistoryViewModelTests.swift
 //  PLOSClientTests
 //
 //  Created by Vyacheslav Konopkin on 01.08.2021.
@@ -52,8 +52,8 @@ class MockAddHistoryUseCase: UseCase {
     }
 }
 
-class SearchViewModelTests: XCTestCase {
-    let viewModel = SearchViewModel(searchHistoryUseCase: AnyUseCase(wrapped: MockSearchHistoryUseCase()),
+class HistoryViewModelTests: XCTestCase {
+    let viewModel = HistoryViewModel(searchHistoryUseCase: AnyUseCase(wrapped: MockSearchHistoryUseCase()),
                                     addHistoryUseCase: AnyUseCase(wrapped: MockAddHistoryUseCase()))
     
     func testHistorySearch() throws {
@@ -62,7 +62,7 @@ class SearchViewModelTests: XCTestCase {
         let expected = [History(id: testQuery)]
         
         // Act
-        viewModel.text = testQuery
+        viewModel.searchHistory = testQuery
         
         // Assert
         let res = try await(viewModel.$history.dropFirst())
@@ -74,7 +74,7 @@ class SearchViewModelTests: XCTestCase {
         let expected = ViewError(TestError.someError)
         
         // Act
-        viewModel.text = testErrorString
+        viewModel.searchHistory = testErrorString
         
         // Assert
         let res = try await(viewModel.$error.dropFirst())
@@ -86,7 +86,7 @@ class SearchViewModelTests: XCTestCase {
         let expected = [History(id: "")]
         
         // Act
-        viewModel.historyText = "test"
+        viewModel.addHistory = "test"
         
         // Assert
         let res = try await(viewModel.$history.dropFirst(2))
@@ -98,7 +98,7 @@ class SearchViewModelTests: XCTestCase {
         let expected = ViewError(TestError.someError)
         
         // Act
-        viewModel.historyText = testErrorString
+        viewModel.addHistory = testErrorString
         
         // Assert
         let res = try await(viewModel.$error.dropFirst())

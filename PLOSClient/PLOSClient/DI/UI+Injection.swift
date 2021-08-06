@@ -9,10 +9,10 @@ import Resolver
 
 extension Resolver {
     public static func registerUI() {
-        register { SearchViewModel(searchHistoryUseCase: resolve(),
+        register { HistoryViewModel(searchHistoryUseCase: resolve(),
                                    addHistoryUseCase: resolve()) }
             .scope(.shared)
-        register { SearchResultViewModel(searchUseCase: resolve()) }
+        register { DocumentsViewModel(searchUseCase: resolve()) }
             .scope(.shared)
     }
 }

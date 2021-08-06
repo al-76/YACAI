@@ -1,5 +1,5 @@
 //
-//  SearchViewModel.swift
+//  HistoryViewModel.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 28.07.2021.
@@ -9,10 +9,10 @@ import Combine
 import Foundation
 import Resolver
 
-class SearchViewModel: ObservableObject {
+class HistoryViewModel: ObservableObject {
     // Input
-    @Published var text: String = ""
-    @Published var historyText: String = ""
+    @Published var searchHistory: String = ""
+    @Published var addHistory: String = ""
     
     // Output
     @Published private(set) var history: [History] = []
@@ -31,14 +31,14 @@ class SearchViewModel: ObservableObject {
     }
     
     private func bindInputToOutput() {
-        let foundHistory = $text
+        let foundHistory = $searchHistory
             .flatMap { [weak searchHistoryUseCase] value in
                 searchHistoryUseCase?.execute(with: value) ??
                     Just([])
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
             }
-        let updatedHistory = $historyText
+        let updatedHistory = $addHistory
             .filter { !$0.isEmpty }
             .flatMap { [weak addHistoryUseCase] value in
                 addHistoryUseCase?.execute(with: value) ??

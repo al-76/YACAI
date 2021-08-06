@@ -9,19 +9,19 @@ import SwiftUI
 import Resolver
 
 struct ContentView: View {
-    @InjectedObject var viewModel: SearchViewModel
+    @InjectedObject var viewModel: HistoryViewModel
     @State private var search = false
 
     var body: some View {
         NavigationView {
             VStack {
                 if search { // Show search results
-                    SearchResultView(text: viewModel.text)
+                    HistoryView(text: viewModel.searchHistory)
                 } else { // Show history as suggestions
                     List {
                         ForEach(viewModel.history) { item in
                             Button(item.id) {
-                                viewModel.text = item.id
+                                viewModel.searchHistory = item.id
                                 search = true
                             }
                         }
@@ -30,11 +30,11 @@ struct ContentView: View {
             }
             .listStyle(PlainListStyle())
             .navigationTitle("Search")
-            .navigationBarSearch($viewModel.text,
+            .navigationBarSearch($viewModel.searchHistory,
                                  placeholder: "Type...",
                                  cancelClicked: { search = false },
                                  searchClicked: {
-                                    viewModel.historyText = viewModel.text
+                                    viewModel.addHistory = viewModel.searchHistory
                                     search = true
                                  },
                                  searchDidBegin: { search = false },
