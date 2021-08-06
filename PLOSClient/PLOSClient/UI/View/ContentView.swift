@@ -29,7 +29,8 @@ struct ContentView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Search")
             .navigationBarSearch($viewModel.searchHistory,
                                  placeholder: "Type...",
                                  hidesSearchBarWhenScrolling: false,
