@@ -12,8 +12,21 @@ class DefaultNetwork: Network {
         case invalidUrl(url: String)
         case unknownError
     }
+    
+    private class CancellableTask: Cancellable {
+        private let task: URLSessionTask
+        
+        init(_ task: URLSessionTask) {
+            self.task = task
+        }
+        
+        func cancel() {
+            task.cancel()
+        }
+    }
 
-    func get(with url: String, completion: @escaping Completion) {
+    func get(with url: String, completion: @escaping Completion) -> Cancellable? {
+        var result: Cancellable?
         do {
             let task = URLSession.shared
                 .dataTask(with: try createUrl(from: url)) { data, _, error in
@@ -26,9 +39,11 @@ class DefaultNetwork: Network {
                     }
                 }
             task.resume()
+            result = CancellableTask(task)
         } catch {
             completion(.failure(error))
         }
+        return result
     }
 
     private func createUrl(from stringUrl: String) throws -> URL {

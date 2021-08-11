@@ -2,25 +2,20 @@
 //  SearchHistoryUseCase.swift
 //  PLOSClient
 //
-//  Created by Vyacheslav Konopkin on 28.07.2021.
+//  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-import Combine
-import Foundation
+import RxSwift
 
 class SearchHistoryUseCase: UseCase {
-    typealias Input = String
-    typealias Output = [History]
+    private let repository: AnyQueryRepository<HistoryResult>
     
-    private let repository: AnyQueryRepository<History>
-    
-    init(repository: AnyQueryRepository<History>) {
+    init(repository: AnyQueryRepository<HistoryResult>) {
         self.repository = repository
     }
     
-    func execute(with value: String) -> AnyPublisher<[History], Error> {
+    func execute(with value: String) -> Observable<HistoryResult> {
         return repository.read(query: value)
-            .map { $0.reversed() }
-            .eraseToAnyPublisher()
+            .map { $0.flatMap { $0.reversed() }}
     }
 }

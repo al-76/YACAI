@@ -2,23 +2,19 @@
 //  AddHistoryUseCase.swift
 //  PLOSClient
 //
-//  Created by Vyacheslav Konopkin on 28.07.2021.
+//  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-import Combine
-import Foundation
+import RxSwift
 
 class AddHistoryUseCase: UseCase {
-    typealias Input = String
-    typealias Output = Bool
-    
     private let repository: AnyCommandRepository<History>
     
     init(repository: AnyCommandRepository<History>) {
         self.repository = repository
     }
         
-    func execute(with value: String) -> AnyPublisher<Bool, Error> {
+    func execute(with value: String) -> Observable<BoolResult> {
         return repository.add(item: History(id: value))
     }
 }

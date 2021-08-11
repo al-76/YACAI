@@ -1,5 +1,5 @@
 //
-//  SearchHistoryUseCaseTests.swift
+//  SearchDocumentUseCaseTests.swift
 //  PLOSClientTests
 //
 //  Created by Vyacheslav Konopkin on 09.08.2021.
@@ -12,20 +12,20 @@ import RxTest
 @testable import PLOSClient
 
 private class MockQueryRepository: QueryRepository {
-    func read(query: String) -> Observable<HistoryResult> {
-        return Observable.just(.success([History(id: query)]))
+    func read(query: String) -> Observable<DocumentResult> {
+        return Observable.just(.success([Document(query)]))
     }
 }
 
-class SearchHistoryUseCaseTests: XCTestCase {
+class SearchDocumentUseCaseTests: XCTestCase {
     let disposeBag = DisposeBag()
     let scheduler = TestScheduler(initialClock: 0)
     
     func testExecute() {
         // Arrange
         let testQuery = "test"
-        let output = scheduler.createObserver(HistoryResult.self)
-        let useCase = SearchHistoryUseCase(repository: AnyQueryRepository(wrapped: MockQueryRepository()))
+        let output = scheduler.createObserver(DocumentResult.self)
+        let useCase = SearchDocumentUseCase(repository: AnyQueryRepository(wrapped: MockQueryRepository()))
         useCase.execute(with: testQuery)
             .bind(to: output)
             .disposed(by: disposeBag)
@@ -35,7 +35,7 @@ class SearchHistoryUseCaseTests: XCTestCase {
         
         // Assert
         XCTAssertRecordedElements(output.events, [
-            .success([History(id: testQuery)])
+            .success([Document(testQuery)])
         ])
     }
 }

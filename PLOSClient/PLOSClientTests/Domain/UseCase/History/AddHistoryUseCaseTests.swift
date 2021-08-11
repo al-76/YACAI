@@ -2,36 +2,38 @@
 //  AddHistoryUseCaseTests.swift
 //  PLOSClientTests
 //
-//  Created by Vyacheslav Konopkin on 31.07.2021.
+//  Created by Vyacheslav Konopkin on 09.08.2021.
 //
 
-import Combine
 import XCTest
+import RxSwift
+import RxTest
 
 @testable import PLOSClient
 
-private class MockRepository: CommandRepository {
-    typealias T = History
-
-    func add(item: History) -> AnyPublisher<Bool, Error> {
-        return Just(true)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+private class MockCommandRepository: CommandRepository {
+    func add(item: History) -> Observable<BoolResult> {
+        return Observable.just(.success(true))
     }
 }
 
 class AddHistoryUseCaseTests: XCTestCase {
-    func testExecute() throws {
-        // Arrange
-        let expected = true
-        let repository = MockRepository()
-        let useCase = AddHistoryUseCase(repository: AnyCommandRepository(wrapped: repository))
-
+    let disposeBag = DisposeBag()
+    let scheduler = TestScheduler(initialClock: 0)
+    
+    func testExecute() {
+        let output = scheduler.createObserver(BoolResult.self)
+        let useCase = AddHistoryUseCase(repository: AnyCommandRepository(wrapped: MockCommandRepository()))
+        useCase.execute(with: "test")
+            .bind(to: output)
+            .disposed(by: disposeBag)
+        
         // Act
-        let res = try await(useCase.execute(with: "test"))
-
+        scheduler.start()
+        
         // Assert
-        XCTAssertEqual(res, expected)
+        XCTAssertRecordedElements(output.events, [
+            .success(true)
+        ])
     }
 }
-

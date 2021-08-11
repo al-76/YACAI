@@ -5,24 +5,24 @@
 //  Created by Vyacheslav Konopkin on 30.07.2021.
 //
 
-import Combine
 import Foundation
+import RxSwift
 
 protocol CommandRepository {
-    associatedtype T
+    associatedtype CommandRepositoryType
 
-    func add(item: T) -> AnyPublisher<Bool, Error>
+    func add(item: CommandRepositoryType) -> Observable<BoolResult>
 }
 
 class AnyCommandRepository<T>: CommandRepository {
-    private let addObject: (T) -> AnyPublisher<Bool, Error>
+    private let addObject: (T) -> Observable<BoolResult>
 
     init<TypeUseCase: CommandRepository>(wrapped: TypeUseCase)
-        where TypeUseCase.T == T {
+        where TypeUseCase.CommandRepositoryType == T {
         addObject = wrapped.add
     }
 
-    func add(item: T) -> AnyPublisher<Bool, Error> {
+    func add(item: T) -> Observable<BoolResult> {
         return addObject(item)
     }
 }

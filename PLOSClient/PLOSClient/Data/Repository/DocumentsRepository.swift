@@ -5,12 +5,10 @@
 //  Created by Vyacheslav Konopkin on 30.07.2021.
 //
 
-import Combine
 import Foundation
+import RxSwift
 
 class DocumentsRepository: QueryRepository {
-    typealias T = Document
-
     private static let url = "https://api.plos.org/search?start=0&rows=10&fl=id,journal,publication_date,title_display,article_type,author_display,abstract,counter_total_all"
 
     private let network: Network
@@ -21,25 +19,28 @@ class DocumentsRepository: QueryRepository {
         self.mapper = mapper
     }
 
-    func read(query: String) -> AnyPublisher<[Document], Error> {
-        Future { [weak self] promise in
-            guard let self = self else {
-                promise(.success([]))
-                return
-            }
-            self.network
-                .get(with: Self.url + "&q=title:\(query)") { result in
-                    do {
-                        let data = try result.get()
-                        let documentsDTO = try JSONDecoder()
-                            .decode(DocumentResultDTO.self, from: data)
-                        let documents = documentsDTO.response
-                            .docs.map(self.mapper.map)
-                        promise(.success(documents))
-                    } catch {
-                        promise(.failure(error))
+    func read(query: String) -> Observable<DocumentResult> {
+        return Observable.create { [weak self] observer in
+            var cancellable: Cancellable?
+            if let self = self {
+                cancellable = self.network
+                    .get(with: Self.url + "&q=title:\(query)") { result in
+                        do {
+                            let data = try result.get() as Data
+                            let documentsDTO = try JSONDecoder()
+                                .decode(DocumentResultDTO.self, from: data)
+                            let documents = documentsDTO.response
+                                .docs.map(self.mapper.map)
+                            observer.onNext(.success(documents))
+                        } catch {
+                            observer.onNext(.failure(error))
+                        }
+                        observer.onCompleted()
                     }
-                }
-        }.eraseToAnyPublisher()
+            } else {
+                observer.onCompleted()
+            }
+            return Disposables.create { cancellable?.cancel() }
+        }
     }
 }

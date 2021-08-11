@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6FE1640626B0133300FD3DC7"
+               BlueprintIdentifier = "6F6A5D0626BD329600397A2C"
                BuildableName = "PLOSClient.app"
                BlueprintName = "PLOSClient"
                ReferencedContainer = "container:PLOSClient.xcodeproj">
@@ -33,7 +33,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6FE1641726B0133500FD3DC7"
+               BlueprintIdentifier = "6F6A5D1C26BD329800397A2C"
                BuildableName = "PLOSClientTests.xctest"
                BlueprintName = "PLOSClientTests"
                ReferencedContainer = "container:PLOSClient.xcodeproj">
@@ -43,7 +43,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6FE1642226B0133500FD3DC7"
+               BlueprintIdentifier = "6F6A5D2726BD329800397A2C"
                BuildableName = "PLOSClientUITests.xctest"
                BlueprintName = "PLOSClientUITests"
                ReferencedContainer = "container:PLOSClient.xcodeproj">
@@ -65,7 +65,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6FE1640626B0133300FD3DC7"
+            BlueprintIdentifier = "6F6A5D0626BD329600397A2C"
             BuildableName = "PLOSClient.app"
             BlueprintName = "PLOSClient"
             ReferencedContainer = "container:PLOSClient.xcodeproj">
@@ -82,7 +82,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6FE1640626B0133300FD3DC7"
+            BlueprintIdentifier = "6F6A5D0626BD329600397A2C"
             BuildableName = "PLOSClient.app"
             BlueprintName = "PLOSClient"
             ReferencedContainer = "container:PLOSClient.xcodeproj">

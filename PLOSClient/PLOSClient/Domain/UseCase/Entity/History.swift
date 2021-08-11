@@ -2,7 +2,7 @@
 //  History.swift
 //  PLOSClient
 //
-//  Created by Vyacheslav Konopkin on 28.07.2021.
+//  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
 import Foundation
@@ -10,3 +10,5 @@ import Foundation
 struct History: Codable, Identifiable, Equatable {
     let id: String
 }
+
+typealias HistoryResult = Result<[History], Error>

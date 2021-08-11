@@ -5,24 +5,24 @@
 //  Created by Vyacheslav Konopkin on 30.07.2021.
 //
 
-import Combine
 import Foundation
+import RxSwift
 
 protocol QueryRepository {
-    associatedtype T
+    associatedtype QueryRepositoryType
 
-    func read(query: String) -> AnyPublisher<[T], Error>
+    func read(query: String) -> Observable<QueryRepositoryType>
 }
 
 class AnyQueryRepository<T>: QueryRepository {
-    private let readObject: (String) -> AnyPublisher<[T], Error>
+    private let readObject: (String) -> Observable<T>
 
     init<TypeQueryRepository: QueryRepository>(wrapped: TypeQueryRepository)
-        where TypeQueryRepository.T == T {
+        where TypeQueryRepository.QueryRepositoryType == T {
         readObject = wrapped.read
     }
 
-    func read(query: String) -> AnyPublisher<[T], Error> {
+    func read(query: String) -> Observable<T> {
         return readObject(query)
     }
 }
