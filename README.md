@@ -10,6 +10,7 @@ There are the following branches.
 | ------------- | ------------- |
 |[main](https://github.com/al-76/YACAI) | * SwiftUI <br/> * Combine |
 |[rxswift](https://github.com/al-76/YACAI/tree/rxswift)|[RxSwift](https://github.com/ReactiveX/RxSwift)|
+
 Also, the project uses [Resolver (DI framework)](https://github.com/hmlongco/Resolver).
 
 ## Key ideas
