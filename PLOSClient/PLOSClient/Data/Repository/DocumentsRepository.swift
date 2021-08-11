@@ -9,8 +9,6 @@ import Combine
 import Foundation
 
 class DocumentsRepository: QueryRepository {
-    typealias T = Document
-
     private static let url = "https://api.plos.org/search?start=0&rows=10&fl=id,journal,publication_date,title_display,article_type,author_display,abstract,counter_total_all"
 
     private let network: Network

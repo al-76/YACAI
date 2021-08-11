@@ -9,9 +9,6 @@ import Combine
 import Foundation
 
 class SearchHistoryUseCase: UseCase {
-    typealias Input = String
-    typealias Output = [History]
-    
     private let repository: AnyQueryRepository<History>
     
     init(repository: AnyQueryRepository<History>) {

@@ -11,8 +11,6 @@ import XCTest
 @testable import PLOSClient
 
 private class MockRepository: CommandRepository {
-    typealias T = History
-
     func add(item: History) -> AnyPublisher<Bool, Error> {
         return Just(true)
             .setFailureType(to: Error.self)

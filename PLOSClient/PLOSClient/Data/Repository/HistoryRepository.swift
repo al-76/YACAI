@@ -9,8 +9,6 @@ import Combine
 import Foundation
 
 class HistoryRepository: CommandRepository, QueryRepository {
-    typealias T = History
-
     private static let history = "history"
     
     private let storage: Storage

@@ -8,9 +8,6 @@
 import Foundation
 
 class DocumentsMapper: Mapper {
-    typealias Input = DocumentDTO
-    typealias Output = Document
-
     func map(input: DocumentDTO) -> Document {
         return Document(id: input.id,
                         publicationDate: dateGet(from: input.publication_date),

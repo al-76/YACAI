@@ -11,8 +11,6 @@ import XCTest
 @testable import PLOSClient
 
 private class MockRepository: QueryRepository {
-    typealias T = History
-
     func read(query: String) -> AnyPublisher<[History], Error> {
         return Just([History(id: query)])
             .setFailureType(to: Error.self)

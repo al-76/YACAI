@@ -31,8 +31,6 @@ extension Document: Equatable {
 }
 
 private class MockRepository: QueryRepository {
-    typealias T = Document
-
     private let documents: [Document]
 
     init(documents: [Document]) {

@@ -42,9 +42,6 @@ class MockNetwork: Network {
 }
 
 class MockMapper: Mapper {
-    typealias Input = DocumentDTO
-    typealias Output = Document
-
     func map(input: DocumentDTO) -> Document {
         return Document("test")
     }

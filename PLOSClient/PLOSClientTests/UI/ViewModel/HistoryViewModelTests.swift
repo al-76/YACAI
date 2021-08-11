@@ -13,9 +13,6 @@ import XCTest
 private let testErrorString = "error"
 
 class MockSearchHistoryUseCase: UseCase {
-    typealias Input = String
-    typealias Output = [History]
-    
     func execute(with input: String) -> AnyPublisher<[History], Error> {
         if input == testErrorString {
             return Fail(error: TestError.someError)
@@ -28,9 +25,6 @@ class MockSearchHistoryUseCase: UseCase {
 }
 
 class MockAddHistoryUseCase: UseCase {
-    typealias Input = String
-    typealias Output = Bool
-    
     func execute(with input: String) -> AnyPublisher<Bool, Error> {
         if input == testErrorString {
             return Fail(error: TestError.someError)

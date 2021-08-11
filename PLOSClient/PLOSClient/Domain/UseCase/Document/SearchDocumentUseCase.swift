@@ -9,9 +9,6 @@ import Combine
 import Foundation
 
 class SearchDocumentUseCase: UseCase {
-    typealias Input = String
-    typealias Output = [Document]
-    
     private let repository: AnyQueryRepository<Document>
     
     init(repository: AnyQueryRepository<Document>) {

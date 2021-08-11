@@ -9,9 +9,6 @@ import Combine
 import Foundation
 
 class AddHistoryUseCase: UseCase {
-    typealias Input = String
-    typealias Output = Bool
-    
     private let repository: AnyCommandRepository<History>
     
     init(repository: AnyCommandRepository<History>) {
