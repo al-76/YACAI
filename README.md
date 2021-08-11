@@ -5,11 +5,12 @@ YACAI is a project showing Yet Another Clean Architecture iOS approach.
 
 [An original idea and description (Robert C. Martin)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-There are the following branches.
+### There are the following branches.
 |Branch|Description|
 | ------------- | ------------- |
-|[main](https://github.com/al-76/YACAI) | * SwiftUI <br/> * Combine |
+|[main](https://github.com/al-76/YACAI) | SwiftUI, Combine |
 |[rxswift](https://github.com/al-76/YACAI/tree/rxswift)|[RxSwift](https://github.com/ReactiveX/RxSwift)|
+
 Also, the project uses [Resolver (DI framework)](https://github.com/hmlongco/Resolver).
 
 ## Key ideas
