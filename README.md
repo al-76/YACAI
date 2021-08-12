@@ -16,7 +16,7 @@ Also, the project uses [Resolver (DI framework)](https://github.com/hmlongco/Res
 ## Key ideas
 Clean architecture is all about layers.
 One suggests to use the following layers
-![Architecture layers](https://github.com/al-76/YACAI/blob/main/Images/Ska%CC%88rmavbild.png)
+![Architecture layers](https://github.com/al-76/YACAI/blob/rxswift/Images/Sk%C3%A4rmavbild.png)
 
 Any lower layer is dependent on a higher layer.
 When a higher layer uses a lower layer we create a protocol on the higher layer and put the implementation to the lower layer.
