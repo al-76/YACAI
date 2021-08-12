@@ -15,20 +15,20 @@ import XCTest
 private let testError = "error"
 
 private class MockAddHistoryUseCase: UseCase {
-    func execute(with input: String) -> Observable<BoolResult> {
+    func execute(with input: String) -> Observable<Bool> {
         if input == testError {
-            return .just(.failure(TestError.someError))
+            return .error(TestError.someError)
         }
-        return .just(.success(true))
+        return .just(true)
     }
 }
 
 private class MockSearchHistoryUseCase: UseCase {
-    func execute(with input: String) -> Observable<HistoryResult> {
+    func execute(with input: String) -> Observable<[History]> {
         if input == testError {
-            return .just(.failure(TestError.someError))
+            return .error(TestError.someError)
         }
-        return .just(.success([History(id: input)]))
+        return .just([History(id: input)])
     }
 }
 
@@ -60,9 +60,7 @@ class HistoryViewModelTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(outputHistory.events, [
-            [History(id: testQuery)]
-        ])
+        XCTAssertRecordedElements(outputHistory.events, [ [History(id: testQuery)] ])
     }
     
     func testSearchHistoryError() {
@@ -84,9 +82,7 @@ class HistoryViewModelTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(outputErrors.events, [
-            TestError.someError
-        ])
+        XCTAssertRecordedElements(outputErrors.events, [ TestError.someError ])
     }
     
     func testAddHistory() {
@@ -138,8 +134,6 @@ class HistoryViewModelTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(outputErrors.events, [
-            TestError.someError
-        ])
+        XCTAssertRecordedElements(outputErrors.events, [ TestError.someError ])
     }
 }

@@ -29,6 +29,26 @@ public func XCTAssertRecordedElements(_ stream: [Recorded<Event<Error>>],
     }
 }
 
+public func XCTAssertRecordedElements<Type>(_ stream: [Recorded<Event<Type>>],
+                                      _ errors: [Error],
+                                      file: StaticString = #file,
+                                      line: UInt = #line) {
+    if stream.count < errors.count {
+        XCTFail("\(stream) doesn't equal to \(errors)!",
+                file: file, line: line)
+        return
+    }
+    
+    for (index, element) in errors.enumerated() {
+        let streamError = stream[index].value.error!
+        if type(of: streamError) != type(of: element) {
+            XCTFail("\(streamError) doesn't equal to \(element)!",
+                    file: file, line: line)
+            return
+        }
+    }
+}
+
 public func XCTAssertRecordedElements<Type>(_ stream: [Recorded<Event<Result<Type, Error>>>],
                                       _ items: [Result<Type, Error>],
                                       file: StaticString = #file,

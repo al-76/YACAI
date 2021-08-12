@@ -12,8 +12,8 @@ import RxTest
 @testable import PLOSClient
 
 private class MockCommandRepository: CommandRepository {
-    func add(item: History) -> Observable<BoolResult> {
-        return Observable.just(.success(true))
+    func add(item: History) -> Observable<Bool> {
+        return Observable.just(true)
     }
 }
 
@@ -22,7 +22,7 @@ class AddHistoryUseCaseTests: XCTestCase {
     let scheduler = TestScheduler(initialClock: 0)
     
     func testExecute() {
-        let output = scheduler.createObserver(BoolResult.self)
+        let output = scheduler.createObserver(Bool.self)
         let useCase = AddHistoryUseCase(repository: AnyCommandRepository(wrapped: MockCommandRepository()))
         useCase.execute(with: "test")
             .bind(to: output)
@@ -32,8 +32,6 @@ class AddHistoryUseCaseTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success(true)
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ true ])
     }
 }

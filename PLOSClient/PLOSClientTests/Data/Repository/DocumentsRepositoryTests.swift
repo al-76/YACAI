@@ -61,7 +61,7 @@ class DocumentsRepositoryTests: XCTestCase {
     
     func testRead() {
         // Arrange
-        let output = scheduler.createObserver(DocumentResult.self)
+        let output = scheduler.createObserver([Document].self)
         repository.read(query: "test")
             .bind(to: output)
             .disposed(by: disposeBag)
@@ -70,14 +70,12 @@ class DocumentsRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success([Document("test")])
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ [Document("test")] ])
     }
     
     func testReadError() {
         // Arrange
-        let output = scheduler.createObserver(DocumentResult.self)
+        let output = scheduler.createObserver([Document].self)
         repository.read(query: testErrorString)
             .bind(to: output)
             .disposed(by: disposeBag)
@@ -86,8 +84,6 @@ class DocumentsRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .failure(TestError.someError)
-        ])
+        XCTAssertRecordedElements(output.events, [ TestError.someError ])
     }
 }

@@ -18,21 +18,20 @@ class DocumentsViewModel: ViewModel {
         let errors: Signal<Error>
     }
     
-    private let searchUseCase: AnyUseCase<String, DocumentResult>
+    private let searchUseCase: AnyUseCase<String, [Document]>
     
-    init(searchUseCase: AnyUseCase<String, DocumentResult>) {
+    init(searchUseCase: AnyUseCase<String, [Document]>) {
         self.searchUseCase = searchUseCase
     }
     
     func transform(from input: Input) -> Output {
         let errors = PublishRelay<Error>()
         let documents = input.searchDocument
-            .flatMapLatest { [weak self] value -> Driver<DocumentResult> in
-                guard let self = self else { return .just(.success([])) }
+            .flatMapLatest { [weak self] value -> Driver<[Document]> in
+                guard let self = self else { return .just([]) }
                 return self.searchUseCase.execute(with: value)
-                    .asDriver { .just(.failure($0)) }
+                    .asDriver(errors: errors)
             }
-            .handleResult(from: { $0.getState() }, errors: errors)
         return Output(documents: documents, errors: errors.asSignal())
     }
 }

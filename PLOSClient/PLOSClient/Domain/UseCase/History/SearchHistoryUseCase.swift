@@ -8,14 +8,14 @@
 import RxSwift
 
 class SearchHistoryUseCase: UseCase {
-    private let repository: AnyQueryRepository<HistoryResult>
+    private let repository: AnyQueryRepository<[History]>
     
-    init(repository: AnyQueryRepository<HistoryResult>) {
+    init(repository: AnyQueryRepository<[History]>) {
         self.repository = repository
     }
     
-    func execute(with value: String) -> Observable<HistoryResult> {
+    func execute(with value: String) -> Observable<[History]> {
         return repository.read(query: value)
-            .map { $0.flatMap { $0.reversed() }}
+            .map { $0.reversed() }
     }
 }

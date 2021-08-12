@@ -52,7 +52,7 @@ class HistoryRepositoryTests: XCTestCase {
 
     func testAdd() {
         // Arrange
-        let output = scheduler.createObserver(BoolResult.self)
+        let output = scheduler.createObserver(Bool.self)
         let repository = HistoryRepository(storage: MockStorage(Data()))
         repository.add(item: History(id: "test"))
             .bind(to: output)
@@ -62,14 +62,12 @@ class HistoryRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success(true)
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ true ])
     }
 
     func testAddError() {
         // Arrange
-        let output = scheduler.createObserver(BoolResult.self)
+        let output = scheduler.createObserver(Bool.self)
         let repository = HistoryRepository(storage: MockErrorStorage())
         repository.add(item: History(id: testErrorString))
             .bind(to: output)
@@ -79,14 +77,12 @@ class HistoryRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .failure(TestError.someError)
-        ])
+        XCTAssertRecordedElements(output.events, [ TestError.someError ])
     }
 
     func testRead() throws {
         // Arrange
-        let output = scheduler.createObserver(HistoryResult.self)
+        let output = scheduler.createObserver([History].self)
         let expected = [
             History(id: "test1"),
             History(id: "test2")
@@ -101,14 +97,12 @@ class HistoryRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success(expected)
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ expected ])
     }
 
     func testReadQuery() throws {
         // Arrange
-        let output = scheduler.createObserver(HistoryResult.self)
+        let output = scheduler.createObserver([History].self)
         let testQuery = "test1"
         let data = try JSONEncoder().encode([
             History(id: testQuery),
@@ -123,14 +117,12 @@ class HistoryRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success([History(id: testQuery)])
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ [History(id: testQuery)] ])
     }
 
     func testReadNotFound() throws {
         // Arrange
-        let output = scheduler.createObserver(HistoryResult.self)
+        let output = scheduler.createObserver([History].self)
         let testQuery = "not found"
         let data = try JSONEncoder().encode([
             History(id: "test1"),
@@ -145,8 +137,6 @@ class HistoryRepositoryTests: XCTestCase {
         scheduler.start()
 
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success([History]())
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ [History]() ])
     }
 }

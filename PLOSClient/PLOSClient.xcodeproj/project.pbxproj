@@ -57,10 +57,9 @@
 		6F6A5D5C26BD421000397A2C /* AddHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6A5D5B26BD421000397A2C /* AddHistoryUseCase.swift */; };
 		6F6A5D5E26BD437300397A2C /* SearchHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6A5D5D26BD437300397A2C /* SearchHistoryUseCase.swift */; };
 		6F6A5D6226BD448300397A2C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6A5D6126BD448300397A2C /* ViewModel.swift */; };
-		6F6A5D6526BD748800397A2C /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6A5D6426BD748800397A2C /* Result+Extension.swift */; };
-		6F6A5D6726BD87E900397A2C /* Driver+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6A5D6626BD87E900397A2C /* Driver+Extension.swift */; };
 		6FD5AB6626C3DA4F005E3993 /* HistoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5AB6426C3DA4F005E3993 /* HistoryRepositoryTests.swift */; };
 		6FD5AB6726C3DA4F005E3993 /* DocumentsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5AB6526C3DA4F005E3993 /* DocumentsRepositoryTests.swift */; };
+		6FD5AB6A26C52B35005E3993 /* ObservableConvertibleType+Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5AB6926C52B35005E3993 /* ObservableConvertibleType+Driver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,10 +132,9 @@
 		6F6A5D5B26BD421000397A2C /* AddHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHistoryUseCase.swift; sourceTree = "<group>"; };
 		6F6A5D5D26BD437300397A2C /* SearchHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryUseCase.swift; sourceTree = "<group>"; };
 		6F6A5D6126BD448300397A2C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		6F6A5D6426BD748800397A2C /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
-		6F6A5D6626BD87E900397A2C /* Driver+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Driver+Extension.swift"; sourceTree = "<group>"; };
 		6FD5AB6426C3DA4F005E3993 /* HistoryRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryRepositoryTests.swift; sourceTree = "<group>"; };
 		6FD5AB6526C3DA4F005E3993 /* DocumentsRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsRepositoryTests.swift; sourceTree = "<group>"; };
+		6FD5AB6926C52B35005E3993 /* ObservableConvertibleType+Driver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableConvertibleType+Driver.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				6F34CDC126C2CF2500767285 /* Data */,
-				6F6A5D4F26BD3EE500397A2C /* Entity */,
+				6F6A5D5626BD3F9600397A2C /* Entity */,
 				6F6A5D4E26BD3EDE00397A2C /* UseCase */,
 			);
 			path = Domain;
@@ -426,19 +424,11 @@
 		6F6A5D4E26BD3EDE00397A2C /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				6F6A5D5626BD3F9600397A2C /* Entity */,
 				6F6A5D5226BD3F5500397A2C /* Document */,
 				6F6A5D5326BD3F5B00397A2C /* History */,
 				6F6A5D5026BD3EFA00397A2C /* UseCase.swift */,
 			);
 			path = UseCase;
-			sourceTree = "<group>";
-		};
-		6F6A5D4F26BD3EE500397A2C /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		6F6A5D5226BD3F5500397A2C /* Document */ = {
@@ -464,15 +454,15 @@
 				6F6A5D5726BD3FA900397A2C /* Document.swift */,
 				6F6A5D5926BD3FB900397A2C /* History.swift */,
 			);
-			path = Entity;
+			name = Entity;
+			path = UseCase/Entity;
 			sourceTree = "<group>";
 		};
 		6F6A5D6326BD742F00397A2C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				6F6A5D6426BD748800397A2C /* Result+Extension.swift */,
-				6F6A5D6626BD87E900397A2C /* Driver+Extension.swift */,
 				6F34CDDE26C2D32500767285 /* Cancellable.swift */,
+				6FD5AB6926C52B35005E3993 /* ObservableConvertibleType+Driver.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -637,6 +627,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FD5AB6A26C52B35005E3993 /* ObservableConvertibleType+Driver.swift in Sources */,
 				6F34CDE626C2DBC700767285 /* AppDelegate+Injection.swift in Sources */,
 				6F6A5D4A26BD3CBC00397A2C /* DocumentsViewModel.swift in Sources */,
 				6F6A5D5126BD3EFA00397A2C /* UseCase.swift in Sources */,
@@ -651,11 +642,9 @@
 				6F6A5D0B26BD329600397A2C /* AppDelegate.swift in Sources */,
 				6F34CDBC26C28DC200767285 /* HistoryViewCell.swift in Sources */,
 				6F34CDC426C2CF2500767285 /* QueryRepository.swift in Sources */,
-				6F6A5D6726BD87E900397A2C /* Driver+Extension.swift in Sources */,
 				6F6A5D5826BD3FA900397A2C /* Document.swift in Sources */,
 				6F34CDE826C2DBC700767285 /* UI+Injection.swift in Sources */,
 				6F34CDD726C2CF3F00767285 /* DocumentDTO.swift in Sources */,
-				6F6A5D6526BD748800397A2C /* Result+Extension.swift in Sources */,
 				6F6A5D6226BD448300397A2C /* ViewModel.swift in Sources */,
 				6F34CDDA26C2CF3F00767285 /* Storage.swift in Sources */,
 				6F51BDAF26C183580067F8EF /* UIViewController+AlertError.swift in Sources */,

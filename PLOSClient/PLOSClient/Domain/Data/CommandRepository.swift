@@ -11,18 +11,18 @@ import RxSwift
 protocol CommandRepository {
     associatedtype CommandRepositoryType
 
-    func add(item: CommandRepositoryType) -> Observable<BoolResult>
+    func add(item: CommandRepositoryType) -> Observable<Bool>
 }
 
 class AnyCommandRepository<T>: CommandRepository {
-    private let addObject: (T) -> Observable<BoolResult>
+    private let addObject: (T) -> Observable<Bool>
 
     init<TypeUseCase: CommandRepository>(wrapped: TypeUseCase)
         where TypeUseCase.CommandRepositoryType == T {
         addObject = wrapped.add
     }
 
-    func add(item: T) -> Observable<BoolResult> {
+    func add(item: T) -> Observable<Bool> {
         return addObject(item)
     }
 }

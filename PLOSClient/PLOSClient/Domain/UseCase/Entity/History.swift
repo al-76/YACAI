@@ -10,5 +10,3 @@ import Foundation
 struct History: Codable, Identifiable, Equatable {
     let id: String
 }
-
-typealias HistoryResult = Result<[History], Error>

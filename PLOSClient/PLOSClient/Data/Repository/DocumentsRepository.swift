@@ -19,7 +19,7 @@ class DocumentsRepository: QueryRepository {
         self.mapper = mapper
     }
 
-    func read(query: String) -> Observable<DocumentResult> {
+    func read(query: String) -> Observable<[Document]> {
         return Observable.create { [weak self] observer in
             var cancellable: Cancellable?
             if let self = self {
@@ -31,11 +31,11 @@ class DocumentsRepository: QueryRepository {
                                 .decode(DocumentResultDTO.self, from: data)
                             let documents = documentsDTO.response
                                 .docs.map(self.mapper.map)
-                            observer.onNext(.success(documents))
+                            observer.onNext(documents)
+                            observer.onCompleted()
                         } catch {
-                            observer.onNext(.failure(error))
+                            observer.onError(error)
                         }
-                        observer.onCompleted()
                     }
             } else {
                 observer.onCompleted()

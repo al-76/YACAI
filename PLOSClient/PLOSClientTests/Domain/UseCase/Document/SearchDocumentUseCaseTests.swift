@@ -12,8 +12,8 @@ import RxTest
 @testable import PLOSClient
 
 private class MockQueryRepository: QueryRepository {
-    func read(query: String) -> Observable<DocumentResult> {
-        return Observable.just(.success([Document(query)]))
+    func read(query: String) -> Observable<[Document]> {
+        return Observable.just([Document(query)])
     }
 }
 
@@ -24,7 +24,7 @@ class SearchDocumentUseCaseTests: XCTestCase {
     func testExecute() {
         // Arrange
         let testQuery = "test"
-        let output = scheduler.createObserver(DocumentResult.self)
+        let output = scheduler.createObserver([Document].self)
         let useCase = SearchDocumentUseCase(repository: AnyQueryRepository(wrapped: MockQueryRepository()))
         useCase.execute(with: testQuery)
             .bind(to: output)
@@ -34,8 +34,6 @@ class SearchDocumentUseCaseTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(output.events, [
-            .success([Document(testQuery)])
-        ])
+        XCTAssertRecordedElements(output.events.dropLast(), [ [Document(testQuery)] ])
     }
 }

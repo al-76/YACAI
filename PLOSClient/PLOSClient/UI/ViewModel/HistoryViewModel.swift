@@ -19,11 +19,11 @@ class HistoryViewModel: ViewModel {
         let errors: Signal<Error>
     }
         
-    private let searchHistoryUseCase: AnyUseCase<String, HistoryResult>
-    private let addHistoryUseCase: AnyUseCase<String, BoolResult>
+    private let searchHistoryUseCase: AnyUseCase<String, [History]>
+    private let addHistoryUseCase: AnyUseCase<String, Bool>
     
-    init(searchHistoryUseCase: AnyUseCase<String, HistoryResult>,
-         addHistoryUseCase: AnyUseCase<String, BoolResult>) {
+    init(searchHistoryUseCase: AnyUseCase<String, [History]>,
+         addHistoryUseCase: AnyUseCase<String, Bool>) {
         self.searchHistoryUseCase = searchHistoryUseCase
         self.addHistoryUseCase = addHistoryUseCase
     }
@@ -31,20 +31,18 @@ class HistoryViewModel: ViewModel {
     func transform(from input: Input) -> Output {
         let errors = PublishRelay<Error>()
         let foundHistory = input.searchHistory
-            .flatMapLatest { [weak self] value -> Driver<HistoryResult> in
-                guard let self = self else { return .just(.success([])) }
+            .flatMapLatest { [weak self] value -> Driver<[History]> in
+                guard let self = self else { return .just([]) }
                 return self.searchHistoryUseCase.execute(with: value)
-                    .asDriver { .just(.failure($0)) }
+                    .asDriver(errors: errors)
             }
-            .handleResult(from: { $0.getState() }, errors: errors)
         let updatedHistory = input.addHistory
             .filter { !$0.isEmpty }
-            .flatMapLatest { [weak self] value -> Driver<BoolResult> in
-                guard let self = self else { return .just(.success(false)) }
+            .flatMapLatest { [weak self] value -> Driver<Bool> in
+                guard let self = self else { return .just(false) }
                 return self.addHistoryUseCase.execute(with: value)
-                    .asDriver { .just(.failure($0)) }
+                    .asDriver(errors: errors)
             }
-            .handleResult(from: { $0.getState() }, errors: errors)
             .flatMap { _ in
                 foundHistory
             }

@@ -20,31 +20,32 @@ class HistoryRepository: CommandRepository, QueryRepository {
         self.storage = storage
     }
 
-    func add(item: History) -> Observable<BoolResult> {
+    func add(item: History) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             if let self = self {
                 if !self.data.contains(item) {
                     self.data.append(item)
                     do {
                         try self.saveData()
-                        observer.onNext(.success(true))
+                        observer.onNext(true)
+                        observer.onCompleted()
                     } catch {
-                        observer.onNext(.failure(error))
+                        observer.onError(error)
                     }
                 } else {
-                    observer.onNext(.success(false))
+                    observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
-            observer.onCompleted()
             return Disposables.create()
         }
     }
 
-    func read(query: String) -> Observable<HistoryResult> {
+    func read(query: String) -> Observable<[History]> {
         return Observable.create { [weak self] observer in
             if let res = self?.data
                 .filter({ query.isEmpty || $0.id.contains(query) }) {
-                observer.onNext(.success(res))
+                observer.onNext(res)
             }
             observer.onCompleted()
             return Disposables.create()

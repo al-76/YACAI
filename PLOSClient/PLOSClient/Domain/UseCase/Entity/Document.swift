@@ -17,5 +17,3 @@ struct Document: Codable, Identifiable {
     let journal: String
     let counterTotallAll: Int
 }
-
-typealias DocumentResult = Result<[Document], Error>

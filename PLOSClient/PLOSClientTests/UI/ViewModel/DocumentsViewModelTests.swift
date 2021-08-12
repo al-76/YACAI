@@ -14,11 +14,11 @@ import RxTest
 private let testError = "error"
 
 private class MockSearchUseCase: UseCase {
-    func execute(with input: String) -> Observable<DocumentResult> {
+    func execute(with input: String) -> Observable<[Document]> {
         if input == testError {
-            return .just(.failure(TestError.someError))
+            return .error(TestError.someError)
         }
-        return .just(.success([Document(input)]))
+        return .just([Document(input)])
     }
 }
 
@@ -47,9 +47,7 @@ class DocumentsViewModelTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(outputDocuments.events, [
-            [Document(testQuery)]
-        ])
+        XCTAssertRecordedElements(outputDocuments.events, [ [Document(testQuery)] ])
     }
     
     func testSearchDocumentsError() {
@@ -69,8 +67,6 @@ class DocumentsViewModelTests: XCTestCase {
         scheduler.start()
         
         // Assert
-        XCTAssertRecordedElements(outputErrors.events, [                        
-            TestError.someError
-        ])
+        XCTAssertRecordedElements(outputErrors.events, [ TestError.someError ])
     }
 }

@@ -8,13 +8,13 @@
 import RxSwift
 
 class SearchDocumentUseCase: UseCase {
-    private let repository: AnyQueryRepository<DocumentResult>
+    private let repository: AnyQueryRepository<[Document]>
 
-    init(repository: AnyQueryRepository<DocumentResult>) {
+    init(repository: AnyQueryRepository<[Document]>) {
         self.repository = repository
     }
 
-    func execute(with word: String) -> Observable<DocumentResult> {
+    func execute(with word: String) -> Observable<[Document]> {
         return repository.read(query: word)
     }
 }
