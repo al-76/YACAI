@@ -23,7 +23,7 @@ class AnyCommandRepository<T>: CommandRepository {
     }
 
     func add(item: T) -> Observable<Bool> {
-        return addObject(item)
+        addObject(item)
     }
 }
 

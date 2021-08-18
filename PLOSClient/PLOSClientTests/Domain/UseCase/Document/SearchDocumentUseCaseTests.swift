@@ -13,7 +13,7 @@ import RxTest
 
 private class MockQueryRepository: QueryRepository {
     func read(query: String) -> Observable<[Document]> {
-        return Observable.just([Document(query)])
+        Observable.just([Document(query)])
     }
 }
 

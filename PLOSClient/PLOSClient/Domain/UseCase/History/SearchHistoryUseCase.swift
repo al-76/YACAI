@@ -15,7 +15,7 @@ class SearchHistoryUseCase: UseCase {
     }
     
     func execute(with value: String) -> Observable<[History]> {
-        return repository.read(query: value)
+        repository.read(query: value)
             .map { $0.reversed() }
     }
 }

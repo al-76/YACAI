@@ -15,6 +15,6 @@ class SearchDocumentUseCase: UseCase {
     }
 
     func execute(with word: String) -> Observable<[Document]> {
-        return repository.read(query: word)
+        repository.read(query: word)
     }
 }

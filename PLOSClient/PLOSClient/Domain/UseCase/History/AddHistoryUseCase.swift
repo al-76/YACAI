@@ -15,6 +15,6 @@ class AddHistoryUseCase: UseCase {
     }
         
     func execute(with value: String) -> Observable<Bool> {
-        return repository.add(item: History(id: value))
+        repository.add(item: History(id: value))
     }
 }

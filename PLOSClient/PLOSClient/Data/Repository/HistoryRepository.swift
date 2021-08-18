@@ -21,7 +21,7 @@ class HistoryRepository: CommandRepository, QueryRepository {
     }
 
     func add(item: History) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
+        Observable.create { [weak self] observer in
             if let self = self {
                 if !self.data.contains(item) {
                     self.data.append(item)
@@ -42,7 +42,7 @@ class HistoryRepository: CommandRepository, QueryRepository {
     }
 
     func read(query: String) -> Observable<[History]> {
-        return Observable.create { [weak self] observer in
+        Observable.create { [weak self] observer in
             if let res = self?.data
                 .filter({ query.isEmpty || $0.id.contains(query) }) {
                 observer.onNext(res)

@@ -20,7 +20,7 @@ class DocumentsRepository: QueryRepository {
     }
 
     func read(query: String) -> Observable<[Document]> {
-        return Observable.create { [weak self] observer in
+        Observable.create { [weak self] observer in
             var cancellable: Cancellable?
             if let self = self {
                 cancellable = self.network

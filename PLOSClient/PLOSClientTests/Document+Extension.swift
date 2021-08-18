@@ -9,7 +9,7 @@
 
 extension Document: Equatable {
     public static func == (lhs: Document, rhs: Document) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 }
 

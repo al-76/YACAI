@@ -13,7 +13,7 @@ import RxTest
 
 private class MockCommandRepository: CommandRepository {
     func add(item: History) -> Observable<Bool> {
-        return Observable.just(true)
+        Observable.just(true)
     }
 }
 

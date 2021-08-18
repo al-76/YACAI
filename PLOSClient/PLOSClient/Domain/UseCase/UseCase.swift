@@ -23,6 +23,6 @@ class AnyUseCase<Input, Output>: UseCase {
     }
 
     func execute(with input: Input) -> Observable<Output> {
-        return executeObject(input)
+        executeObject(input)
     }
 }
