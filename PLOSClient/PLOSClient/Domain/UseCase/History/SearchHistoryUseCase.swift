@@ -16,7 +16,7 @@ class SearchHistoryUseCase: UseCase {
     }
     
     func execute(with value: String) -> AnyPublisher<[History], Error> {
-        return repository.read(query: value)
+        repository.read(query: value)
             .map { $0.reversed() }
             .eraseToAnyPublisher()
     }

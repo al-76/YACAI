@@ -38,7 +38,7 @@ private class MockRepository: QueryRepository {
     }
 
     func read(query: String) -> AnyPublisher<[Document], Error> {
-        return Just(documents)
+        Just(documents)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

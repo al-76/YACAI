@@ -24,6 +24,6 @@ class AnyUseCase<Input, Output>: UseCase {
     }
 
     func execute(with input: Input) -> AnyPublisher<Output, Error> {
-        return executeObject(input)
+        executeObject(input)
     }
 }

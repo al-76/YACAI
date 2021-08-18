@@ -23,7 +23,7 @@ class AnyCommandRepository<T>: CommandRepository {
     }
 
     func add(item: T) -> AnyPublisher<Bool, Error> {
-        return addObject(item)
+        addObject(item)
     }
 }
 

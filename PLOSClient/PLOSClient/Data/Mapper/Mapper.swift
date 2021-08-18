@@ -23,6 +23,6 @@ class AnyMapper<Input, Output>: Mapper {
     }
 
     func map(input: Input) -> Output {
-        return mapObject(input)
+        mapObject(input)
     }
 }

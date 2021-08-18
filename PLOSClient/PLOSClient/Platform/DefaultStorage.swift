@@ -31,7 +31,7 @@ class DefaultStorage: Storage {
     }
 
     private func getUrl(from: String) -> URL? {
-        return try? FileManager.default.url(for: .cachesDirectory,
+        try? FileManager.default.url(for: .cachesDirectory,
                                             in: .userDomainMask,
                                             appropriateFor: nil,
                                             create: true)

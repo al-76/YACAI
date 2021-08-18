@@ -12,7 +12,7 @@ import XCTest
 
 private class MockRepository: CommandRepository {
     func add(item: History) -> AnyPublisher<Bool, Error> {
-        return Just(true)
+        Just(true)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

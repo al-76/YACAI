@@ -12,7 +12,7 @@ import XCTest
 
 private class MockRepository: QueryRepository {
     func read(query: String) -> AnyPublisher<[History], Error> {
-        return Just([History(id: query)])
+        Just([History(id: query)])
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

@@ -23,6 +23,6 @@ class AnyQueryRepository<T>: QueryRepository {
     }
 
     func read(query: String) -> AnyPublisher<[T], Error> {
-        return readObject(query)
+        readObject(query)
     }
 }

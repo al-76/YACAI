@@ -21,7 +21,7 @@ public class ViewError: Identifiable {
 
 extension View {
     public func alertError(error: Binding<ViewError?>) -> some View {
-        return alert(item: error, content: { error in
+        alert(item: error, content: { error in
             Alert(title: Text("Error"),
                   message: Text(error.localizedDescription),
                   dismissButton: .default(Text("OK")))

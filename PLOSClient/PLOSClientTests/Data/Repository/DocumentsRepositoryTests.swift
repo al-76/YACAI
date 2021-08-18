@@ -43,7 +43,7 @@ class MockNetwork: Network {
 
 class MockMapper: Mapper {
     func map(input: DocumentDTO) -> Document {
-        return Document("test")
+        Document("test")
     }
 }
 

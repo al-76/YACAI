@@ -16,6 +16,6 @@ class SearchDocumentUseCase: UseCase {
     }
 
     func execute(with word: String) -> AnyPublisher<[Document], Error> {
-        return repository.read(query: word)
+        repository.read(query: word)
     }
 }

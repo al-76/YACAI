@@ -35,7 +35,7 @@ class MockStorage: Storage {
 
 class MockErrorStorage: Storage {
     func get<T: Codable>(id: String, defaultObject: T) -> T {
-        return defaultObject
+        defaultObject
     }
     
     func save<T: Codable>(id: String, object: T) throws {
