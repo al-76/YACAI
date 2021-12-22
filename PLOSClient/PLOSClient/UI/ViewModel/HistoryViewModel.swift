@@ -40,6 +40,7 @@ class HistoryViewModel: ObservableObject {
             }
         let updatedHistory = $addHistory
             .filter { !$0.isEmpty }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .flatMap { [weak addHistoryUseCase] value in
                 addHistoryUseCase?.execute(with: value) ??
                     Just(false)
