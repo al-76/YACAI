@@ -10,23 +10,11 @@ import Resolver
 
 struct ContentView: View {
     @InjectedObject var viewModel: HistoryViewModel
-    @State private var noDocuments = true
     
     var body: some View {
         NavigationView {
             VStack {
-                DocumentsView(noDocuments: $noDocuments)
-                    .search(text: viewModel.addHistory)
-                if noDocuments {
-                    List {
-                        ForEach(viewModel.history) { item in
-                            Button(item.id) {
-                                viewModel.searchHistory = item.id
-                                viewModel.addHistory = viewModel.searchHistory
-                            }
-                        }
-                    }
-                }
+                DocumentsView(text: viewModel.addHistory)
             }
             .searchable(text: $viewModel.searchHistory) {
                 ForEach(viewModel.history) { item in

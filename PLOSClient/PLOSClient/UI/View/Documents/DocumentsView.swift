@@ -10,31 +10,25 @@ import SwiftUI
 
 struct DocumentsView: View {
     @InjectedObject var viewModel: DocumentsViewModel
-    @Binding var noDocuments: Bool
 
     var body: some View {
         VStack {
-            if !noDocuments {
-                List {
-                    ForEach(viewModel.documents) { item in
-                        DocumentRow(document: item)
-                    }
+            List {
+                ForEach(viewModel.documents) { item in
+                    DocumentRow(document: item)
                 }
             }
         }
-        .onChange(of: viewModel.documents) { noDocuments = $0.isEmpty }
         .alertError(error: $viewModel.error)
     }
     
-    func search(text: String) -> some View {
+    init(text: String) {
         viewModel.searchDocument = text
-        return self
     }
 }
 
 struct SearchResultView_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentsView(noDocuments: .constant(false))
-            .search(text: "DNA")
+        DocumentsView(text: "DNA")
     }
 }
