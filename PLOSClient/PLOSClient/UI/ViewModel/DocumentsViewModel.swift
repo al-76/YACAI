@@ -28,6 +28,7 @@ class DocumentsViewModel: ObservableObject {
     private func bindInputToOutput() {
         $searchDocument
             .filter { !$0.isEmpty }
+            .removeDuplicates()
             .flatMap { [weak searchDocumentUseCase] value in
                 searchDocumentUseCase?.execute(with: value) ??
                     Just([])
