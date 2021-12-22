@@ -10,42 +10,38 @@ import Resolver
 
 struct ContentView: View {
     @InjectedObject var viewModel: HistoryViewModel
-    @State private var search = false
-
+    @State private var noDocuments = true
+    
     var body: some View {
         NavigationView {
             VStack {
-                if search { // Show search results
-                    HistoryView(text: viewModel.searchHistory)
-                } else { // Show history as suggestions
+                DocumentsView(noDocuments: $noDocuments)
+                    .search(text: viewModel.addHistory)
+                if noDocuments {
                     List {
                         ForEach(viewModel.history) { item in
                             Button(item.id) {
                                 viewModel.searchHistory = item.id
-                                search = true
+                                viewModel.addHistory = viewModel.searchHistory
                             }
                         }
                     }
                 }
             }
-            .listStyle(PlainListStyle())
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle("Search")
-            .navigationBarSearch($viewModel.searchHistory,
-                                 placeholder: "Type...",
-                                 hidesSearchBarWhenScrolling: false,
-                                 cancelClicked: { search = false },
-                                 searchClicked: {
-                                    viewModel.addHistory = viewModel.searchHistory
-                                    search = true
-                                 },
-                                 searchDidBegin: { search = false },
-                                 textDidChange: { search = false })
-            .animation(.default)
+            .searchable(text: $viewModel.searchHistory) {
+                ForEach(viewModel.history) { item in
+                    Text(item.id).searchCompletion(item.id)
+                }
+            }
+            .navigationTitle("Search")
+            .onSubmit(of: .search) {
+                viewModel.addHistory = viewModel.searchHistory
+            }
         }
         .alertError(error: $viewModel.error)
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

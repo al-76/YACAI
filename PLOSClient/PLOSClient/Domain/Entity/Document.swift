@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Document: Codable, Identifiable {
+struct Document: Codable, Identifiable, Equatable {
     let id: String
     let publicationDate: String
     let authorDisplay: String

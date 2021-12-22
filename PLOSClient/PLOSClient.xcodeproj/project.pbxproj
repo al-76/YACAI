@@ -40,10 +40,9 @@
 		6F82D9AE26B54722003BC8EE /* AddHistoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82D9AD26B54722003BC8EE /* AddHistoryUseCaseTests.swift */; };
 		6F82D9B026B54745003BC8EE /* SearchHistoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82D9AF26B54745003BC8EE /* SearchHistoryUseCaseTests.swift */; };
 		6F82D9B226B54AC4003BC8EE /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82D9B126B54AC4003BC8EE /* HistoryRepository.swift */; };
-		6F82D9B826B5AAA4003BC8EE /* SwiftlySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2B8EE926B40B8B007C2445 /* SwiftlySearch.swift */; };
-		6F8D7BD226B2BFBB007F4CA3 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD126B2BFBB007F4CA3 /* HistoryView.swift */; };
+		6F8D7BD226B2BFBB007F4CA3 /* DocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD126B2BFBB007F4CA3 /* DocumentsView.swift */; };
 		6F8D7BD726B2F4E4007F4CA3 /* DocumentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD626B2F4E4007F4CA3 /* DocumentsViewModel.swift */; };
-		6F8D7BDA26B2FE0B007F4CA3 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD926B2FE0B007F4CA3 /* HistoryRow.swift */; };
+		6F8D7BDA26B2FE0B007F4CA3 /* DocumentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD926B2FE0B007F4CA3 /* DocumentRow.swift */; };
 		6FDE1F0626B29B54008F4A3F /* View+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE1F0526B29B54008F4A3F /* View+Alert.swift */; };
 		6FE1640B26B0133300FD3DC7 /* PLOSClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1640A26B0133300FD3DC7 /* PLOSClientApp.swift */; };
 		6FE1640D26B0133300FD3DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1640C26B0133300FD3DC7 /* ContentView.swift */; };
@@ -86,7 +85,6 @@
 		6F13187526B95564002BFF01 /* DefaultNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetwork.swift; sourceTree = "<group>"; };
 		6F13187726B976C3002BFF01 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		6F13187926BAA0B3002BFF01 /* UI+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI+Injection.swift"; sourceTree = "<group>"; };
-		6F2B8EE926B40B8B007C2445 /* SwiftlySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlySearch.swift; sourceTree = "<group>"; };
 		6F2B8EEE26B44D0C007C2445 /* QueryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryRepository.swift; sourceTree = "<group>"; };
 		6F2B8EF026B44D17007C2445 /* CommandRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandRepository.swift; sourceTree = "<group>"; };
 		6F2B8EF526B44FE2007C2445 /* SearchDocumentUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDocumentUseCaseTests.swift; sourceTree = "<group>"; };
@@ -105,9 +103,9 @@
 		6F82D9AD26B54722003BC8EE /* AddHistoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHistoryUseCaseTests.swift; sourceTree = "<group>"; };
 		6F82D9AF26B54745003BC8EE /* SearchHistoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryUseCaseTests.swift; sourceTree = "<group>"; };
 		6F82D9B126B54AC4003BC8EE /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
-		6F8D7BD126B2BFBB007F4CA3 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		6F8D7BD126B2BFBB007F4CA3 /* DocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsView.swift; sourceTree = "<group>"; };
 		6F8D7BD626B2F4E4007F4CA3 /* DocumentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewModel.swift; sourceTree = "<group>"; };
-		6F8D7BD926B2FE0B007F4CA3 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
+		6F8D7BD926B2FE0B007F4CA3 /* DocumentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRow.swift; sourceTree = "<group>"; };
 		6FDE1F0526B29B54008F4A3F /* View+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Alert.swift"; sourceTree = "<group>"; };
 		6FE1640726B0133300FD3DC7 /* PLOSClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PLOSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE1640A26B0133300FD3DC7 /* PLOSClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLOSClientApp.swift; sourceTree = "<group>"; };
@@ -204,22 +202,6 @@
 				6F13187526B95564002BFF01 /* DefaultNetwork.swift */,
 			);
 			path = Platform;
-			sourceTree = "<group>";
-		};
-		6F2B8EE826B40B55007C2445 /* Contrib */ = {
-			isa = PBXGroup;
-			children = (
-				6F2B8EEB26B41443007C2445 /* SwiftlySearch */,
-			);
-			path = Contrib;
-			sourceTree = "<group>";
-		};
-		6F2B8EEB26B41443007C2445 /* SwiftlySearch */ = {
-			isa = PBXGroup;
-			children = (
-				6F2B8EE926B40B8B007C2445 /* SwiftlySearch.swift */,
-			);
-			path = SwiftlySearch;
 			sourceTree = "<group>";
 		};
 		6F2B8EED26B44CF9007C2445 /* Data */ = {
@@ -365,13 +347,13 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		6F8D7BD826B2FDBC007F4CA3 /* History */ = {
+		6F8D7BD826B2FDBC007F4CA3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				6F8D7BD926B2FE0B007F4CA3 /* HistoryRow.swift */,
-				6F8D7BD126B2BFBB007F4CA3 /* HistoryView.swift */,
+				6F8D7BD926B2FE0B007F4CA3 /* DocumentRow.swift */,
+				6F8D7BD126B2BFBB007F4CA3 /* DocumentsView.swift */,
 			);
-			path = History;
+			path = Documents;
 			sourceTree = "<group>";
 		};
 		6FE163FE26B0133300FD3DC7 = {
@@ -444,7 +426,6 @@
 		6FE1643526B0200F00FD3DC7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6F2B8EE826B40B55007C2445 /* Contrib */,
 				6FE1643626B0201600FD3DC7 /* View */,
 				6F5231C226B17B2800768F65 /* ViewModel */,
 			);
@@ -454,7 +435,7 @@
 		6FE1643626B0201600FD3DC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6F8D7BD826B2FDBC007F4CA3 /* History */,
+				6F8D7BD826B2FDBC007F4CA3 /* Documents */,
 				6FE1640C26B0133300FD3DC7 /* ContentView.swift */,
 				6FDE1F0526B29B54008F4A3F /* View+Alert.swift */,
 				6F13187726B976C3002BFF01 /* SafariView.swift */,
@@ -599,12 +580,11 @@
 			files = (
 				6FE1640D26B0133300FD3DC7 /* ContentView.swift in Sources */,
 				6F2B8EF126B44D17007C2445 /* CommandRepository.swift in Sources */,
-				6F8D7BD226B2BFBB007F4CA3 /* HistoryView.swift in Sources */,
+				6F8D7BD226B2BFBB007F4CA3 /* DocumentsView.swift in Sources */,
 				6F0171AD26B6ADF2001DDC8E /* Data+Injection.swift in Sources */,
 				6F13187826B976C3002BFF01 /* SafariView.swift in Sources */,
 				6F13187A26BAA0B3002BFF01 /* UI+Injection.swift in Sources */,
 				6F5231BC26B16F6E00768F65 /* UseCase.swift in Sources */,
-				6F82D9B826B5AAA4003BC8EE /* SwiftlySearch.swift in Sources */,
 				6F13186F26B94B8F002BFF01 /* Platform+Injection.swift in Sources */,
 				6F2B8F0526B457AB007C2445 /* Mapper.swift in Sources */,
 				6FDE1F0626B29B54008F4A3F /* View+Alert.swift in Sources */,
@@ -615,7 +595,7 @@
 				6F6585DC26B1D03C00C6E4D8 /* History.swift in Sources */,
 				6FE1640B26B0133300FD3DC7 /* PLOSClientApp.swift in Sources */,
 				6F82D9B226B54AC4003BC8EE /* HistoryRepository.swift in Sources */,
-				6F8D7BDA26B2FE0B007F4CA3 /* HistoryRow.swift in Sources */,
+				6F8D7BDA26B2FE0B007F4CA3 /* DocumentRow.swift in Sources */,
 				6F8D7BD726B2F4E4007F4CA3 /* DocumentsViewModel.swift in Sources */,
 				6F13186A26B944FA002BFF01 /* DefaultStorage.swift in Sources */,
 				6F2B8F0326B4577D007C2445 /* DocumentDTO.swift in Sources */,
@@ -723,7 +703,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -778,7 +758,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -798,7 +778,7 @@
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PLOSClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -820,7 +800,7 @@
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PLOSClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -840,7 +820,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				INFOPLIST_FILE = PLOSClientTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -863,7 +843,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				INFOPLIST_FILE = PLOSClientTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
