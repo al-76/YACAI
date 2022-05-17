@@ -9,7 +9,8 @@ YACAI is a project showing Yet Another Clean Architecture iOS approach.
 |Branch|Description|
 | ------------- | ------------- |
 |[main](https://github.com/al-76/YACAI) | SwiftUI, Combine |
-|[rxswift](https://github.com/al-76/YACAI/tree/rxswift)|[RxSwift](https://github.com/ReactiveX/RxSwift)|
+|[rxswift](https://github.com/al-76/YACAI/tree/rxswift) | UIKit, [RxSwift](https://github.com/ReactiveX/RxSwift)|
+|[async_uikit](https://github.com/al-76/YACAI/tree/async_uikit) | UIKit, async/await |
 
 Also, the project uses [Resolver (DI framework)](https://github.com/hmlongco/Resolver).
 
