@@ -20,7 +20,6 @@
 		6F34CDDB26C2CF3F00767285 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDD126C2CF3F00767285 /* Network.swift */; };
 		6F34CDDC26C2CF3F00767285 /* DocumentsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDD326C2CF3F00767285 /* DocumentsMapper.swift */; };
 		6F34CDDD26C2CF3F00767285 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDD426C2CF3F00767285 /* Mapper.swift */; };
-		6F34CDDF26C2D32500767285 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDDE26C2D32500767285 /* Cancellable.swift */; };
 		6F34CDE626C2DBC700767285 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDE126C2DBC700767285 /* AppDelegate+Injection.swift */; };
 		6F34CDE726C2DBC700767285 /* Data+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDE226C2DBC700767285 /* Data+Injection.swift */; };
 		6F34CDE826C2DBC700767285 /* UI+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F34CDE326C2DBC700767285 /* UI+Injection.swift */; };
@@ -88,7 +87,6 @@
 		6F34CDD126C2CF3F00767285 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		6F34CDD326C2CF3F00767285 /* DocumentsMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsMapper.swift; sourceTree = "<group>"; };
 		6F34CDD426C2CF3F00767285 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
-		6F34CDDE26C2D32500767285 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		6F34CDE126C2DBC700767285 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		6F34CDE226C2DBC700767285 /* Data+Injection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Injection.swift"; sourceTree = "<group>"; };
 		6F34CDE326C2DBC700767285 /* UI+Injection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI+Injection.swift"; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 		6F6A5D0926BD329600397A2C /* PLOSClient */ = {
 			isa = PBXGroup;
 			children = (
-				6F6A5D6326BD742F00397A2C /* Common */,
 				6F34CDE026C2DBC700767285 /* DI */,
 				6F34CDC626C2CF3E00767285 /* Platform */,
 				6F34CDC926C2CF3F00767285 /* Data */,
@@ -445,14 +442,6 @@
 			);
 			name = Entity;
 			path = UseCase/Entity;
-			sourceTree = "<group>";
-		};
-		6F6A5D6326BD742F00397A2C /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				6F34CDDE26C2D32500767285 /* Cancellable.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		6FD5AB6226C3DA4F005E3993 /* Data */ = {
@@ -615,7 +604,6 @@
 				6F6A5D4A26BD3CBC00397A2C /* DocumentsViewModel.swift in Sources */,
 				6F6A5D5126BD3EFA00397A2C /* UseCase.swift in Sources */,
 				6F34CDE726C2DBC700767285 /* Data+Injection.swift in Sources */,
-				6F34CDDF26C2D32500767285 /* Cancellable.swift in Sources */,
 				6F34CDD826C2CF3F00767285 /* DocumentsRepository.swift in Sources */,
 				6F34CDC526C2CF2500767285 /* CommandRepository.swift in Sources */,
 				6F34CDDD26C2CF3F00767285 /* Mapper.swift in Sources */,
