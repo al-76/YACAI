@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxSwift
 
 class DocumentsRepository: QueryRepository {
     private static let url = "https://api.plos.org/search?start=0&rows=10&fl=id,journal,publication_date,title_display,article_type,author_display,abstract,counter_total_all"
@@ -19,28 +18,12 @@ class DocumentsRepository: QueryRepository {
         self.mapper = mapper
     }
 
-    func read(query: String) -> Observable<[Document]> {
-        Observable.create { [weak self] observer in
-            var cancellable: Cancellable?
-            if let self = self {
-                cancellable = self.network
-                    .get(with: Self.url + "&q=title:\(query)") { result in
-                        do {
-                            let data = try result.get() as Data
-                            let documentsDTO = try JSONDecoder()
-                                .decode(DocumentResultDTO.self, from: data)
-                            let documents = documentsDTO.response
-                                .docs.map(self.mapper.map)
-                            observer.onNext(documents)
-                            observer.onCompleted()
-                        } catch {
-                            observer.onError(error)
-                        }
-                    }
-            } else {
-                observer.onCompleted()
-            }
-            return Disposables.create { cancellable?.cancel() }
-        }
+    func read(query: String) async throws -> [Document] {
+        let data = try await network
+            .get(with: Self.url + "&q=title:\(query)")
+        let documentsDTO = try JSONDecoder()
+            .decode(DocumentResultDTO.self, from: data)
+        return documentsDTO.response
+            .docs.map(mapper.map)
     }
 }

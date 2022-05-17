@@ -6,24 +6,23 @@
 //
 
 import Foundation
-import RxSwift
 
 protocol CommandRepository {
     associatedtype CommandRepositoryType
 
-    func add(item: CommandRepositoryType) -> Observable<Bool>
+    func add(item: CommandRepositoryType) async throws -> Bool
 }
 
 class AnyCommandRepository<T>: CommandRepository {
-    private let addObject: (T) -> Observable<Bool>
+    private let addObject: (T) async throws -> Bool
 
     init<TypeUseCase: CommandRepository>(wrapped: TypeUseCase)
         where TypeUseCase.CommandRepositoryType == T {
         addObject = wrapped.add
     }
 
-    func add(item: T) -> Observable<Bool> {
-        addObject(item)
+    func add(item: T) async throws -> Bool {
+        try await addObject(item)
     }
 }
 

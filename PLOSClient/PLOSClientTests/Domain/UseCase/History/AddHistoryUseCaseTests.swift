@@ -6,32 +6,23 @@
 //
 
 import XCTest
-import RxSwift
-import RxTest
 
 @testable import PLOSClient
 
 private class MockCommandRepository: CommandRepository {
-    func add(item: History) -> Observable<Bool> {
-        Observable.just(true)
+    func add(item: History) async throws -> Bool {
+        true
     }
 }
 
 class AddHistoryUseCaseTests: XCTestCase {
-    let disposeBag = DisposeBag()
-    let scheduler = TestScheduler(initialClock: 0)
-    
-    func testExecute() {
-        let output = scheduler.createObserver(Bool.self)
+    func testExecute() async throws {
         let useCase = AddHistoryUseCase(repository: AnyCommandRepository(wrapped: MockCommandRepository()))
-        useCase.execute(with: "test")
-            .bind(to: output)
-            .disposed(by: disposeBag)
         
         // Act
-        scheduler.start()
+        let result = try await useCase.execute(with: "test")
         
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ true ])
+        XCTAssertEqual(result, true)
     }
 }

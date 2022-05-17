@@ -13,37 +13,24 @@ class DefaultNetwork: Network {
         case unknownError
     }
     
-    private class CancellableTask: Cancellable {
-        private let task: URLSessionTask
-        
-        init(_ task: URLSessionTask) {
-            self.task = task
-        }
-        
-        func cancel() {
-            task.cancel()
-        }
-    }
-
-    func get(with url: String, completion: @escaping Completion) -> Cancellable? {
-        var result: Cancellable?
-        do {
-            let task = URLSession.shared
-                .dataTask(with: try createUrl(from: url)) { data, _, error in
-                    if let error = error {
-                        completion(.failure(error))
-                    } else if let data = data {
-                        completion(.success(data))
-                    } else {
-                        completion(.failure(Self.DefaultNetworkError.unknownError))
+    func get(with url: String) async throws -> Data {
+        try await withCheckedThrowingContinuation { continuation in
+            do {
+                let task = URLSession.shared
+                    .dataTask(with: try createUrl(from: url)) { data, _, error in
+                        if let data = data {
+                            continuation.resume(returning: data)
+                        } else if let error = error {
+                            continuation.resume(throwing: error)
+                        } else {
+                            continuation.resume(throwing: Self.DefaultNetworkError.unknownError)
+                        }
                     }
-                }
-            task.resume()
-            result = CancellableTask(task)
-        } catch {
-            completion(.failure(error))
+                task.resume()
+            } catch let error {
+                continuation.resume(throwing: error)
+            }
         }
-        return result
     }
 
     private func createUrl(from stringUrl: String) throws -> URL {

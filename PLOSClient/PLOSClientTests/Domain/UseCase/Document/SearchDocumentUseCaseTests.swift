@@ -6,34 +6,25 @@
 //
 
 import XCTest
-import RxSwift
-import RxTest
 
 @testable import PLOSClient
 
 private class MockQueryRepository: QueryRepository {
-    func read(query: String) -> Observable<[Document]> {
-        Observable.just([Document(query)])
+    func read(query: String) async throws -> [Document] {
+        [Document(query)]
     }
 }
 
 class SearchDocumentUseCaseTests: XCTestCase {
-    let disposeBag = DisposeBag()
-    let scheduler = TestScheduler(initialClock: 0)
-    
-    func testExecute() {
+    func testExecute() async throws {
         // Arrange
         let testQuery = "test"
-        let output = scheduler.createObserver([Document].self)
         let useCase = SearchDocumentUseCase(repository: AnyQueryRepository(wrapped: MockQueryRepository()))
-        useCase.execute(with: testQuery)
-            .bind(to: output)
-            .disposed(by: disposeBag)
         
         // Act
-        scheduler.start()
+        let result = try await useCase.execute(with: testQuery)
         
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ [Document(testQuery)] ])
+        XCTAssertEqual(result, [Document(testQuery)])
     }
 }

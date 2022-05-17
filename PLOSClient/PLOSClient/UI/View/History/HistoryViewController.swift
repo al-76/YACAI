@@ -7,18 +7,17 @@
 
 import UIKit
 import Resolver
-import RxSwift
-import RxCocoa
 
 class HistoryViewController: UITableViewController {
-    let searchHistory = BehaviorRelay<String>(value: "")
-    let addHistory = PublishRelay<String>()
-    let searchDocument = PublishRelay<String>()
+    // Internal bindings
+    var addHistory = Binder<String>(value: "")
+    var searchHistory = Binder<String>(value: "")
+    
+    // External bindings
+    var searchDocument = Binder<String>(value: "")
     
     @Injected var viewModel: HistoryViewModel
     
-    private let disposeBag = DisposeBag()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,8 +26,8 @@ class HistoryViewController: UITableViewController {
     }
     
     private func customizeView() {
-        tableView.dataSource = nil
-        tableView.delegate = nil
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
         tableView.tableFooterView = UIView()
@@ -36,34 +35,45 @@ class HistoryViewController: UITableViewController {
     }
 
     private func bindViewModel() {
-        let handleSelectedItem: ((IndexPath) -> String) = { [weak self] index in
-            (self?.getSelectedItem(index)) ?? ""
+        searchHistory.bind { [weak self] in
+            self?.viewModel.search(history: $0)
         }
-        let input = HistoryViewModel.Input(searchHistory: searchHistory.asDriver(),
-                                           addHistory: addHistory.asSignal())
-        let output = viewModel.transform(from: input)
-        disposeBag.insert {
-            // history
-            output.history.drive(tableView.rx
-                                    .items(cellIdentifier: "HistoryCell")) { row, model, cell in
-                if let historyCell = cell as? HistoryViewCell {
-                    historyCell.setHistory(with: model)
-                }
-            }
-            // errors
-            output.errors.emit(onNext: { [weak self] in
-                self?.presentAlertError(error: $0)
-            })
-            // selected history
-            tableView.rx.itemSelected
-                .map { handleSelectedItem($0) }
-                .bind(to: searchDocument)
+        addHistory.bind { [weak self] in
+            self?.viewModel.add(history: $0)
         }
+        viewModel.history.bind { [weak self] _ in
+            self?.tableView.reloadData()
+        }
+        viewModel.error.bind { [weak self] error in
+            guard let error = error else { return }
+            self?.presentAlertError(error: error)
+        }
+    }
+}
+
+extension HistoryViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchDocument.value = getSelectedItem(indexPath)
     }
     
     private func getSelectedItem(_ index: IndexPath) -> String {
         guard let cell = tableView.cellForRow(at: index) as? HistoryViewCell,
               let text = cell.history.text else { return "" }
         return text
+    }
+}
+
+extension HistoryViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.history.value.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = viewModel.history.value[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath)
+        if let historyCell = cell as? HistoryViewCell {
+            historyCell.setHistory(with: model)
+        }
+        return cell
     }
 }

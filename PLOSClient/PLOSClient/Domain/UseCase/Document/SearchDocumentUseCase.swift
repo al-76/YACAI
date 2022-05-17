@@ -5,8 +5,6 @@
 //  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-import RxSwift
-
 class SearchDocumentUseCase: UseCase {
     private let repository: AnyQueryRepository<[Document]>
 
@@ -14,7 +12,7 @@ class SearchDocumentUseCase: UseCase {
         self.repository = repository
     }
 
-    func execute(with word: String) -> Observable<[Document]> {
-        repository.read(query: word)
+    func execute(with word: String) async throws -> [Document] {
+        try await repository.read(query: word)
     }
 }

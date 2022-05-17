@@ -8,7 +8,5 @@
 import Foundation
 
 protocol Network {
-    typealias Completion = (Result<Data, Error>) -> Void
-    
-    @discardableResult func get(with url: String, completion: @escaping Completion) -> Cancellable?
+    func get(with url: String) async throws -> Data
 }

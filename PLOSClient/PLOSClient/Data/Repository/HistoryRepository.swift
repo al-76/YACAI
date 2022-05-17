@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxSwift
 
 class HistoryRepository: CommandRepository, QueryRepository {
     private static let history = "history"
@@ -20,36 +19,17 @@ class HistoryRepository: CommandRepository, QueryRepository {
         self.storage = storage
     }
 
-    func add(item: History) -> Observable<Bool> {
-        Observable.create { [weak self] observer in
-            if let self = self {
-                if !self.data.contains(item) {
-                    self.data.append(item)
-                    do {
-                        try self.saveData()
-                        observer.onNext(true)
-                        observer.onCompleted()
-                    } catch {
-                        observer.onError(error)
-                    }
-                } else {
-                    observer.onNext(false)
-                    observer.onCompleted()
-                }
-            }
-            return Disposables.create()
-        }
+    func add(item: History) async throws -> Bool {
+        guard !data.contains(item) else { return false }
+        
+        data.append(item)
+        try saveData()
+        
+        return true
     }
 
-    func read(query: String) -> Observable<[History]> {
-        Observable.create { [weak self] observer in
-            if let res = self?.data
-                .filter({ query.isEmpty || $0.id.contains(query) }) {
-                observer.onNext(res)
-            }
-            observer.onCompleted()
-            return Disposables.create()
-        }
+    func read(query: String) async throws -> [History] {
+        data.filter { query.isEmpty || $0.id.contains(query) }
     }
     
     private func saveData() throws {

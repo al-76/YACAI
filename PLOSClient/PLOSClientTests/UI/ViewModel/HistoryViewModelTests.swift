@@ -5,9 +5,6 @@
 //  Created by Vyacheslav Konopkin on 09.08.2021.
 //
 
-import RxCocoa
-import RxSwift
-import RxTest
 import XCTest
 
 @testable import PLOSClient
@@ -15,125 +12,98 @@ import XCTest
 private let testError = "error"
 
 private class MockAddHistoryUseCase: UseCase {
-    func execute(with input: String) -> Observable<Bool> {
+    func execute(with input: String) async throws -> Bool {
         if input == testError {
-            return .error(TestError.someError)
+            throw TestError.someError
         }
-        return .just(true)
+        return true
     }
 }
 
 private class MockSearchHistoryUseCase: UseCase {
-    func execute(with input: String) -> Observable<[History]> {
+    func execute(with input: String) async throws -> [History] {
         if input == testError {
-            return .error(TestError.someError)
+            throw TestError.someError
         }
-        return .just([History(id: input)])
+        return [History(id: input)]
     }
 }
 
 class HistoryViewModelTests: XCTestCase {
-    let disposeBag = DisposeBag()
-    let scheduler = TestScheduler(initialClock: 0)
     var viewModel: HistoryViewModel!
-    
+
     override func setUp() {
         viewModel = HistoryViewModel(searchHistoryUseCase: AnyUseCase(wrapped: MockSearchHistoryUseCase()),
                                      addHistoryUseCase: AnyUseCase(wrapped: MockAddHistoryUseCase()))
     }
-    
+
     func testSearchHistory() {
         // Arrange
         let testQuery = "test"
-        let inputText = scheduler.createHotObservable([
-            .next(200, testQuery)
-        ]).asDriver(onErrorJustReturn: "")
-        let output = viewModel
-            .transform(from: HistoryViewModel.Input(searchHistory: inputText,
-                                                    addHistory: Signal.never()))
-        let outputHistory = scheduler.createObserver([History].self)
-        output.history
-            .drive(outputHistory)
-            .disposed(by: disposeBag)
-        
+        var history: [History]?
+        let found = expectation(description: "History is found!")
+        viewModel.history.bind {
+            history = $0
+            found.fulfill()
+        }
+
         // Act
-        scheduler.start()
-        
+        viewModel.search(history: testQuery)
+
         // Assert
-        XCTAssertRecordedElements(outputHistory.events, [ [History(id: testQuery)] ])
+        waitForExpectations(timeout: 3)
+        XCTAssertEqual(history, [History(id: testQuery)])
     }
-    
+
     func testSearchHistoryError() {
         // Arrange
-        let inputText = scheduler.createHotObservable([
-            .next(200, testError)
-        ]).asDriver(onErrorJustReturn: "")
-        let output = viewModel
-            .transform(from: HistoryViewModel.Input(searchHistory: inputText,
-                                                    addHistory: Signal.never()))
-        let outputHistory = scheduler.createObserver([History].self)
-        let outputErrors = scheduler.createObserver(Error.self)
-        disposeBag.insert {
-            output.history.drive(outputHistory)
-            output.errors.emit(to: outputErrors)
+        let found = expectation(description: "There's an error!")
+        var error: Error?
+        viewModel.error.bind {
+            error = $0
+            found.fulfill()
         }
-        
+
         // Act
-        scheduler.start()
-        
+        viewModel.search(history: testError)
+
         // Assert
-        XCTAssertRecordedElements(outputErrors.events, [ TestError.someError ])
+        waitForExpectations(timeout: 3)
+        XCTAssertEqual(error as! TestError, TestError.someError)
     }
-    
+
     func testAddHistory() {
         // Arrange
         let testQuery = "test"
-        let inputSearchHistory = scheduler.createHotObservable([
-            .next(200, testQuery)
-        ]).asDriver(onErrorJustReturn: "")
-        let inputAddHistory = scheduler.createHotObservable([
-            .next(300, "addHistory")
-        ]).asSignal(onErrorJustReturn: "")
-        let output = viewModel
-            .transform(from: HistoryViewModel.Input(searchHistory: inputSearchHistory,
-                                                    addHistory: inputAddHistory))
-        let outputHistory = scheduler.createObserver([History].self)
-        output.history
-            .drive(outputHistory)
-            .disposed(by: disposeBag)
-        
+        var history: [History]?
+        let found = expectation(description: "History has added!")
+        viewModel.history.bind {
+            history = $0
+            found.fulfill()
+        }
+
         // Act
-        scheduler.start()
-        
+        viewModel.add(history: testQuery)
+
         // Assert
-        XCTAssertRecordedElements(outputHistory.events, [
-            [History(id: testQuery)],
-            [History(id: testQuery)]
-        ])
+        waitForExpectations(timeout: 3)
+        XCTAssertEqual(history, [History(id: testQuery)])
     }
-    
+
     func testAddHistoryError() {
         // Arrange
-        let inputSearchHistory = scheduler.createHotObservable([
-            .next(200, "test")
-        ]).asDriver(onErrorJustReturn: "")
-        let inputAddHistory = scheduler.createHotObservable([
-            .next(300, testError)
-        ]).asSignal(onErrorJustReturn: "")
-        let output = viewModel
-            .transform(from: HistoryViewModel.Input(searchHistory: inputSearchHistory,
-                                                    addHistory: inputAddHistory))
-        let outputHistory = scheduler.createObserver([History].self)
-        let outputErrors = scheduler.createObserver(Error.self)
-        disposeBag.insert {
-            output.history.drive(outputHistory)
-            output.errors.emit(to: outputErrors)
+        let found = expectation(description: "There's an error!")
+        var error: Error?
+        viewModel.error.bind {
+            error = $0
+            found.fulfill()
         }
-        
+
         // Act
-        scheduler.start()
-        
+        viewModel.add(history: testError)
+
         // Assert
-        XCTAssertRecordedElements(outputErrors.events, [ TestError.someError ])
+        waitForExpectations(timeout: 3)
+        XCTAssertEqual(error as! TestError, TestError.someError)
     }
 }

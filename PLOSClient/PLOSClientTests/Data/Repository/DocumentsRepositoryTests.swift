@@ -6,20 +6,18 @@
 //
 
 import XCTest
-import RxSwift
-import RxTest
 
 @testable import PLOSClient
 
 private let testErrorString = "error"
 
 private class MockNetwork: Network {
-    func get(with url: String, completion: @escaping Completion) -> Cancellable? {
+    func get(with url: String) async throws -> Data {
         if url.contains(testErrorString) {
-            completion(.failure(TestError.someError))
-            return nil
+            throw TestError.someError
         }
-        completion(.success(Data("""
+        
+        return Data("""
         {
           "response": {
             "numFound": 300,
@@ -38,8 +36,7 @@ private class MockNetwork: Network {
             ]
           }
         }
-        """.utf8)))
-        return nil
+        """.utf8)
     }
 }
 
@@ -50,40 +47,33 @@ private class MockMapper: Mapper {
 }
 
 class DocumentsRepositoryTests: XCTestCase {
-    let disposeBag = DisposeBag()
-    let scheduler = TestScheduler(initialClock: 0)
-    var repository: DocumentsRepository!
+    private var repository: DocumentsRepository!
     
     override func setUp() {
         repository = DocumentsRepository(network: MockNetwork(),
                                          mapper: AnyMapper(wrapped: MockMapper()))
     }
     
-    func testRead() {
+    func testRead() async throws {
         // Arrange
-        let output = scheduler.createObserver([Document].self)
-        repository.read(query: "test")
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
+        let result = try await repository.read(query: "test")
 
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ [Document("test")] ])
+        XCTAssertEqual(result, [Document("test")])
     }
     
-    func testReadError() {
+    func testReadError() async throws {
         // Arrange
-        let output = scheduler.createObserver([Document].self)
-        repository.read(query: testErrorString)
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
-
-        // Assert
-        XCTAssertRecordedElements(output.events, [ TestError.someError ])
+        do {
+            _ = try await repository.read(query: testErrorString)
+            XCTFail("We need an error here!")
+        } catch let error {
+            // Assert
+            XCTAssertEqual(error as! TestError, TestError.someError)
+        }
     }
 }

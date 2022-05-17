@@ -5,8 +5,6 @@
 //  Created by Vyacheslav Konopkin on 05.08.2021.
 //
 
-import RxSwift
-import RxTest
 import XCTest
 
 @testable import PLOSClient
@@ -47,96 +45,75 @@ private class MockErrorStorage: Storage {
 }
 
 class HistoryRepositoryTests: XCTestCase {
-    let disposeBag = DisposeBag()
-    let scheduler = TestScheduler(initialClock: 0)
-
-    func testAdd() {
+    func testAdd() async throws {
         // Arrange
-        let output = scheduler.createObserver(Bool.self)
         let repository = HistoryRepository(storage: MockStorage(Data()))
-        repository.add(item: History(id: "test"))
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
+        let result = try await repository.add(item: History(id: "test"))
 
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ true ])
+        XCTAssertEqual(result, true)
     }
 
-    func testAddError() {
+    func testAddError() async throws {
         // Arrange
-        let output = scheduler.createObserver(Bool.self)
         let repository = HistoryRepository(storage: MockErrorStorage())
-        repository.add(item: History(id: testErrorString))
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
-
-        // Assert
-        XCTAssertRecordedElements(output.events, [ TestError.someError ])
+        do {
+            _ = try await repository.add(item: History(id: testErrorString))
+        } catch let error {
+            // Assert
+            XCTAssertEqual(error as! TestError, TestError.someError)
+        }
     }
 
-    func testRead() throws {
+    func testRead() async throws {
         // Arrange
-        let output = scheduler.createObserver([History].self)
         let expected = [
             History(id: "test1"),
             History(id: "test2")
         ]
         let data = try JSONEncoder().encode(expected)
         let repository = HistoryRepository(storage: MockStorage(data))
-        repository.read(query: "")
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
+        let result = try await repository.read(query: "")
 
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ expected ])
+        XCTAssertEqual(result, expected)
     }
 
-    func testReadQuery() throws {
+    func testReadQuery() async throws {
         // Arrange
-        let output = scheduler.createObserver([History].self)
         let testQuery = "test1"
         let data = try JSONEncoder().encode([
             History(id: testQuery),
             History(id: "test2")
         ])
         let repository = HistoryRepository(storage: MockStorage(data))
-        repository.read(query: testQuery)
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
+        let result = try await repository.read(query: testQuery)
 
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ [History(id: testQuery)] ])
+        XCTAssertEqual(result, [History(id: testQuery)])
     }
 
-    func testReadNotFound() throws {
+    func testReadNotFound() async throws {
         // Arrange
-        let output = scheduler.createObserver([History].self)
         let testQuery = "not found"
         let data = try JSONEncoder().encode([
             History(id: "test1"),
             History(id: "test2")
         ])
         let repository = HistoryRepository(storage: MockStorage(data))
-        repository.read(query: testQuery)
-            .bind(to: output)
-            .disposed(by: disposeBag)
 
         // Act
-        scheduler.start()
+        let result = try await repository.read(query: testQuery)
 
         // Assert
-        XCTAssertRecordedElements(output.events.dropLast(), [ [History]() ])
+        XCTAssertEqual(result, [History]())
     }
 }

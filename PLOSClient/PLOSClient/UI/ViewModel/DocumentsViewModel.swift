@@ -5,18 +5,9 @@
 //  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-import RxSwift
-import RxCocoa
-
-class DocumentsViewModel: ViewModel {
-    struct Input {
-        let searchDocument: Driver<String>
-    }
-    
-    struct Output {
-        let documents: Driver<[Document]>
-        let errors: Signal<Error>
-    }
+class DocumentsViewModel {
+    var documents = Binder<[Document]>(value: [])
+    var error = BinderOpt<Error>(value: nil)
     
     private let searchUseCase: AnyUseCase<String, [Document]>
     
@@ -24,14 +15,13 @@ class DocumentsViewModel: ViewModel {
         self.searchUseCase = searchUseCase
     }
     
-    func transform(from input: Input) -> Output {
-        let errors = PublishRelay<Error>()
-        let documents = input.searchDocument
-            .flatMapLatest { [weak self] value -> Driver<[Document]> in
-                guard let self = self else { return .just([]) }
-                return self.searchUseCase.execute(with: value)
-                    .asDriver(errors: errors)
+    func search(document name: String) {
+        Task {
+            do {
+                documents.value = try await searchUseCase.execute(with: name)
+            } catch let error {
+                self.error.value = error
             }
-        return Output(documents: documents, errors: errors.asSignal())
+        }
     }
 }

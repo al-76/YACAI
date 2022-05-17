@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RxSwift
 import SafariServices
 
 class DocumentsViewCell: UITableViewCell {
@@ -18,6 +17,9 @@ class DocumentsViewCell: UITableViewCell {
     
     private let url = "https://doi.org/"
     
+    private var documentId = ""
+    private var presentViewController: PresentViewController? = nil
+    
     @IBOutlet weak var articleType: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
@@ -25,19 +27,15 @@ class DocumentsViewCell: UITableViewCell {
     @IBOutlet weak var journalAndPublication: UILabel!
     @IBOutlet weak var counter: UILabel!
     
-    private var disposeBag = DisposeBag()
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-    }
 
     func setDocument(with document: Document, presentViewController:  @escaping PresentViewController) {
+        documentId = document.id
+        self.presentViewController = presentViewController
+        
         articleType.text = document.articleType
         title.text = document.titleDisplay
         title.underline()
@@ -48,16 +46,16 @@ class DocumentsViewCell: UITableViewCell {
             .setValue(document.publicationDate)
         counter.setValue(String(document.counterTotallAll))
         
-        let tapGesture = UITapGestureRecognizer()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapDocument(recognizer:)))
         title.addGestureRecognizer(tapGesture)
-        tapGesture.rx.event.bind(onNext: { [weak self] recognizer in
-            guard let self = self else { return }
-            if let url = URL(string: self.url + document.id) {
-                presentViewController(SFSafariViewController(url: url), nil)
-            } else {
-                presentViewController(nil, Error.invalidUrl(url: self.url))
-            }
-        }).disposed(by: disposeBag)
+    }
+    
+    @objc func tapDocument(recognizer: UITapGestureRecognizer) {
+        if let url = URL(string: self.url + self.documentId) {
+            presentViewController?(SFSafariViewController(url: url), nil)
+        } else {
+            presentViewController?(nil, Error.invalidUrl(url: self.url))
+        }
     }
 }
 

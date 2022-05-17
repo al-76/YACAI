@@ -6,25 +6,21 @@
 //
 
 import XCTest
-import RxSwift
-import RxTest
 
 @testable import PLOSClient
 
 private let testError = "error"
 
 private class MockSearchUseCase: UseCase {
-    func execute(with input: String) -> Observable<[Document]> {
+    func execute(with input: String) async throws -> [Document] {
         if input == testError {
-            return .error(TestError.someError)
+            throw TestError.someError
         }
-        return .just([Document(input)])
+        return [Document(input)]
     }
 }
 
 class DocumentsViewModelTests: XCTestCase {
-    let disposeBag = DisposeBag()
-    let scheduler = TestScheduler(initialClock: 0)
     var viewModel: DocumentsViewModel!
     
     override func setUp() {
@@ -34,39 +30,35 @@ class DocumentsViewModelTests: XCTestCase {
     func testSearchDocuments() {
         // Arrange
         let testQuery = "test"
-        let inputText = scheduler.createHotObservable([
-            .next(200, testQuery)
-        ]).asDriver(onErrorJustReturn: "")
-        let output = viewModel.transform(from: DocumentsViewModel.Input(searchDocument: inputText))
-        let outputDocuments = scheduler.createObserver([Document].self)
-        output.documents
-            .drive(outputDocuments)
-            .disposed(by: disposeBag)
+        let found = expectation(description: "Documents are found!")
+        var documents: [Document]?
+        viewModel.documents.bind {
+            documents = $0
+            found.fulfill()
+        }
         
         // Act
-        scheduler.start()
+        viewModel.search(document: testQuery)
         
         // Assert
-        XCTAssertRecordedElements(outputDocuments.events, [ [Document(testQuery)] ])
+        waitForExpectations(timeout: 3)
+        XCTAssertEqual(documents, [Document(testQuery)])
     }
     
     func testSearchDocumentsError() {
         // Arrange
-        let inputText = scheduler.createHotObservable([
-            .next(200, testError)
-        ]).asDriver(onErrorJustReturn: "")
-        let output = viewModel.transform(from: DocumentsViewModel.Input(searchDocument: inputText))
-        let outputDocuments = scheduler.createObserver([Document].self)
-        let outputErrors = scheduler.createObserver(Error.self)
-        disposeBag.insert {
-            output.documents.drive(outputDocuments)
-            output.errors.emit(to: outputErrors)
+        let found = expectation(description: "There's an error!")
+        var error: Error?
+        viewModel.error.bind {
+            error = $0
+            found.fulfill()
         }
         
         // Act
-        scheduler.start()
+        viewModel.search(document: testError)
         
         // Assert
-        XCTAssertRecordedElements(outputErrors.events, [ TestError.someError ])
+        waitForExpectations(timeout: 3)
+        XCTAssertEqual(error as! TestError, TestError.someError)
     }
 }
