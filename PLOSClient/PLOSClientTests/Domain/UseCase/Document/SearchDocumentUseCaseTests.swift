@@ -24,13 +24,7 @@ extension Document {
     }
 }
 
-extension Document: Equatable {
-    public static func == (lhs: Document, rhs: Document) -> Bool {
-        lhs.id == rhs.id
-    }
-}
-
-private class MockRepository: QueryRepository {
+private struct MockRepository: QueryRepository {
     private let documents: [Document]
 
     init(documents: [Document]) {
@@ -52,7 +46,7 @@ class SearchDocumentUseCaseTests: XCTestCase {
         let useCase = SearchDocumentUseCase(repository: AnyQueryRepository(wrapped: repository))
 
         // Act
-        let res = try await(useCase.execute(with: "test"))
+        let res = try awaitPublisher(useCase.execute(with: "test"))
 
         // Assert
         XCTAssertEqual(res, expected)

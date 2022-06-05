@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DefaultStorage: Storage {
+struct DefaultStorage: Storage {
     func get<T: Codable>(id: String, defaultObject: T) -> T {
         guard let url = getUrl(from: id),
               FileManager.default.fileExists(atPath: url.path),
@@ -31,7 +31,7 @@ class DefaultStorage: Storage {
     }
 
     private func getUrl(from: String) -> URL? {
-        try? FileManager.default.url(for: .cachesDirectory,
+        try? FileManager.default.url(for: .userDirectory,
                                             in: .userDomainMask,
                                             appropriateFor: nil,
                                             create: true)
