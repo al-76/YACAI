@@ -29,8 +29,8 @@ class DocumentsViewModel: ObservableObject {
         $searchDocument
             .filter { !$0.isEmpty }
             .removeDuplicates()
-            .flatMap { [weak searchDocumentUseCase] value in
-                searchDocumentUseCase?.execute(with: value) ??
+            .flatMap { [weak self] value in
+                self?.searchDocumentUseCase.execute(with: value) ??
                     Just([])
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()

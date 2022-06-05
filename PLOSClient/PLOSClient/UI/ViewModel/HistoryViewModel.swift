@@ -32,8 +32,8 @@ class HistoryViewModel: ObservableObject {
     
     private func bindInputToOutput() {
         let foundHistory = $searchHistory
-            .flatMap { [weak searchHistoryUseCase] value in
-                searchHistoryUseCase?.execute(with: value) ??
+            .flatMap { [weak self] value in
+                self?.searchHistoryUseCase.execute(with: value) ??
                     Just([])
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
@@ -41,8 +41,8 @@ class HistoryViewModel: ObservableObject {
         let updatedHistory = $addHistory
             .filter { !$0.isEmpty }
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .flatMap { [weak addHistoryUseCase] value in
-                addHistoryUseCase?.execute(with: value) ??
+            .flatMap { [weak self] value in
+                self?.addHistoryUseCase.execute(with: value) ??
                     Just(false)
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
