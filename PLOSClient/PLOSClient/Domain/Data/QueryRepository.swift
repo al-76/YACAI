@@ -14,7 +14,7 @@ protocol QueryRepository {
     func read(query: String) -> AnyPublisher<[T], Error>
 }
 
-class AnyQueryRepository<T>: QueryRepository {
+final class AnyQueryRepository<T>: QueryRepository {
     private let readObject: (String) -> AnyPublisher<[T], Error>
 
     init<TypeQueryRepository: QueryRepository>(wrapped: TypeQueryRepository)

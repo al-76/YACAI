@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class SearchDocumentUseCase: UseCase {
+final class SearchDocumentUseCase: UseCase {
     private let repository: AnyQueryRepository<Document>
     
     init(repository: AnyQueryRepository<Document>) {

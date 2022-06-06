@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import Resolver
 
-class HistoryViewModel: ObservableObject {
+final class HistoryViewModel: ObservableObject {
     // Input
     @Published var searchHistory: String = ""
     @Published var addHistory: String = ""
