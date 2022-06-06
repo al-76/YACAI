@@ -60,7 +60,7 @@ class DocumentsRepositoryTests: XCTestCase {
         let expected = [Document("test")]
 
         // Act
-        let res = try await(repository.read(query: "test"))
+        let res = try awaitPublisher(repository.read(query: "test"))
 
         // Assert
         XCTAssertEqual(res, expected)

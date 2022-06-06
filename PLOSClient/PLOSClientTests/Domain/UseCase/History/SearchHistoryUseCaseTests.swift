@@ -27,7 +27,7 @@ class SearchHistoryUseCaseTests: XCTestCase {
         let useCase = SearchHistoryUseCase(repository: AnyQueryRepository(wrapped: repository))
 
         // Act
-        let res = try await(useCase.execute(with: testQuery))
+        let res = try awaitPublisher(useCase.execute(with: testQuery))
 
         // Assert
         XCTAssertEqual(res, expected)

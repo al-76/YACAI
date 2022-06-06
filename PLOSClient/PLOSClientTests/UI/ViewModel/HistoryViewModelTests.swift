@@ -53,7 +53,7 @@ class HistoryViewModelTests: XCTestCase {
         viewModel.searchHistory = testQuery
         
         // Assert
-        let res = try await(viewModel.$history.dropFirst(2))
+        let res = try awaitPublisher(viewModel.$history.dropFirst(2))
         XCTAssertEqual(res, expected)
     }
     
@@ -65,7 +65,7 @@ class HistoryViewModelTests: XCTestCase {
         viewModel.searchHistory = testErrorString
         
         // Assert
-        let res = try await(viewModel.$error.dropFirst())
+        let res = try awaitPublisher(viewModel.$error.dropFirst())
         XCTAssertEqual(res, expected)
     }
     
@@ -77,7 +77,7 @@ class HistoryViewModelTests: XCTestCase {
         viewModel.addHistory = "test"
         
         // Assert
-        let res = try await(viewModel.$history.dropFirst(2))
+        let res = try awaitPublisher(viewModel.$history.dropFirst(2))
         XCTAssertEqual(res, expected)
     }
     
@@ -89,7 +89,7 @@ class HistoryViewModelTests: XCTestCase {
         viewModel.addHistory = testErrorString
         
         // Assert
-        let res = try await(viewModel.$error.dropFirst())
+        let res = try awaitPublisher(viewModel.$error.dropFirst())
         XCTAssertEqual(res, expected)
     }
 }

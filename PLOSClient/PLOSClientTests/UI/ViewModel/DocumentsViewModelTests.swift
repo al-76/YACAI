@@ -40,7 +40,7 @@ class DocumentsViewModelTests: XCTestCase {
         viewModel.searchDocument = testQuery
         
         // Assert
-        let res = try await(viewModel.$documents.dropFirst())
+        let res = try awaitPublisher(viewModel.$documents.dropFirst())
         XCTAssertEqual(res, expected)
     }
     
@@ -52,7 +52,7 @@ class DocumentsViewModelTests: XCTestCase {
         viewModel.searchDocument = testErrorString
         
         // Assert
-        let res = try await(viewModel.$error.dropFirst())
+        let res = try awaitPublisher(viewModel.$error.dropFirst())
         XCTAssertEqual(res, expected)
     }
 }

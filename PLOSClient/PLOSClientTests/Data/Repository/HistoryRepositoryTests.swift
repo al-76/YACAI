@@ -54,7 +54,7 @@ class HistoryRepositoryTests: XCTestCase {
         let repository = HistoryRepository(storage: MockStorage(Data()))
         
         // Act
-        let res = try await(repository.add(item: History(id: "test")))
+        let res = try awaitPublisher(repository.add(item: History(id: "test")))
         
         // Assert
         XCTAssertEqual(res, expected)
@@ -83,7 +83,7 @@ class HistoryRepositoryTests: XCTestCase {
         let repository = HistoryRepository(storage: MockStorage(data))
         
         // Act
-        let res = try await(repository.read(query: testQuery))
+        let res = try awaitPublisher(repository.read(query: testQuery))
         
         // Assert
         XCTAssertEqual(res, expected)
@@ -100,7 +100,7 @@ class HistoryRepositoryTests: XCTestCase {
         let repository = HistoryRepository(storage: MockStorage(data))
         
         // Act
-        let res = try await(repository.read(query: testQuery))
+        let res = try awaitPublisher(repository.read(query: testQuery))
         
         // Assert
         XCTAssertEqual(res, expected)
@@ -117,7 +117,7 @@ class HistoryRepositoryTests: XCTestCase {
         let repository = HistoryRepository(storage: MockStorage(data))
         
         // Act
-        let res = try await(repository.read(query: testQuery))
+        let res = try awaitPublisher(repository.read(query: testQuery))
         
         // Assert
         XCTAssertEqual(res, expected)

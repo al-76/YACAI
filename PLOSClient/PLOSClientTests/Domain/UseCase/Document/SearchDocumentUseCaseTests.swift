@@ -52,7 +52,7 @@ class SearchDocumentUseCaseTests: XCTestCase {
         let useCase = SearchDocumentUseCase(repository: AnyQueryRepository(wrapped: repository))
 
         // Act
-        let res = try await(useCase.execute(with: "test"))
+        let res = try awaitPublisher(useCase.execute(with: "test"))
 
         // Assert
         XCTAssertEqual(res, expected)

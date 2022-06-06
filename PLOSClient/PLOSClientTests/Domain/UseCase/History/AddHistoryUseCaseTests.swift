@@ -26,7 +26,7 @@ class AddHistoryUseCaseTests: XCTestCase {
         let useCase = AddHistoryUseCase(repository: AnyCommandRepository(wrapped: repository))
 
         // Act
-        let res = try await(useCase.execute(with: "test"))
+        let res = try awaitPublisher(useCase.execute(with: "test"))
 
         // Assert
         XCTAssertEqual(res, expected)
