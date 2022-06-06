@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct SearchHistoryUseCase: UseCase {
+class SearchHistoryUseCase: UseCase {
     private let repository: AnyQueryRepository<History>
     
     init(repository: AnyQueryRepository<History>) {

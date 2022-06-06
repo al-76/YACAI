@@ -16,7 +16,7 @@ enum TestAwaitError: Error {
 }
 
 extension XCTestCase {
-    func awaitPublisher<T: Publisher>(
+    func await<T: Publisher>(
         _ publisher: T,
         timeout: TimeInterval = 10,
         file: StaticString = #file,

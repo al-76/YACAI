@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct DocumentsRepository: QueryRepository {
+class DocumentsRepository: QueryRepository {
     private static let url = "https://api.plos.org/search?start=0&rows=10&fl=id,journal,publication_date,title_display,article_type,author_display,abstract,counter_total_all"
 
     private let network: Network
@@ -20,7 +20,11 @@ struct DocumentsRepository: QueryRepository {
     }
 
     func read(query: String) -> AnyPublisher<[Document], Error> {
-        Future { promise in
+        Future { [weak self] promise in
+            guard let self = self else {
+                promise(.success([]))
+                return
+            }
             self.network
                 .get(with: Self.url + "&q=title:\(query)") { result in
                     do {

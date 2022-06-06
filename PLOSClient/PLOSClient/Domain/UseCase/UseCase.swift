@@ -15,7 +15,7 @@ protocol UseCase {
     func execute(with input: Input) -> AnyPublisher<Output, Error>
 }
 
-struct AnyUseCase<Input, Output>: UseCase {
+class AnyUseCase<Input, Output>: UseCase {
     private let executeObject: (_ input: Input) -> AnyPublisher<Output, Error>
 
     init<TypeUseCase: UseCase>(wrapped: TypeUseCase)

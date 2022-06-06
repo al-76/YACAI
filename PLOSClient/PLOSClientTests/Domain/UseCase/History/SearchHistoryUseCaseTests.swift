@@ -10,7 +10,7 @@ import XCTest
 
 @testable import PLOSClient
 
-private struct MockRepository: QueryRepository {
+private class MockRepository: QueryRepository {
     func read(query: String) -> AnyPublisher<[History], Error> {
         Just([History(id: query)])
             .setFailureType(to: Error.self)
@@ -27,7 +27,7 @@ class SearchHistoryUseCaseTests: XCTestCase {
         let useCase = SearchHistoryUseCase(repository: AnyQueryRepository(wrapped: repository))
 
         // Act
-        let res = try awaitPublisher(useCase.execute(with: testQuery))
+        let res = try await(useCase.execute(with: testQuery))
 
         // Assert
         XCTAssertEqual(res, expected)

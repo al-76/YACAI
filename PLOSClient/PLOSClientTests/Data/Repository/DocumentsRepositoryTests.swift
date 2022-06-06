@@ -12,7 +12,7 @@ import XCTest
 
 private let testErrorString = "error"
 
-struct MockNetwork: Network {
+class MockNetwork: Network {
     func get(with url: String, completion: @escaping Completion) {
         if url.contains(testErrorString) {
             completion(.failure(TestError.someError))
@@ -41,7 +41,7 @@ struct MockNetwork: Network {
     }
 }
 
-struct MockMapper: Mapper {
+class MockMapper: Mapper {
     func map(input: DocumentDTO) -> Document {
         Document("test")
     }
@@ -60,7 +60,7 @@ class DocumentsRepositoryTests: XCTestCase {
         let expected = [Document("test")]
 
         // Act
-        let res = try awaitPublisher(repository.read(query: "test"))
+        let res = try await(repository.read(query: "test"))
 
         // Assert
         XCTAssertEqual(res, expected)

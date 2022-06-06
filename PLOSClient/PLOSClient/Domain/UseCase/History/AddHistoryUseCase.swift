@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct AddHistoryUseCase: UseCase {
+class AddHistoryUseCase: UseCase {
     private let repository: AnyCommandRepository<History>
     
     init(repository: AnyCommandRepository<History>) {

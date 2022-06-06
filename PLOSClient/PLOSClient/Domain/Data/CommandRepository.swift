@@ -14,7 +14,7 @@ protocol CommandRepository {
     func add(item: T) -> AnyPublisher<Bool, Error>
 }
 
-struct AnyCommandRepository<T>: CommandRepository {
+class AnyCommandRepository<T>: CommandRepository {
     private let addObject: (T) -> AnyPublisher<Bool, Error>
 
     init<TypeUseCase: CommandRepository>(wrapped: TypeUseCase)

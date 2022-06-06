@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DocumentsMapper: Mapper {
+class DocumentsMapper: Mapper {
     func map(input: DocumentDTO) -> Document {
         Document(id: input.id,
                  publicationDate: dateGet(from: input.publication_date),
