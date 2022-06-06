@@ -10,7 +10,7 @@ import XCTest
 
 @testable import PLOSClient
 
-private class MockRepository: QueryRepository {
+private struct MockRepository: QueryRepository {
     func read(query: String) -> AnyPublisher<[History], Error> {
         Just([History(id: query)])
             .setFailureType(to: Error.self)

@@ -12,7 +12,7 @@ import XCTest
 
 private let testErrorString = "error"
 
-class MockStorage: Storage {
+private struct MockStorage: Storage {
     private let data: Data
     
     init(_ data: Data) {
@@ -33,7 +33,7 @@ class MockStorage: Storage {
     }
 }
 
-class MockErrorStorage: Storage {
+private struct MockErrorStorage: Storage {
     func get<T: Codable>(id: String, defaultObject: T) -> T {
         defaultObject
     }

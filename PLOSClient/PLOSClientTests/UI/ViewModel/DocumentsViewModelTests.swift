@@ -12,7 +12,7 @@ import XCTest
 
 private let testErrorString = "error"
 
-class MockSearchDocumentUseCase: UseCase {
+private struct MockSearchDocumentUseCase: UseCase {
     func execute(with input: String) -> AnyPublisher<[Document], Error> {
         if input == testErrorString {
             return Fail(error: TestError.someError)
