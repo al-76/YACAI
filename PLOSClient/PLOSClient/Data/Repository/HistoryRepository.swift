@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HistoryRepository: CommandRepository, QueryRepository {
+final class HistoryRepository: CommandRepository, QueryRepository {
     private static let history = "history"
     
     private let storage: Storage

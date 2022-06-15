@@ -8,7 +8,7 @@
 import UIKit
 import Resolver
 
-class HistoryViewController: UITableViewController {
+final class HistoryViewController: UITableViewController {
     // Internal bindings
     var addHistory = Binder<String>(value: "")
     var searchHistory = Binder<String>(value: "")

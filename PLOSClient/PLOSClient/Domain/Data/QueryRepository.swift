@@ -13,7 +13,7 @@ protocol QueryRepository {
     func read(query: String) async throws -> QueryRepositoryType
 }
 
-class AnyQueryRepository<T>: QueryRepository {
+final class AnyQueryRepository<T>: QueryRepository {
     private let readObject: (String) async throws -> T
 
     init<TypeQueryRepository: QueryRepository>(wrapped: TypeQueryRepository)

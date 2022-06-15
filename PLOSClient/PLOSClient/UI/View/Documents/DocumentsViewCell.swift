@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-class DocumentsViewCell: UITableViewCell {
+final class DocumentsViewCell: UITableViewCell {
     enum Error: Swift.Error {
         case invalidUrl(url: String)
     }

@@ -5,7 +5,7 @@
 //  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-class AddHistoryUseCase: UseCase {
+final class AddHistoryUseCase: UseCase {
     private let repository: AnyCommandRepository<History>
     
     init(repository: AnyCommandRepository<History>) {

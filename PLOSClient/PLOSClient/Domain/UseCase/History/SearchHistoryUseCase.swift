@@ -5,7 +5,7 @@
 //  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-class SearchHistoryUseCase: UseCase {
+final class SearchHistoryUseCase: UseCase {
     private let repository: AnyQueryRepository<[History]>
     
     init(repository: AnyQueryRepository<[History]>) {

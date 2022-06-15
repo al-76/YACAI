@@ -8,7 +8,7 @@
 import Resolver
 import UIKit
 
-class DocumentsViewController: UITableViewController {
+final class DocumentsViewController: UITableViewController {
     var searchResultsController: HistoryViewController!
 
     @Injected var viewModel: DocumentsViewModel

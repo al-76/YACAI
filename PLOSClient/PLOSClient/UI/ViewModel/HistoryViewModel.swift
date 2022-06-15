@@ -5,7 +5,7 @@
 //  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-class HistoryViewModel {
+final class HistoryViewModel {
     var history = Binder<[History]>(value: [])
     var error = BinderOpt<Error>(value: nil)
             

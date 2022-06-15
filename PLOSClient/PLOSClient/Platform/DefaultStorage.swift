@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DefaultStorage: Storage {
+final class DefaultStorage: Storage {
     func get<T: Codable>(id: String, defaultObject: T) -> T {
         guard let url = getUrl(from: id),
               FileManager.default.fileExists(atPath: url.path),

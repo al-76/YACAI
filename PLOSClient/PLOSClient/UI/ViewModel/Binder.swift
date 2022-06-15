@@ -30,7 +30,7 @@ final class Binder<T> {
     }
 }
 
-class BinderOpt<T> {
+final class BinderOpt<T> {
     typealias OnResult = (T?) -> Void
     
     private var onResult: OnResult?

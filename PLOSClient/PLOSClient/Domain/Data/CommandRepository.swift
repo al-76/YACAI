@@ -13,7 +13,7 @@ protocol CommandRepository {
     func add(item: CommandRepositoryType) async throws -> Bool
 }
 
-class AnyCommandRepository<T>: CommandRepository {
+final class AnyCommandRepository<T>: CommandRepository {
     private let addObject: (T) async throws -> Bool
 
     init<TypeUseCase: CommandRepository>(wrapped: TypeUseCase)

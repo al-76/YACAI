@@ -12,7 +12,7 @@ protocol UseCase {
     func execute(with input: Input) async throws -> Output
 }
 
-class AnyUseCase<Input, Output>: UseCase {
+final class AnyUseCase<Input, Output>: UseCase {
     private let executeObject: (_ input: Input) async throws -> Output
 
     init<TypeUseCase: UseCase>(wrapped: TypeUseCase)

@@ -5,7 +5,7 @@
 //  Created by Vyacheslav Konopkin on 06.08.2021.
 //
 
-class DocumentsViewModel {
+final class DocumentsViewModel {
     var documents = Binder<[Document]>(value: [])
     var error = BinderOpt<Error>(value: nil)
     
