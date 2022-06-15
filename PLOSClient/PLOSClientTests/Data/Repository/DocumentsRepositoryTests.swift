@@ -12,7 +12,7 @@ import XCTest
 
 private let testErrorString = "error"
 
-private struct MockNetwork: Network {
+class MockNetwork: Network {
     func get(with url: String, completion: @escaping Completion) {
         if url.contains(testErrorString) {
             completion(.failure(TestError.someError))
@@ -41,7 +41,7 @@ private struct MockNetwork: Network {
     }
 }
 
-private struct MockMapper: Mapper {
+class MockMapper: Mapper {
     func map(input: DocumentDTO) -> Document {
         Document("test")
     }

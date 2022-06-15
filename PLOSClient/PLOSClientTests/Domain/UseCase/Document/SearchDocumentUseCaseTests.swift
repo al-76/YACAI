@@ -11,7 +11,26 @@ import Resolver
 
 @testable import PLOSClient
 
-private struct MockRepository: QueryRepository {
+extension Document {
+    init(_ id: String) {
+        self.init(id: id,
+                  publicationDate: "test",
+                  authorDisplay: "test",
+                  abstract: "test",
+                  titleDisplay: "test",
+                  articleType: "test",
+                  journal: "test",
+                  counterTotallAll: 1000)
+    }
+}
+
+extension Document: Equatable {
+    public static func == (lhs: Document, rhs: Document) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+private class MockRepository: QueryRepository {
     private let documents: [Document]
 
     init(documents: [Document]) {

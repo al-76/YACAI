@@ -10,7 +10,7 @@ import XCTest
 
 @testable import PLOSClient
 
-private struct MockRepository: CommandRepository {
+private class MockRepository: CommandRepository {
     func add(item: History) -> AnyPublisher<Bool, Error> {
         Just(true)
             .setFailureType(to: Error.self)
