@@ -14,7 +14,7 @@ protocol QueryRepository {
     func read(query: String) -> Observable<QueryRepositoryType>
 }
 
-class AnyQueryRepository<T>: QueryRepository {
+final class AnyQueryRepository<T>: QueryRepository {
     private let readObject: (String) -> Observable<T>
 
     init<TypeQueryRepository: QueryRepository>(wrapped: TypeQueryRepository)

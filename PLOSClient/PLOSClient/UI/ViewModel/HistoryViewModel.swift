@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class HistoryViewModel: ViewModel {
+final class HistoryViewModel: ViewModel {
     struct Input {
         let searchHistory: Driver<String>
         let addHistory: Signal<String>

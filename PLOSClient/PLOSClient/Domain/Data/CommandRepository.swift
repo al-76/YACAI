@@ -14,7 +14,7 @@ protocol CommandRepository {
     func add(item: CommandRepositoryType) -> Observable<Bool>
 }
 
-class AnyCommandRepository<T>: CommandRepository {
+final class AnyCommandRepository<T>: CommandRepository {
     private let addObject: (T) -> Observable<Bool>
 
     init<TypeUseCase: CommandRepository>(wrapped: TypeUseCase)

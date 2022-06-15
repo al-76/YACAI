@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DefaultNetwork: Network {
+final class DefaultNetwork: Network {
     enum DefaultNetworkError: Error {
         case invalidUrl(url: String)
         case unknownError

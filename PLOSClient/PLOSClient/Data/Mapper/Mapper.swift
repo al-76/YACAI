@@ -14,7 +14,7 @@ protocol Mapper {
     func map(input: Input) -> Output
 }
 
-class AnyMapper<Input, Output>: Mapper {
+final class AnyMapper<Input, Output>: Mapper {
     private let mapObject: (_ input: Input) -> Output
 
     init<TypeMapper: Mapper>(wrapped: TypeMapper)

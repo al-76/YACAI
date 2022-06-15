@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-class DocumentsViewModel: ViewModel {
+final class DocumentsViewModel: ViewModel {
     struct Input {
         let searchDocument: Driver<String>
     }

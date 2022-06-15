@@ -14,7 +14,7 @@ protocol UseCase {
     func execute(with input: Input) -> Observable<Output>
 }
 
-class AnyUseCase<Input, Output>: UseCase {
+final class AnyUseCase<Input, Output>: UseCase {
     private let executeObject: (_ input: Input) -> Observable<Output>
 
     init<TypeUseCase: UseCase>(wrapped: TypeUseCase)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryViewCell: UITableViewCell {
+final class HistoryViewCell: UITableViewCell {
     @IBOutlet weak var history: UILabel!
     
     override func awakeFromNib() {

@@ -10,7 +10,7 @@ import Resolver
 import RxSwift
 import RxCocoa
 
-class HistoryViewController: UITableViewController {
+final class HistoryViewController: UITableViewController {
     let searchHistory = BehaviorRelay<String>(value: "")
     let addHistory = PublishRelay<String>()
     let searchDocument = PublishRelay<String>()
