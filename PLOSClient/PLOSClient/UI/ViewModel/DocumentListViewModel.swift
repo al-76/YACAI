@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import Resolver
 
-final class DocumentsViewModel: ObservableObject {
+final class DocumentListViewModel: ObservableObject {
     // Input
     @Published var searchDocument: String = ""
 

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F01719A26B6A3DD001DDC8E /* DocumentsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719926B6A3DD001DDC8E /* DocumentsViewModelTests.swift */; };
-		6F01719C26B6A3EB001DDC8E /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719B26B6A3EB001DDC8E /* HistoryViewModelTests.swift */; };
+		6F01719A26B6A3DD001DDC8E /* DocumentListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719926B6A3DD001DDC8E /* DocumentListViewModelTests.swift */; };
+		6F01719C26B6A3EB001DDC8E /* DocumentsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F01719B26B6A3EB001DDC8E /* DocumentsViewModelTests.swift */; };
 		6F01719F26B6A842001DDC8E /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 6F01719E26B6A842001DDC8E /* Resolver */; };
 		6F0171A526B6AB13001DDC8E /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0171A426B6AB13001DDC8E /* AppDelegate+Injection.swift */; };
 		6F0171AA26B6AC2C001DDC8E /* Domain+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0171A926B6AC2C001DDC8E /* Domain+Injection.swift */; };
@@ -40,15 +40,14 @@
 		6F82D9AE26B54722003BC8EE /* AddHistoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82D9AD26B54722003BC8EE /* AddHistoryUseCaseTests.swift */; };
 		6F82D9B026B54745003BC8EE /* SearchHistoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82D9AF26B54745003BC8EE /* SearchHistoryUseCaseTests.swift */; };
 		6F82D9B226B54AC4003BC8EE /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82D9B126B54AC4003BC8EE /* HistoryRepository.swift */; };
-		6F8D7BD226B2BFBB007F4CA3 /* DocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD126B2BFBB007F4CA3 /* DocumentsView.swift */; };
-		6F8D7BD726B2F4E4007F4CA3 /* DocumentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD626B2F4E4007F4CA3 /* DocumentsViewModel.swift */; };
+		6F8D7BD226B2BFBB007F4CA3 /* DocumentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD126B2BFBB007F4CA3 /* DocumentList.swift */; };
+		6F8D7BD726B2F4E4007F4CA3 /* DocumentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD626B2F4E4007F4CA3 /* DocumentListViewModel.swift */; };
 		6F8D7BDA26B2FE0B007F4CA3 /* DocumentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D7BD926B2FE0B007F4CA3 /* DocumentRow.swift */; };
 		6FDE1F0626B29B54008F4A3F /* View+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE1F0526B29B54008F4A3F /* View+Alert.swift */; };
 		6FE1640B26B0133300FD3DC7 /* PLOSClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1640A26B0133300FD3DC7 /* PLOSClientApp.swift */; };
-		6FE1640D26B0133300FD3DC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1640C26B0133300FD3DC7 /* ContentView.swift */; };
+		6FE1640D26B0133300FD3DC7 /* DocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1640C26B0133300FD3DC7 /* DocumentsView.swift */; };
 		6FE1640F26B0133500FD3DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1640E26B0133500FD3DC7 /* Assets.xcassets */; };
 		6FE1641226B0133500FD3DC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1641126B0133500FD3DC7 /* Preview Assets.xcassets */; };
-		6FE1642826B0133500FD3DC7 /* PLOSClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1642726B0133500FD3DC7 /* PLOSClientUITests.swift */; };
 		CD16BB2726BDA50A00609AB1 /* ViewError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2626BDA50A00609AB1 /* ViewError+Equatable.swift */; };
 		CD16BB2926BDA57200609AB1 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2826BDA57200609AB1 /* TestError.swift */; };
 		CDBBAD02284E31BB0056C696 /* Document+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBBAD01284E31BB0056C696 /* Document+Init.swift */; };
@@ -72,8 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6F01719926B6A3DD001DDC8E /* DocumentsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewModelTests.swift; sourceTree = "<group>"; };
-		6F01719B26B6A3EB001DDC8E /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
+		6F01719926B6A3DD001DDC8E /* DocumentListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListViewModelTests.swift; sourceTree = "<group>"; };
+		6F01719B26B6A3EB001DDC8E /* DocumentsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewModelTests.swift; sourceTree = "<group>"; };
 		6F0171A426B6AB13001DDC8E /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		6F0171A926B6AC2C001DDC8E /* Domain+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Domain+Injection.swift"; sourceTree = "<group>"; };
 		6F0171AC26B6ADF2001DDC8E /* Data+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Injection.swift"; sourceTree = "<group>"; };
@@ -104,21 +103,19 @@
 		6F82D9AD26B54722003BC8EE /* AddHistoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHistoryUseCaseTests.swift; sourceTree = "<group>"; };
 		6F82D9AF26B54745003BC8EE /* SearchHistoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryUseCaseTests.swift; sourceTree = "<group>"; };
 		6F82D9B126B54AC4003BC8EE /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
-		6F8D7BD126B2BFBB007F4CA3 /* DocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsView.swift; sourceTree = "<group>"; };
-		6F8D7BD626B2F4E4007F4CA3 /* DocumentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewModel.swift; sourceTree = "<group>"; };
+		6F8D7BD126B2BFBB007F4CA3 /* DocumentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentList.swift; sourceTree = "<group>"; };
+		6F8D7BD626B2F4E4007F4CA3 /* DocumentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListViewModel.swift; sourceTree = "<group>"; };
 		6F8D7BD926B2FE0B007F4CA3 /* DocumentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRow.swift; sourceTree = "<group>"; };
 		6FDE1F0526B29B54008F4A3F /* View+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Alert.swift"; sourceTree = "<group>"; };
 		6FE1640726B0133300FD3DC7 /* PLOSClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PLOSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE1640A26B0133300FD3DC7 /* PLOSClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLOSClientApp.swift; sourceTree = "<group>"; };
-		6FE1640C26B0133300FD3DC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6FE1640C26B0133300FD3DC7 /* DocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsView.swift; sourceTree = "<group>"; };
 		6FE1640E26B0133500FD3DC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FE1641126B0133500FD3DC7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6FE1641326B0133500FD3DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FE1641826B0133500FD3DC7 /* PLOSClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLOSClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE1641E26B0133500FD3DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FE1642326B0133500FD3DC7 /* PLOSClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLOSClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FE1642726B0133500FD3DC7 /* PLOSClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLOSClientUITests.swift; sourceTree = "<group>"; };
-		6FE1642926B0133500FD3DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD16BB2626BDA50A00609AB1 /* ViewError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewError+Equatable.swift"; sourceTree = "<group>"; };
 		CD16BB2826BDA57200609AB1 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		CDBBAD01284E31BB0056C696 /* Document+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+Init.swift"; sourceTree = "<group>"; };
@@ -153,8 +150,8 @@
 		6F01719826B6A3C5001DDC8E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				6F01719926B6A3DD001DDC8E /* DocumentsViewModelTests.swift */,
-				6F01719B26B6A3EB001DDC8E /* HistoryViewModelTests.swift */,
+				6F01719926B6A3DD001DDC8E /* DocumentListViewModelTests.swift */,
+				6F01719B26B6A3EB001DDC8E /* DocumentsViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -302,7 +299,7 @@
 		6F5231C226B17B2800768F65 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				6F8D7BD626B2F4E4007F4CA3 /* DocumentsViewModel.swift */,
+				6F8D7BD626B2F4E4007F4CA3 /* DocumentListViewModel.swift */,
 				6F5231C626B17B8B00768F65 /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
@@ -353,8 +350,9 @@
 		6F8D7BD826B2FDBC007F4CA3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				6FE1640C26B0133300FD3DC7 /* DocumentsView.swift */,
 				6F8D7BD926B2FE0B007F4CA3 /* DocumentRow.swift */,
-				6F8D7BD126B2BFBB007F4CA3 /* DocumentsView.swift */,
+				6F8D7BD126B2BFBB007F4CA3 /* DocumentList.swift */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -364,7 +362,6 @@
 			children = (
 				6FE1640926B0133300FD3DC7 /* PLOSClient */,
 				6FE1641B26B0133500FD3DC7 /* PLOSClientTests */,
-				6FE1642626B0133500FD3DC7 /* PLOSClientUITests */,
 				6FE1640826B0133300FD3DC7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -417,15 +414,6 @@
 			path = PLOSClientTests;
 			sourceTree = "<group>";
 		};
-		6FE1642626B0133500FD3DC7 /* PLOSClientUITests */ = {
-			isa = PBXGroup;
-			children = (
-				6FE1642726B0133500FD3DC7 /* PLOSClientUITests.swift */,
-				6FE1642926B0133500FD3DC7 /* Info.plist */,
-			);
-			path = PLOSClientUITests;
-			sourceTree = "<group>";
-		};
 		6FE1643526B0200F00FD3DC7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,12 +426,19 @@
 		6FE1643626B0201600FD3DC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CD74ECD32972F58000F803EF /* Common */,
 				6F8D7BD826B2FDBC007F4CA3 /* Documents */,
-				6FE1640C26B0133300FD3DC7 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD74ECD32972F58000F803EF /* Common */ = {
+			isa = PBXGroup;
+			children = (
 				6FDE1F0526B29B54008F4A3F /* View+Alert.swift */,
 				6F13187726B976C3002BFF01 /* SafariView.swift */,
 			);
-			path = View;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		CDBBAD03284E325E0056C696 /* Entity */ = {
@@ -589,9 +584,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FE1640D26B0133300FD3DC7 /* ContentView.swift in Sources */,
+				6FE1640D26B0133300FD3DC7 /* DocumentsView.swift in Sources */,
 				6F2B8EF126B44D17007C2445 /* CommandRepository.swift in Sources */,
-				6F8D7BD226B2BFBB007F4CA3 /* DocumentsView.swift in Sources */,
+				6F8D7BD226B2BFBB007F4CA3 /* DocumentList.swift in Sources */,
 				6F0171AD26B6ADF2001DDC8E /* Data+Injection.swift in Sources */,
 				6F13187826B976C3002BFF01 /* SafariView.swift in Sources */,
 				6F13187A26BAA0B3002BFF01 /* UI+Injection.swift in Sources */,
@@ -607,7 +602,7 @@
 				6FE1640B26B0133300FD3DC7 /* PLOSClientApp.swift in Sources */,
 				6F82D9B226B54AC4003BC8EE /* HistoryRepository.swift in Sources */,
 				6F8D7BDA26B2FE0B007F4CA3 /* DocumentRow.swift in Sources */,
-				6F8D7BD726B2F4E4007F4CA3 /* DocumentsViewModel.swift in Sources */,
+				6F8D7BD726B2F4E4007F4CA3 /* DocumentListViewModel.swift in Sources */,
 				6F13186A26B944FA002BFF01 /* DefaultStorage.swift in Sources */,
 				6F2B8F0326B4577D007C2445 /* DocumentDTO.swift in Sources */,
 				6F0171A526B6AB13001DDC8E /* AppDelegate+Injection.swift in Sources */,
@@ -627,7 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F03DE6926BBE131002996AF /* DocumentsRepositoryTests.swift in Sources */,
-				6F01719A26B6A3DD001DDC8E /* DocumentsViewModelTests.swift in Sources */,
+				6F01719A26B6A3DD001DDC8E /* DocumentListViewModelTests.swift in Sources */,
 				6F82D9B026B54745003BC8EE /* SearchHistoryUseCaseTests.swift in Sources */,
 				CD16BB2726BDA50A00609AB1 /* ViewError+Equatable.swift in Sources */,
 				6F2B8EF626B44FE2007C2445 /* SearchDocumentUseCaseTests.swift in Sources */,
@@ -635,7 +630,7 @@
 				CD16BB2926BDA57200609AB1 /* TestError.swift in Sources */,
 				6F82D9AE26B54722003BC8EE /* AddHistoryUseCaseTests.swift in Sources */,
 				CDBBAD02284E31BB0056C696 /* Document+Init.swift in Sources */,
-				6F01719C26B6A3EB001DDC8E /* HistoryViewModelTests.swift in Sources */,
+				6F01719C26B6A3EB001DDC8E /* DocumentsViewModelTests.swift in Sources */,
 				6F2B8EF826B4501C007C2445 /* XCTestCase+Await.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,7 +639,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FE1642826B0133500FD3DC7 /* PLOSClientUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,7 +784,7 @@
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PLOSClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -812,7 +806,7 @@
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PLOSClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -832,7 +826,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				INFOPLIST_FILE = PLOSClientTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -855,7 +849,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C4TQ3RFT6E;
 				INFOPLIST_FILE = PLOSClientTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -47,7 +47,7 @@ struct DocumentRow: View {
     }
 }
 
-struct SearchResultRow_Previews: PreviewProvider {
+struct DocumentRow_Previews: PreviewProvider {
     static var previews: some View {
         DocumentRow(document: Document(id: "test",
                                            publicationDate: "25 April 1953",
