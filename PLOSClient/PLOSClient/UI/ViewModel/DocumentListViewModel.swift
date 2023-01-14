@@ -36,9 +36,9 @@ final class DocumentListViewModel<Scheduler: Combine.Scheduler>: ObservableObjec
             }
             .switchToLatest()
             .receive(on: scheduler)
-            .catch { [weak self] error -> AnyPublisher<[Document], Never> in
-                self?.error = ViewError(error)
-                return Just([]).eraseToAnyPublisher()
+            .catch { [weak self] in
+                self?.error = ViewError($0)
+                return Just([Document]()).eraseToAnyPublisher()
             }
             .replaceError(with: [])
             .assign(to: &$documents)

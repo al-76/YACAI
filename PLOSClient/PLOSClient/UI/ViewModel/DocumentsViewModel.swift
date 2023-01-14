@@ -52,9 +52,9 @@ final class DocumentsViewModel<Scheduler: Combine.Scheduler>: ObservableObject {
         
         foundHistory.merge(with: updatedHistory)
             .receive(on: DispatchQueue.main)
-            .catch { [weak self] error -> AnyPublisher<[History], Never> in
-                self?.error = ViewError(error)
-                return Just([]).eraseToAnyPublisher()
+            .catch { [weak self] in
+                self?.error = ViewError($0)
+                return Just([History]()).eraseToAnyPublisher()
             }
             .assign(to: &$history)
     }
