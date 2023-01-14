@@ -28,7 +28,7 @@ final class DocumentListViewModelTests: XCTestCase {
         viewModel.searchDocument = "test"
         
         // Assert
-        XCTAssertEqual(viewModel.documents, .stub)
+        XCTAssertEqual(viewModDocumentListViewModelTestsel.documents, .stub)
     }
     
     func testHistorySearchError() throws {

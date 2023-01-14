@@ -11,6 +11,8 @@ struct History: Codable, Identifiable, Equatable {
     let id: String
 }
 
+#if DEBUG
+
 // MARK: - History stub
 extension History {
     static let stub = History(id: "Ribosome")
@@ -25,3 +27,5 @@ extension Array where Element == History {
         History(id: "Endosome")
     ]
 }
+
+#endif

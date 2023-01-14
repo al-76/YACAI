@@ -5,6 +5,8 @@
 //  Created by Vyacheslav Konopkin on 14.01.2023.
 //
 
+#if DEBUG
+
 import Combine
 
 enum Answer {
@@ -29,3 +31,5 @@ enum Answer {
             .eraseToAnyPublisher()
     }
 }
+
+#endif

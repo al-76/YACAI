@@ -18,6 +18,8 @@ struct Document: Codable, Identifiable, Equatable {
     let counterTotallAll: Int
 }
 
+#if DEBUG
+
 // MARK: - Document stub
 extension Document {
     static let stub = [Document].stub[0]
@@ -37,3 +39,5 @@ extension Array where Element == Document {
         )
     ]
 }
+
+#endif

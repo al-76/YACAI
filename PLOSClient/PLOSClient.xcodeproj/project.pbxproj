@@ -47,11 +47,14 @@
 		6FE1640F26B0133500FD3DC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1640E26B0133500FD3DC7 /* Assets.xcassets */; };
 		6FE1641226B0133500FD3DC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1641126B0133500FD3DC7 /* Preview Assets.xcassets */; };
 		CD16BB2726BDA50A00609AB1 /* ViewError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2626BDA50A00609AB1 /* ViewError+Equatable.swift */; };
-		CD16BB2926BDA57200609AB1 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2826BDA57200609AB1 /* TestError.swift */; };
 		CD74ECD62972F9F200F803EF /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = CD74ECD52972F9F200F803EF /* Factory */; };
 		CD74ECD829730AC200F803EF /* FakeDocumentsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECD729730AC200F803EF /* FakeDocumentsRepository.swift */; };
 		CD74ECDA29730AD000F803EF /* FakeHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECD929730AD000F803EF /* FakeHistoryRepository.swift */; };
-		CD74ECE1297332E800F803EF /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECE0297332E800F803EF /* Answer.swift */; };
+		CD74ECE329733D5F00F803EF /* FakeSearchDocumentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECE229733D5F00F803EF /* FakeSearchDocumentsUseCase.swift */; };
+		CD74ECE62973400F00F803EF /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECE0297332E800F803EF /* Answer.swift */; };
+		CD74ECE72973401300F803EF /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16BB2826BDA57200609AB1 /* TestError.swift */; };
+		CD74ECE92973405800F803EF /* FakeAddHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECE82973405800F803EF /* FakeAddHistoryUseCase.swift */; };
+		CD74ECEB2973406900F803EF /* FakeSearchHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74ECEA2973406900F803EF /* FakeSearchHistoryUseCase.swift */; };
 		CDBBAD02284E31BB0056C696 /* Document+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBBAD01284E31BB0056C696 /* Document+Init.swift */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +117,9 @@
 		CD74ECD729730AC200F803EF /* FakeDocumentsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDocumentsRepository.swift; sourceTree = "<group>"; };
 		CD74ECD929730AD000F803EF /* FakeHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeHistoryRepository.swift; sourceTree = "<group>"; };
 		CD74ECE0297332E800F803EF /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		CD74ECE229733D5F00F803EF /* FakeSearchDocumentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSearchDocumentsUseCase.swift; sourceTree = "<group>"; };
+		CD74ECE82973405800F803EF /* FakeAddHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAddHistoryUseCase.swift; sourceTree = "<group>"; };
+		CD74ECEA2973406900F803EF /* FakeSearchHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSearchHistoryUseCase.swift; sourceTree = "<group>"; };
 		CDBBAD01284E31BB0056C696 /* Document+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+Init.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,6 +304,8 @@
 			children = (
 				6F6585D726B1CFED00C6E4D8 /* AddHistoryUseCase.swift */,
 				6F6585D926B1D00500C6E4D8 /* SearchHistoryUseCase.swift */,
+				CD74ECE82973405800F803EF /* FakeAddHistoryUseCase.swift */,
+				CD74ECEA2973406900F803EF /* FakeSearchHistoryUseCase.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -306,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				6F5231BF26B1787F00768F65 /* SearchDocumentUseCase.swift */,
+				CD74ECE229733D5F00F803EF /* FakeSearchDocumentsUseCase.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -371,6 +380,7 @@
 				6F2B8EFA26B45637007C2445 /* Data */,
 				6F5231B826B16F3B00768F65 /* Domain */,
 				6FE1643526B0200F00FD3DC7 /* UI */,
+				CD74ECE529733F9700F803EF /* Utils */,
 				6FE1640A26B0133300FD3DC7 /* PLOSClientApp.swift */,
 				6FE1641326B0133500FD3DC7 /* Info.plist */,
 				6FE1641026B0133500FD3DC7 /* Preview Content */,
@@ -447,12 +457,19 @@
 		CD74ECDF297332DA00F803EF /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				CD74ECE0297332E800F803EF /* Answer.swift */,
-				CD16BB2826BDA57200609AB1 /* TestError.swift */,
 				CD16BB2626BDA50A00609AB1 /* ViewError+Equatable.swift */,
 				6F2B8EF726B4501C007C2445 /* XCTestCase+Await.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		CD74ECE529733F9700F803EF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CD74ECE0297332E800F803EF /* Answer.swift */,
+				CD16BB2826BDA57200609AB1 /* TestError.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		CDBBAD03284E325E0056C696 /* Entity */ = {
@@ -574,6 +591,7 @@
 				6F2B8EF126B44D17007C2445 /* DocumentsRepository.swift in Sources */,
 				6F8D7BD226B2BFBB007F4CA3 /* DocumentList.swift in Sources */,
 				6F0171AD26B6ADF2001DDC8E /* DataContainer.swift in Sources */,
+				CD74ECE329733D5F00F803EF /* FakeSearchDocumentsUseCase.swift in Sources */,
 				6F13187826B976C3002BFF01 /* SafariView.swift in Sources */,
 				6F13187A26BAA0B3002BFF01 /* UIContainer.swift in Sources */,
 				6F5231BC26B16F6E00768F65 /* UseCase.swift in Sources */,
@@ -587,6 +605,8 @@
 				6F6585DC26B1D03C00C6E4D8 /* History.swift in Sources */,
 				6FE1640B26B0133300FD3DC7 /* PLOSClientApp.swift in Sources */,
 				6F82D9B226B54AC4003BC8EE /* DefaultHistoryRepository.swift in Sources */,
+				CD74ECE72973401300F803EF /* TestError.swift in Sources */,
+				CD74ECEB2973406900F803EF /* FakeSearchHistoryUseCase.swift in Sources */,
 				6F8D7BDA26B2FE0B007F4CA3 /* DocumentRow.swift in Sources */,
 				6F8D7BD726B2F4E4007F4CA3 /* DocumentListViewModel.swift in Sources */,
 				6F13186A26B944FA002BFF01 /* DefaultStorage.swift in Sources */,
@@ -594,7 +614,9 @@
 				6F6585DA26B1D00500C6E4D8 /* SearchHistoryUseCase.swift in Sources */,
 				6F2B8EEF26B44D0C007C2445 /* HistoryRepository.swift in Sources */,
 				6F5231BE26B1764100768F65 /* Document.swift in Sources */,
+				CD74ECE62973400F00F803EF /* Answer.swift in Sources */,
 				6F2B8F0126B45764007C2445 /* DocumentsMapper.swift in Sources */,
+				CD74ECE92973405800F803EF /* FakeAddHistoryUseCase.swift in Sources */,
 				6F6585D826B1CFED00C6E4D8 /* AddHistoryUseCase.swift in Sources */,
 				6F13187126B94CE4002BFF01 /* Network.swift in Sources */,
 				6F13187626B95564002BFF01 /* DefaultNetwork.swift in Sources */,
@@ -609,11 +631,9 @@
 				6F03DE6926BBE131002996AF /* DocumentsRepositoryTests.swift in Sources */,
 				6F01719A26B6A3DD001DDC8E /* DocumentListViewModelTests.swift in Sources */,
 				6F82D9B026B54745003BC8EE /* SearchHistoryUseCaseTests.swift in Sources */,
-				CD74ECE1297332E800F803EF /* Answer.swift in Sources */,
 				CD16BB2726BDA50A00609AB1 /* ViewError+Equatable.swift in Sources */,
 				6F2B8EF626B44FE2007C2445 /* SearchDocumentUseCaseTests.swift in Sources */,
 				6F03DE6B26BBFAD5002996AF /* HistoryRepositoryTests.swift in Sources */,
-				CD16BB2926BDA57200609AB1 /* TestError.swift in Sources */,
 				6F82D9AE26B54722003BC8EE /* AddHistoryUseCaseTests.swift in Sources */,
 				CDBBAD02284E31BB0056C696 /* Document+Init.swift in Sources */,
 				6F01719C26B6A3EB001DDC8E /* DocumentsViewModelTests.swift in Sources */,
