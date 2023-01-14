@@ -10,50 +10,35 @@ import XCTest
 
 @testable import PLOSClient
 
-private let testErrorString = "error"
-
-private class MockSearchDocumentUseCase: UseCase {
-    func execute(with input: String) -> AnyPublisher<[Document], Error> {
-        if input == testErrorString {
-            return Fail(error: TestError.someError)
-                .eraseToAnyPublisher()
-        }
-        return Just([Document(input)])
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-}
-
-class DocumentListViewModelTests: XCTestCase {
-    var viewModel: DocumentListViewModel<ImmediateScheduler>!
+final class DocumentListViewModelTests: XCTestCase {
+    private var useCase: FakeSearchDocumentUseCase!
+    private var viewModel: DocumentListViewModel<ImmediateScheduler>!
     
     override func setUp() {
-        viewModel = DocumentListViewModel(searchUseCase: MockSearchDocumentUseCase(),
+        useCase = FakeSearchDocumentUseCase()
+        viewModel = DocumentListViewModel(searchUseCase: useCase,
                                           scheduler: ImmediateScheduler.shared)
     }
     
     func testHistorySearch() throws {
         // Arrange
-        let testQuery = "test"
-        let expected = [Document(testQuery)]
+        useCase.answer = Answer.successAnswer(.stub)
         
         // Act
-        viewModel.searchDocument = testQuery
+        viewModel.searchDocument = "test"
         
         // Assert
-        let res = try awaitPublisher(viewModel.$documents.dropFirst())
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(viewModel.documents, .stub)
     }
     
     func testHistorySearchError() throws {
         // Arrange
-        let expected = ViewError(TestError.someError)
+        useCase.answer = Answer.failAnswer()
         
         // Act
-        viewModel.searchDocument = testErrorString
+        viewModel.searchDocument = "test"
         
         // Assert
-        let res = try awaitPublisher(viewModel.$error.dropFirst())
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(viewModel.error, ViewError(TestError.someError))
     }
 }
