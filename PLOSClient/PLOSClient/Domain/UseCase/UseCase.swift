@@ -8,22 +8,9 @@
 import Combine
 import Foundation
 
-protocol UseCase {
+protocol UseCase<Input, Output> {
     associatedtype Input
     associatedtype Output
 
     func execute(with input: Input) -> AnyPublisher<Output, Error>
-}
-
-final class AnyUseCase<Input, Output>: UseCase {
-    private let executeObject: (_ input: Input) -> AnyPublisher<Output, Error>
-
-    init<TypeUseCase: UseCase>(wrapped: TypeUseCase)
-        where TypeUseCase.Input == Input, TypeUseCase.Output == Output {
-        executeObject = wrapped.execute
-    }
-
-    func execute(with input: Input) -> AnyPublisher<Output, Error> {
-        executeObject(input)
-    }
 }

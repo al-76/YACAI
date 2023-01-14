@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-import Resolver
 
 struct DocumentsView: View {
-    @InjectedObject var viewModel: DocumentsViewModel
+    @StateObject var viewModel = UIContainer.documentsViewModel()
 
     var body: some View {
         NavigationStack {

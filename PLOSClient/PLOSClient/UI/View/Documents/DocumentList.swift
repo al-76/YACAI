@@ -5,12 +5,11 @@
 //  Created by Vyacheslav Konopkin on 29.07.2021.
 //
 
-import Resolver
 import SwiftUI
 
 struct DocumentList: View {
     @Binding var text: String
-    @InjectedObject var viewModel: DocumentListViewModel
+    @StateObject var viewModel = UIContainer.documentListViewModel()
 
     var body: some View {
         List {

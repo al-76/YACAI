@@ -9,9 +9,9 @@ import Combine
 import Foundation
 
 final class SearchDocumentUseCase: UseCase {
-    private let repository: AnyQueryRepository<Document>
+    private let repository: DocumentsRepository
     
-    init(repository: AnyQueryRepository<Document>) {
+    init(repository: DocumentsRepository) {
         self.repository = repository
     }
 

@@ -1,5 +1,5 @@
 //
-//  DocumentsRepository.swift
+//  DefaultDocumentsRepository.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 30.07.2021.
@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class DocumentsRepository: QueryRepository {
+final class DefaultDocumentsRepository: DocumentsRepository {
     private static let url = "https://api.plos.org/search?start=0&rows=10&fl=id,journal,publication_date,title_display,article_type,author_display,abstract,counter_total_all"
 
     private let network: Network

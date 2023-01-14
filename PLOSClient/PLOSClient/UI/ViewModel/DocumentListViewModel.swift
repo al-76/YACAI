@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import Resolver
 
 final class DocumentListViewModel: ObservableObject {
     // Input
@@ -17,9 +16,9 @@ final class DocumentListViewModel: ObservableObject {
     @Published private(set) var documents: [Document] = []
     @Published var error: ViewError?
 
-    private let searchDocumentUseCase: AnyUseCase<String, [Document]>
+    private let searchDocumentUseCase: any UseCase<String, [Document]>
 
-    init(searchUseCase: AnyUseCase<String, [Document]>) {
+    init(searchUseCase: some UseCase<String, [Document]>) {
         self.searchDocumentUseCase = searchUseCase
 
         bindInputToOutput()
@@ -29,12 +28,10 @@ final class DocumentListViewModel: ObservableObject {
         $searchDocument
             .filter { !$0.isEmpty }
             .removeDuplicates()
-            .flatMap { [weak searchDocumentUseCase] value in
-                searchDocumentUseCase?.execute(with: value) ??
-                    Just([])
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
+            .compactMap { [weak self] value in
+                self?.searchDocumentUseCase.execute(with: value)
             }
+            .switchToLatest()
             .receive(on: DispatchQueue.main)
             .catch { [weak self] error -> AnyPublisher<[Document], Never> in
                 self?.error = ViewError(error)

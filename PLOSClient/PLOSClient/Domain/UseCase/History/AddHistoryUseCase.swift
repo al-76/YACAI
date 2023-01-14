@@ -9,13 +9,13 @@ import Combine
 import Foundation
 
 final class AddHistoryUseCase: UseCase {
-    private let repository: AnyCommandRepository<History>
+    private let repository: HistoryRepository
     
-    init(repository: AnyCommandRepository<History>) {
+    init(repository: HistoryRepository) {
         self.repository = repository
     }
         
     func execute(with value: String) -> AnyPublisher<Bool, Error> {
-        repository.add(item: History(id: value))
+        repository.write(item: History(id: value))
     }
 }

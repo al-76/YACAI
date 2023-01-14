@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import Resolver
 
 final class DocumentsViewModel: ObservableObject {
     // Input
@@ -18,11 +17,11 @@ final class DocumentsViewModel: ObservableObject {
     @Published private(set) var history: [History] = []
     @Published var error: ViewError?
 
-    private let searchHistoryUseCase: AnyUseCase<String, [History]>
-    private let addHistoryUseCase: AnyUseCase<String, Bool>
+    private let searchHistoryUseCase: any UseCase<String, [History]>
+    private let addHistoryUseCase: any UseCase<String, Bool>
     
-    init(searchHistoryUseCase: AnyUseCase<String, [History]>,
-         addHistoryUseCase: AnyUseCase<String, Bool>)
+    init(searchHistoryUseCase: some UseCase<String, [History]>,
+         addHistoryUseCase: some UseCase<String, Bool>)
     {
         self.searchHistoryUseCase = searchHistoryUseCase
         self.addHistoryUseCase = addHistoryUseCase
@@ -32,21 +31,18 @@ final class DocumentsViewModel: ObservableObject {
     
     private func bindInputToOutput() {
         let foundHistory = $searchHistory
-            .flatMap { [weak searchHistoryUseCase] value in
-                searchHistoryUseCase?.execute(with: value) ??
-                    Just([])
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
+            .compactMap { [weak self] value in
+                self?.searchHistoryUseCase.execute(with: value)
             }
+            .switchToLatest()
+
         let updatedHistory = $addHistory
             .filter { !$0.isEmpty }
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .flatMap { [weak addHistoryUseCase] value in
-                addHistoryUseCase?.execute(with: value) ??
-                    Just(false)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
+            .compactMap { [weak self] value in
+                self?.addHistoryUseCase.execute(with: value)
             }
+            .switchToLatest()
             .flatMap { _ in
                 foundHistory
             }

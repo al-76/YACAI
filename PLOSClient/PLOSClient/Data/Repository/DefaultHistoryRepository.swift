@@ -1,5 +1,5 @@
 //
-//  HistoryRepository.swift
+//  DefaultHistoryRepository.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 31.07.2021.
@@ -8,19 +8,19 @@
 import Combine
 import Foundation
 
-final class HistoryRepository: CommandRepository, QueryRepository {
+final class DefaultHistoryRepository: HistoryRepository {
     private static let history = "history"
     
     private let storage: Storage
     private lazy var data: [History] = {
-        self.storage.get(id: Self.history, defaultObject: [T]())
+        self.storage.get(id: Self.history, defaultObject: [History]())
     }()
     
     init(storage: Storage) {
         self.storage = storage
     }
 
-    func add(item: History) -> AnyPublisher<Bool, Error> {
+    func write(item: History) -> AnyPublisher<Bool, Error> {
         Future { [weak self] promise in
             guard let self = self else {
                 promise(.success(false))

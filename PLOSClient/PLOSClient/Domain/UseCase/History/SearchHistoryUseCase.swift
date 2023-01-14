@@ -9,9 +9,9 @@ import Combine
 import Foundation
 
 final class SearchHistoryUseCase: UseCase {
-    private let repository: AnyQueryRepository<History>
+    private let repository: HistoryRepository
     
-    init(repository: AnyQueryRepository<History>) {
+    init(repository: HistoryRepository) {
         self.repository = repository
     }
     

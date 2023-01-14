@@ -7,7 +7,6 @@
 
 import Combine
 import XCTest
-import Resolver
 
 @testable import PLOSClient
 
