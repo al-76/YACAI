@@ -10,30 +10,36 @@ import XCTest
 
 @testable import PLOSClient
 
-private class MockRepository: HistoryRepository {
-    func read() -> AnyPublisher<[PLOSClient.History], Error> {
-        Empty().eraseToAnyPublisher()
+@MainActor
+final class AddHistoryUseCaseTests: XCTestCase {
+    private var repository: FakeHistoryRepository!
+    private var useCase: AddHistoryUseCase!
+
+    override func setUp() async throws {
+        repository = FakeHistoryRepository()
+        useCase = AddHistoryUseCase(repository: repository)
     }
 
-    func write(item: History) -> AnyPublisher<Bool, Error> {
-        Just(true)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-}
-
-class AddHistoryUseCaseTests: XCTestCase {
-    func testExecute() throws {
+    func testExecute() async throws {
         // Arrange
-        let expected = true
-        let repository = MockRepository()
-        let useCase = AddHistoryUseCase(repository: repository)
+        repository.writeAnswer = Answer.successAnswer(true)
 
         // Act
-        let res = try awaitPublisher(useCase.execute(with: "test"))
+        let result = try await value(useCase.execute(with: "test"))
 
         // Assert
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(result, true)
+    }
+
+    func testExecuteError() async {
+        // Arrange
+        repository.writeAnswer = Answer.failAnswer()
+
+        // Act
+        let result = await error(useCase.execute(with: "test"))
+
+        // Assert
+        XCTAssertEqual(result as? TestError, .someError)
     }
 }
 

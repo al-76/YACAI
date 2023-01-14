@@ -10,36 +10,46 @@ import XCTest
 
 @testable import PLOSClient
 
-private class MockRepository: HistoryRepository {
-    private let query: String
+@MainActor
+final class SearchHistoryUseCaseTests: XCTestCase {
+    private var repository: FakeHistoryRepository!
+    private var useCase: SearchHistoryUseCase!
 
-    init(query: String) {
-        self.query = query
+    override func setUp() async throws {
+        repository = FakeHistoryRepository()
+        useCase = SearchHistoryUseCase(repository: repository)
     }
 
-    func read() -> AnyPublisher<[History], Error> {
-        Just([History(id: query)])
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-
-    func write(item: PLOSClient.History) -> AnyPublisher<Bool, Error> {
-        Empty().eraseToAnyPublisher()
-    }
-}
-
-class SearchHistoryUseCaseTests: XCTestCase {
-    func testExecute() throws {
+    func testExecute() async throws {
         // Arrange
-        let testQuery = "test"
-        let expected = [History(id: testQuery)]
-        let repository = MockRepository(query: testQuery)
-        let useCase = SearchHistoryUseCase(repository: repository)
+        repository.readAnswer = Answer.successAnswer(.stub)
 
         // Act
-        let res = try awaitPublisher(useCase.execute(with: testQuery))
+        let result = try await value(useCase.execute(with: ""))
 
         // Assert
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(result, .stub.reversed())
+    }
+
+    func testExecuteFilter() async throws {
+        // Arrange
+        repository.readAnswer = Answer.successAnswer(.stub)
+
+        // Act
+        let result = try await value(useCase.execute(with: "Ribos"))
+
+        // Assert
+        XCTAssertEqual(result, [.stub])
+    }
+
+    func testExecuteError() async {
+        // Arrange
+        repository.readAnswer = Answer.failAnswer()
+
+        // Act
+        let result = await error(useCase.execute(with: ""))
+
+        // Assert
+        XCTAssertEqual(result as? TestError, .someError)
     }
 }

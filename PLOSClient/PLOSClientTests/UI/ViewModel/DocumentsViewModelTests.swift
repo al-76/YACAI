@@ -37,11 +37,12 @@ private class MockAddHistoryUseCase: UseCase {
 }
 
 class DocumentsViewModelTests: XCTestCase {
-    var viewModel: DocumentsViewModel!
+    var viewModel: DocumentsViewModel<ImmediateScheduler>!
     
     override func setUp() {
         viewModel = DocumentsViewModel(searchHistoryUseCase: MockSearchHistoryUseCase(),
-                                       addHistoryUseCase: MockAddHistoryUseCase())
+                                       addHistoryUseCase: MockAddHistoryUseCase(),
+                                       scheduler: ImmediateScheduler.shared)
     }
     
     func testHistorySearch() throws {
