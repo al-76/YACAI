@@ -30,6 +30,10 @@ struct DocumentsView: View {
 
 struct DocumentsView_Previews: PreviewProvider {
     static var previews: some View {
+        let _ = DataContainer.documentsRepository
+            .register { FakeDocumentsRepository() }
+        let _ = DataContainer.historyRepository
+            .register { FakeHistoryRepository() }
         DocumentsView()
     }
 }

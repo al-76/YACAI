@@ -20,6 +20,12 @@ final class DefaultHistoryRepository: HistoryRepository {
         self.storage = storage
     }
 
+    func read() -> AnyPublisher<[History], Error> {
+        Future { [weak self] promise in
+            promise(.success(self?.data ?? []))
+        }.eraseToAnyPublisher()
+    }
+
     func write(item: History) -> AnyPublisher<Bool, Error> {
         Future { [weak self] promise in
             guard let self = self else {
@@ -38,14 +44,6 @@ final class DefaultHistoryRepository: HistoryRepository {
                 added = true
             }
             promise(.success((added)))
-        }.eraseToAnyPublisher()
-    }
-
-    func read(query: String) -> AnyPublisher<[History], Error> {
-        Future { [weak self] promise in
-            let res = self?.data
-                .filter { query.isEmpty || $0.id.contains(query) }
-            promise(.success(res ?? []))
         }.eraseToAnyPublisher()
     }
     

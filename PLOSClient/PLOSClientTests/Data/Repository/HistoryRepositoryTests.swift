@@ -48,25 +48,25 @@ private class MockErrorStorage: Storage {
 }
 
 class HistoryRepositoryTests: XCTestCase {
-    func testAdd() throws {
+    func testWrite() throws {
         // Arrange
         let expected = true
-        let repository = HistoryRepository(storage: MockStorage(Data()))
+        let repository = DefaultHistoryRepository(storage: MockStorage(Data()))
         
         // Act
-        let res = try awaitPublisher(repository.add(item: History(id: "test")))
+        let res = try awaitPublisher(repository.write(item: History(id: "test")))
         
         // Assert
         XCTAssertEqual(res, expected)
     }
     
-    func testAddError() throws {
+    func testWriteError() throws {
         // Arrange
         let expected = TestError.someError
-        let repository = HistoryRepository(storage: MockErrorStorage())
+        let repository = DefaultHistoryRepository(storage: MockErrorStorage())
         
         // Act
-        let res = try awaitError(repository.add(item: History(id: "test")))
+        let res = try awaitError(repository.write(item: History(id: "test")))
         
         // Assert
         XCTAssertEqual(res as? TestError, expected)
@@ -74,50 +74,15 @@ class HistoryRepositoryTests: XCTestCase {
     
     func testRead() throws {
         // Arrange
-        let testQuery = ""
         let expected = [
             History(id: "test1"),
             History(id: "test2")
         ]
         let data = try JSONEncoder().encode(expected)
-        let repository = HistoryRepository(storage: MockStorage(data))
+        let repository = DefaultHistoryRepository(storage: MockStorage(data))
         
         // Act
-        let res = try awaitPublisher(repository.read(query: testQuery))
-        
-        // Assert
-        XCTAssertEqual(res, expected)
-    }
-    
-    func testReadQuery() throws {
-        // Arrange
-        let testQuery = "test1"
-        let expected = [History(id: testQuery)]
-        let data = try JSONEncoder().encode([
-            History(id: testQuery),
-            History(id: "test2")
-        ])
-        let repository = HistoryRepository(storage: MockStorage(data))
-        
-        // Act
-        let res = try awaitPublisher(repository.read(query: testQuery))
-        
-        // Assert
-        XCTAssertEqual(res, expected)
-    }
-    
-    func testReadNotFound() throws {
-        // Arrange
-        let testQuery = "not found"
-        let expected = [History]()
-        let data = try JSONEncoder().encode([
-            History(id: "test1"),
-            History(id: "test2")
-        ])
-        let repository = HistoryRepository(storage: MockStorage(data))
-        
-        // Act
-        let res = try awaitPublisher(repository.read(query: testQuery))
+        let res = try awaitPublisher(repository.read())
         
         // Assert
         XCTAssertEqual(res, expected)

@@ -28,7 +28,7 @@ class DocumentListViewModelTests: XCTestCase {
     var viewModel: DocumentListViewModel!
     
     override func setUp() {
-        viewModel = DocumentListViewModel(searchUseCase: AnyUseCase(wrapped: MockSearchDocumentUseCase()))
+        viewModel = DocumentListViewModel(searchUseCase: MockSearchDocumentUseCase())
     }
     
     func testHistorySearch() throws {

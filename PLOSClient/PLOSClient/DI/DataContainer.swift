@@ -8,11 +8,11 @@
 import Factory
 
 final class DataContainer: SharedContainer {
-    static let historyRepository = Factory {
+    static let historyRepository = Factory<HistoryRepository> {
         DefaultHistoryRepository(storage: PlatformContainer.storage())
     }
 
-    static let documentsRepository = Factory {
+    static let documentsRepository = Factory<DocumentsRepository> {
         DefaultDocumentsRepository(network: PlatformContainer.network(),
                                    mapper: AnyMapper(wrapped: DocumentsMapper()))
     }

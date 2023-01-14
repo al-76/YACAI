@@ -10,8 +10,12 @@ import XCTest
 
 @testable import PLOSClient
 
-private class MockRepository: CommandRepository {
-    func add(item: History) -> AnyPublisher<Bool, Error> {
+private class MockRepository: HistoryRepository {
+    func read() -> AnyPublisher<[PLOSClient.History], Error> {
+        Empty().eraseToAnyPublisher()
+    }
+
+    func write(item: History) -> AnyPublisher<Bool, Error> {
         Just(true)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
@@ -23,7 +27,7 @@ class AddHistoryUseCaseTests: XCTestCase {
         // Arrange
         let expected = true
         let repository = MockRepository()
-        let useCase = AddHistoryUseCase(repository: AnyCommandRepository(wrapped: repository))
+        let useCase = AddHistoryUseCase(repository: repository)
 
         // Act
         let res = try awaitPublisher(useCase.execute(with: "test"))

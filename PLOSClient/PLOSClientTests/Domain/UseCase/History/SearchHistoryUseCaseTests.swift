@@ -10,11 +10,21 @@ import XCTest
 
 @testable import PLOSClient
 
-private class MockRepository: QueryRepository {
-    func read(query: String) -> AnyPublisher<[History], Error> {
+private class MockRepository: HistoryRepository {
+    private let query: String
+
+    init(query: String) {
+        self.query = query
+    }
+
+    func read() -> AnyPublisher<[History], Error> {
         Just([History(id: query)])
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
+    }
+
+    func write(item: PLOSClient.History) -> AnyPublisher<Bool, Error> {
+        Empty().eraseToAnyPublisher()
     }
 }
 
@@ -23,8 +33,8 @@ class SearchHistoryUseCaseTests: XCTestCase {
         // Arrange
         let testQuery = "test"
         let expected = [History(id: testQuery)]
-        let repository = MockRepository()
-        let useCase = SearchHistoryUseCase(repository: AnyQueryRepository(wrapped: repository))
+        let repository = MockRepository(query: testQuery)
+        let useCase = SearchHistoryUseCase(repository: repository)
 
         // Act
         let res = try awaitPublisher(useCase.execute(with: testQuery))

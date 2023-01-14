@@ -1,5 +1,5 @@
 //
-//  DocumentsViewModel.swift
+//  DocumentListViewModel.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 29.07.2021.

@@ -20,12 +20,17 @@ struct DocumentList: View {
         .onChange(of: text) {
             viewModel.searchDocument = $0
         }
+        .onAppear {
+            viewModel.searchDocument = text
+        }
         .alertError(error: $viewModel.error)
     }
 }
 
 struct DocumentList_Previews: PreviewProvider {
     static var previews: some View {
+        let _ = DataContainer.documentsRepository
+            .register { FakeDocumentsRepository() }
         DocumentList(text: .constant("DNA"))
     }
 }

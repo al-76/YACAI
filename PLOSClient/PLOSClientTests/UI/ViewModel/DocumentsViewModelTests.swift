@@ -40,8 +40,8 @@ class DocumentsViewModelTests: XCTestCase {
     var viewModel: DocumentsViewModel!
     
     override func setUp() {
-        viewModel = DocumentsViewModel(searchHistoryUseCase: AnyUseCase(wrapped: MockSearchHistoryUseCase()),
-                                       addHistoryUseCase: AnyUseCase(wrapped: MockAddHistoryUseCase()))
+        viewModel = DocumentsViewModel(searchHistoryUseCase: MockSearchHistoryUseCase(),
+                                       addHistoryUseCase: MockAddHistoryUseCase())
     }
     
     func testHistorySearch() throws {

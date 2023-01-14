@@ -1,5 +1,5 @@
 //
-//  HistoryViewModel.swift
+//  DocumentsViewModel.swift
 //  PLOSClient
 //
 //  Created by Vyacheslav Konopkin on 28.07.2021.
@@ -31,16 +31,16 @@ final class DocumentsViewModel: ObservableObject {
     
     private func bindInputToOutput() {
         let foundHistory = $searchHistory
-            .compactMap { [weak self] value in
-                self?.searchHistoryUseCase.execute(with: value)
+            .compactMap { [weak self] in
+                self?.searchHistoryUseCase.execute(with: $0)
             }
             .switchToLatest()
 
         let updatedHistory = $addHistory
             .filter { !$0.isEmpty }
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .compactMap { [weak self] value in
-                self?.addHistoryUseCase.execute(with: value)
+            .compactMap { [weak self] in
+                self?.addHistoryUseCase.execute(with: $0)
             }
             .switchToLatest()
             .flatMap { _ in

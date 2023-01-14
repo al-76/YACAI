@@ -9,6 +9,6 @@ import Combine
 import Foundation
 
 protocol HistoryRepository {
-    func read(query: String) -> AnyPublisher<[History], Error>
+    func read() -> AnyPublisher<[History], Error>
     func write(item: History) -> AnyPublisher<Bool, Error>
 }
