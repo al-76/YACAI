@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class DocumentsViewModel: ObservableObject {
+final class DocumentsViewModel<Scheduler: Combine.Scheduler>: ObservableObject {
     // Input
     @Published var searchHistory: String = ""
     @Published var addHistory: String = ""
@@ -19,12 +19,15 @@ final class DocumentsViewModel: ObservableObject {
 
     private let searchHistoryUseCase: any UseCase<String, [History]>
     private let addHistoryUseCase: any UseCase<String, Bool>
+    private let scheduler: Scheduler
     
     init(searchHistoryUseCase: some UseCase<String, [History]>,
-         addHistoryUseCase: some UseCase<String, Bool>)
+         addHistoryUseCase: some UseCase<String, Bool>,
+         scheduler: Scheduler = DispatchQueue.main)
     {
         self.searchHistoryUseCase = searchHistoryUseCase
         self.addHistoryUseCase = addHistoryUseCase
+        self.scheduler = scheduler
         
         bindInputToOutput()
     }

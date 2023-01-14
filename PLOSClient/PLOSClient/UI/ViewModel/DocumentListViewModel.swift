@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class DocumentListViewModel: ObservableObject {
+final class DocumentListViewModel<Scheduler: Combine.Scheduler>: ObservableObject {
     // Input
     @Published var searchDocument: String = ""
 
@@ -17,9 +17,12 @@ final class DocumentListViewModel: ObservableObject {
     @Published var error: ViewError?
 
     private let searchDocumentUseCase: any UseCase<String, [Document]>
+    private let scheduler: Scheduler
 
-    init(searchUseCase: some UseCase<String, [Document]>) {
+    init(searchUseCase: some UseCase<String, [Document]>,
+         scheduler: Scheduler = DispatchQueue.main) {
         self.searchDocumentUseCase = searchUseCase
+        self.scheduler = scheduler
 
         bindInputToOutput()
     }
@@ -32,7 +35,7 @@ final class DocumentListViewModel: ObservableObject {
                 self?.searchDocumentUseCase.execute(with: value)
             }
             .switchToLatest()
-            .receive(on: DispatchQueue.main)
+            .receive(on: scheduler)
             .catch { [weak self] error -> AnyPublisher<[Document], Never> in
                 self?.error = ViewError(error)
                 return Just([]).eraseToAnyPublisher()
