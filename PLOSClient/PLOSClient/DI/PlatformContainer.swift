@@ -12,7 +12,7 @@ final class PlatformContainer: SharedContainer {
         DefaultNetwork()
     }
 
-    static let storage = Factory {
-        DefaultStorage()
+    static let historyStorage = Factory {
+        DefaultStorage<History>(name: "history")
     }
 }

@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-public class ViewError: Identifiable {
+struct ViewError: Identifiable {
     private let error: Error
     
-    public var id: String { self.localizedDescription }
-    public var localizedDescription: String { self.error.localizedDescription }
+    var id: String { self.localizedDescription }
+    var localizedDescription: String { self.error.localizedDescription }
     
     init(_ error: Error) {
         self.error = error
@@ -20,7 +20,7 @@ public class ViewError: Identifiable {
 }
 
 extension View {
-    public func alertError(error: Binding<ViewError?>) -> some View {
+    func alertError(error: Binding<ViewError?>) -> some View {
         alert(item: error, content: { error in
             Alert(title: Text("Error"),
                   message: Text(error.localizedDescription),

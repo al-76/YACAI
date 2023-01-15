@@ -9,22 +9,22 @@ import Combine
 import Foundation
 
 final class DefaultDocumentsRepository: DocumentsRepository {
-    private let network: Network
-    private let mapper: AnyMapper<DocumentDTO, Document>
+    enum DocumentsRepositoryError: Error {
+        case invalidUrl
+    }
 
-    init(network: Network, mapper: AnyMapper<DocumentDTO, Document>) {
+    private let network: Network
+
+    init(network: Network) {
         self.network = network
-        self.mapper = mapper
     }
 
     func read(query: String) -> AnyPublisher<[Document], Error> {
         network
             .request(url: getApiUrl(query))
-            .decode(type: DocumentResultDTO.self, decoder: JSONDecoder())
-            .map { [weak self] in
-                guard let self else { return [] }
-                return $0.response.docs.compactMap(self.mapper.map)
-            }
+            .decode(type: DocumentResultDTO.self,
+                    decoder: DocumentResultDTO.jsonDecoder)
+            .map(\.response.docs)
             .eraseToAnyPublisher()
     }
 

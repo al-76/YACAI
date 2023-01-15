@@ -17,7 +17,9 @@ final class DocumentsViewModelTests: XCTestCase {
     
     override func setUp() {
         searchHistoryUseCase = FakeSearchHistoryUseCase()
+        searchHistoryUseCase.answer = Answer.nothing()
         addHistoryUseCase = FakeAddHistoryUseCase()
+        addHistoryUseCase.answer = Answer.nothing()
         viewModel = DocumentsViewModel(searchHistoryUseCase: searchHistoryUseCase,
                                        addHistoryUseCase: addHistoryUseCase,
                                        scheduler: ImmediateScheduler.shared)
@@ -26,8 +28,7 @@ final class DocumentsViewModelTests: XCTestCase {
     func testHistorySearch() throws {
         // Arrange
         searchHistoryUseCase.answer = Answer.success(.stub)
-        addHistoryUseCase.answer = Answer.nothing()
-        
+
         // Act
         viewModel.searchHistory = "test"
         
@@ -38,7 +39,6 @@ final class DocumentsViewModelTests: XCTestCase {
     func testHistorySearchError() throws {
         // Arrange
         searchHistoryUseCase.answer = Answer.fail()
-        addHistoryUseCase.answer = Answer.nothing()
 
         // Act
         viewModel.searchHistory = "test"
@@ -61,7 +61,6 @@ final class DocumentsViewModelTests: XCTestCase {
 
     func testAddHistoryError() throws {
         // Arrange
-        searchHistoryUseCase.answer = Answer.nothing()
         addHistoryUseCase.answer = Answer.fail()
 
         // Act

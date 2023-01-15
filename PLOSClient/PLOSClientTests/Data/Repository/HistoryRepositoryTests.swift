@@ -10,81 +10,59 @@ import XCTest
 
 @testable import PLOSClient
 
-private let testErrorString = "error"
+@MainActor
+final class HistoryRepositoryTests: XCTestCase {
+    private var storage: FakeHistoryStorage!
+    private var repository: DefaultHistoryRepository!
 
-private class MockStorage: Storage {
-    private let data: Data
-    
-    init(_ data: Data) {
-        self.data = data
+    override func setUp() {
+        storage = FakeHistoryStorage()
+        storage.saveAnswer = Answer.nothing()
+        storage.loadAnswer = Answer.nothing()
+        repository = DefaultHistoryRepository(storage: storage)
     }
-    
-    func get<T: Codable>(id: String, defaultObject: T) -> T {
-        if let res = try? JSONDecoder().decode(T.self, from: data) {
-            return res
-        }
-        return defaultObject
-    }
-    
-    func save<T: Codable>(id: String, object: T) throws {
-    }
-    
-    func clear(id: String) throws {
-    }
-}
 
-private class MockErrorStorage: Storage {
-    func get<T: Codable>(id: String, defaultObject: T) -> T {
-        defaultObject
-    }
-    
-    func save<T: Codable>(id: String, object: T) throws {
-        throw TestError.someError
-    }
-    
-    func clear(id: String) throws {
-        throw TestError.someError
-    }
-}
-
-class HistoryRepositoryTests: XCTestCase {
-    func testWrite() throws {
+    func testWrite() async throws {
         // Arrange
-        let expected = true
-        let repository = DefaultHistoryRepository(storage: MockStorage(Data()))
-        
+        storage.saveAnswer = Answer.success(true)
+
         // Act
-        let res = try awaitPublisher(repository.write(item: History(id: "test")))
+        let result = try await value(repository.write(item: .stub))
         
         // Assert
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(result, true)
     }
     
-    func testWriteError() throws {
+    func testWriteError() async {
         // Arrange
-        let expected = TestError.someError
-        let repository = DefaultHistoryRepository(storage: MockErrorStorage())
-        
+        storage.saveAnswer = Answer.fail()
+
         // Act
-        let res = try awaitError(repository.write(item: History(id: "test")))
+        let result = await error(repository.write(item: .stub))
         
         // Assert
-        XCTAssertEqual(res as? TestError, expected)
+        XCTAssertEqual(result as? TestError, TestError.someError)
     }
     
-    func testRead() throws {
+    func testRead() async throws {
         // Arrange
-        let expected = [
-            History(id: "test1"),
-            History(id: "test2")
-        ]
-        let data = try JSONEncoder().encode(expected)
-        let repository = DefaultHistoryRepository(storage: MockStorage(data))
-        
+        storage.loadAnswer = Answer.success(.stub)
+
         // Act
-        let res = try awaitPublisher(repository.read())
+        let result = try await value(repository.read())
         
         // Assert
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(result, .stub)
+    }
+
+    func testReadError() async {
+        // Arrange
+        storage.loadAnswer = Answer.fail()
+
+        // Act
+        let result = await error(repository.read())
+
+        // Assert
+        XCTAssertEqual(result as? TestError, TestError.someError)
     }
 }

@@ -9,45 +9,17 @@ import Combine
 import Foundation
 
 final class DefaultHistoryRepository: HistoryRepository {
-    private static let history = "history"
+    private let storage: any Storage<History>
     
-    private let storage: Storage
-    private lazy var data: [History] = {
-        self.storage.get(id: Self.history, defaultObject: [History]())
-    }()
-    
-    init(storage: Storage) {
+    init(storage: some Storage<History>) {
         self.storage = storage
     }
 
     func read() -> AnyPublisher<[History], Error> {
-        Future { [weak self] promise in
-            promise(.success(self?.data ?? []))
-        }.eraseToAnyPublisher()
+        storage.load()
     }
 
     func write(item: History) -> AnyPublisher<Bool, Error> {
-        Future { [weak self] promise in
-            guard let self = self else {
-                promise(.success(false))
-                return
-            }
-            var added = false
-            if !self.data.contains(item) {
-                self.data.append(item)
-                do {
-                    try self.saveData()
-                } catch {
-                    promise(.failure(error))
-                    return
-                }
-                added = true
-            }
-            promise(.success((added)))
-        }.eraseToAnyPublisher()
-    }
-    
-    private func saveData() throws {
-        try storage.save(id: Self.history, object: data)
+        storage.save(item: item)
     }
 }

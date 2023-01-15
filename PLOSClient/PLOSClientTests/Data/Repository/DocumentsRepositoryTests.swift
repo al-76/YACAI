@@ -1,79 +1,57 @@
-////
-////  DocumentsRepositoryTests.swift
-////  PLOSClientTests
-////
-////  Created by Vyacheslav Konopkin on 05.08.2021.
-////
 //
-//import Combine
-//import XCTest
+//  DocumentsRepositoryTests.swift
+//  PLOSClientTests
 //
-//@testable import PLOSClient
+//  Created by Vyacheslav Konopkin on 05.08.2021.
 //
-//private let testErrorString = "error"
-//
-//private class MockNetwork: Network {
-//    func request(with url: String, completion: @escaping Completion) {
-//        if url.contains(testErrorString) {
-//            completion(.failure(TestError.someError))
-//            return
-//        }
-//        completion(.success(Data("""
-//        {
-//          "response": {
-//            "numFound": 300,
-//            "start": 0,
-//            "docs": [
-//                {
-//                    "id": "id",
-//                    "journal": "journal",
-//                    "publication_date": "publication_date",
-//                    "title_display": "title_display",
-//                    "article_type": "article_type",
-//                    "author_display": ["author1", "author2"],
-//                    "abstract": ["Some", "text"],
-//                    "counter_total_all": 100500
-//                }
-//            ]
-//          }
-//        }
-//        """.utf8)))
-//    }
-//}
-//
-//private class MockMapper: Mapper {
-//    func map(input: DocumentDTO) -> Document {
-//        Document("test")
-//    }
-//}
-//
-//class DocumentsRepositoryTests: XCTestCase {
-//    var repository: DocumentsRepository!
-//
-//    override func setUp() {
-//        repository = DocumentsRepository(network: MockNetwork(),
-//                                         mapper: AnyMapper(wrapped: MockMapper()))
-//    }
-//
-//    func testRead() throws {
-//        // Arrange
-//        let expected = [Document("test")]
-//
-//        // Act
-//        let res = try awaitPublisher(repository.read(query: "test"))
-//
-//        // Assert
-//        XCTAssertEqual(res, expected)
-//    }
-//
-//    func testReadError() throws {
-//        // Arrange
-//        let expected = TestError.someError
-//
-//        // Act
-//        let res = try awaitError(repository.read(query: testErrorString))
-//
-//        // Assert
-//        XCTAssertEqual(res as? TestError, expected)
-//    }
-//}
+
+import Combine
+import XCTest
+
+@testable import PLOSClient
+
+@MainActor
+final class DocumentsRepositoryTests: XCTestCase {
+    private var network: FakeNetwork!
+    private var repository: DefaultDocumentsRepository!
+
+    override func setUp() {
+        network = FakeNetwork()
+        repository = DefaultDocumentsRepository(network: network)
+    }
+
+    func testRead() async throws {
+        // Arrange
+        network.answer = Answer.success(Data("""
+            { "response":{"numFound":3518,"start":0,"docs":[
+                {
+                  "id":"\(Document.stub.id)",
+                  "journal":"\(Document.stub.journal)",
+                  "publication_date":"\(ISO8601DateFormatter().string(from: Date.distantPast))",
+                  "article_type":"\(Document.stub.articleType)",
+                  "author_display":["\(Document.stub.authorDisplay)"],
+                  "abstract":["\(Document.stub.abstract)"],
+                  "title_display":"\(Document.stub.titleDisplay)",
+                  "counter_total_all":\(Document.stub.counterTotalAll)
+                }
+            ]} }
+            """.utf8))
+
+        // Act
+        let result = try await value(repository.read(query: "test"))
+
+        // Assert
+        XCTAssertEqual(result, .stub)
+    }
+
+    func testReadError() async {
+        // Arrange
+        network.answer = Answer.fail()
+
+        // Act
+        let result = await error(repository.read(query: "test"))
+
+        // Assert
+        XCTAssertEqual(result as? TestError, .someError)
+    }
+}
