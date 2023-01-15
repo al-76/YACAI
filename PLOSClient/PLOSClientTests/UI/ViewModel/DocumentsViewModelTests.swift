@@ -10,88 +10,65 @@ import XCTest
 
 @testable import PLOSClient
 
-private let testErrorString = "error"
-
-private class MockSearchHistoryUseCase: UseCase {
-    func execute(with input: String) -> AnyPublisher<[History], Error> {
-        if input == testErrorString {
-            return Fail(error: TestError.someError)
-                .eraseToAnyPublisher()
-        }
-        return Just([History(id: input)])
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-}
-
-private class MockAddHistoryUseCase: UseCase {
-    func execute(with input: String) -> AnyPublisher<Bool, Error> {
-        if input == testErrorString {
-            return Fail(error: TestError.someError)
-                .eraseToAnyPublisher()
-        }
-        return Just(true)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-}
-
-class DocumentsViewModelTests: XCTestCase {
-    var viewModel: DocumentsViewModel<ImmediateScheduler>!
+final class DocumentsViewModelTests: XCTestCase {
+    private var searchHistoryUseCase: FakeSearchHistoryUseCase!
+    private var addHistoryUseCase: FakeAddHistoryUseCase!
+    private var viewModel: DocumentsViewModel<ImmediateScheduler>!
     
     override func setUp() {
-        viewModel = DocumentsViewModel(searchHistoryUseCase: MockSearchHistoryUseCase(),
-                                       addHistoryUseCase: MockAddHistoryUseCase(),
+        searchHistoryUseCase = FakeSearchHistoryUseCase()
+        addHistoryUseCase = FakeAddHistoryUseCase()
+        viewModel = DocumentsViewModel(searchHistoryUseCase: searchHistoryUseCase,
+                                       addHistoryUseCase: addHistoryUseCase,
                                        scheduler: ImmediateScheduler.shared)
     }
     
     func testHistorySearch() throws {
         // Arrange
-        let testQuery = "test"
-        let expected = [History(id: testQuery)]
+        searchHistoryUseCase.answer = Answer.success(.stub)
+        addHistoryUseCase.answer = Answer.nothing()
         
         // Act
-        viewModel.searchHistory = testQuery
+        viewModel.searchHistory = "test"
         
         // Assert
-        let res = try awaitPublisher(viewModel.$history.dropFirst(2))
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(viewModel.history, .stub)
     }
     
     func testHistorySearchError() throws {
         // Arrange
-        let expected = ViewError(TestError.someError)
-        
+        searchHistoryUseCase.answer = Answer.fail()
+        addHistoryUseCase.answer = Answer.nothing()
+
         // Act
-        viewModel.searchHistory = testErrorString
-        
+        viewModel.searchHistory = "test"
+
         // Assert
-        let res = try awaitPublisher(viewModel.$error.dropFirst())
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(viewModel.error, ViewError(TestError.someError))
     }
     
     func testAddHistory() throws {
         // Arrange
-        let expected = [History(id: "")]
-        
+        searchHistoryUseCase.answer = Answer.success(.stub)
+        addHistoryUseCase.answer = Answer.success(true)
+
         // Act
         viewModel.addHistory = "test"
-        
+
         // Assert
-        let res = try awaitPublisher(viewModel.$history.dropFirst(2))
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(viewModel.history, .stub)
     }
-    
+
     func testAddHistoryError() throws {
         // Arrange
-        let expected = ViewError(TestError.someError)
-        
+        searchHistoryUseCase.answer = Answer.nothing()
+        addHistoryUseCase.answer = Answer.fail()
+
         // Act
-        viewModel.addHistory = testErrorString
-        
+        viewModel.addHistory = "test"
+
         // Assert
-        let res = try awaitPublisher(viewModel.$error.dropFirst())
-        XCTAssertEqual(res, expected)
+        XCTAssertEqual(viewModel.error, ViewError(TestError.someError))
     }
 }
         

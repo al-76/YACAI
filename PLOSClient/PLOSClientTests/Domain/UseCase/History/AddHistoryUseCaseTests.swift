@@ -22,7 +22,7 @@ final class AddHistoryUseCaseTests: XCTestCase {
 
     func testExecute() async throws {
         // Arrange
-        repository.writeAnswer = Answer.successAnswer(true)
+        repository.writeAnswer = Answer.success(true)
 
         // Act
         let result = try await value(useCase.execute(with: "test"))
@@ -33,7 +33,7 @@ final class AddHistoryUseCaseTests: XCTestCase {
 
     func testExecuteError() async {
         // Arrange
-        repository.writeAnswer = Answer.failAnswer()
+        repository.writeAnswer = Answer.fail()
 
         // Act
         let result = await error(useCase.execute(with: "test"))

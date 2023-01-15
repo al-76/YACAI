@@ -22,18 +22,18 @@ final class DocumentListViewModelTests: XCTestCase {
     
     func testHistorySearch() throws {
         // Arrange
-        useCase.answer = Answer.successAnswer(.stub)
+        useCase.answer = Answer.success(.stub)
         
         // Act
         viewModel.searchDocument = "test"
         
         // Assert
-        XCTAssertEqual(viewModDocumentListViewModelTestsel.documents, .stub)
+        XCTAssertEqual(viewModel.documents, .stub)
     }
     
     func testHistorySearchError() throws {
         // Arrange
-        useCase.answer = Answer.failAnswer()
+        useCase.answer = Answer.fail()
         
         // Act
         viewModel.searchDocument = "test"

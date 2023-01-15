@@ -11,7 +11,7 @@ import Combine
 import Foundation
 
 final class FakeSearchHistoryUseCase: UseCase {
-    var answer = Answer.successAnswer([History].stub)
+    var answer = Answer.success([History].stub)
 
     func execute(with query: String) -> AnyPublisher<[History], Error> {
         answer

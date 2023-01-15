@@ -22,7 +22,7 @@ final class SearchDocumentUseCaseTests: XCTestCase {
 
     func testExecute() async throws {
         // Arrange
-        repository.readAnswer = Answer.successAnswer(.stub)
+        repository.readAnswer = Answer.success(.stub)
 
         // Act
         let result = try await value(useCase.execute(with: "test"))
@@ -33,7 +33,7 @@ final class SearchDocumentUseCaseTests: XCTestCase {
 
     func testExecuteError() async {
         // Arrange
-        repository.readAnswer = Answer.failAnswer()
+        repository.readAnswer = Answer.fail()
 
         // Act
         let result = await error(useCase.execute(with: "test"))

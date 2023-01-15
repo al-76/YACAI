@@ -11,8 +11,8 @@ import Foundation
 import Combine
 
 final class FakeHistoryRepository: HistoryRepository {
-    var readAnswer = Answer.successAnswer([History].stub)
-    var writeAnswer = Answer.successAnswer(true)
+    var readAnswer = Answer.success([History].stub)
+    var writeAnswer = Answer.success(true)
 
     func read() -> AnyPublisher<[History], Error> {
         readAnswer

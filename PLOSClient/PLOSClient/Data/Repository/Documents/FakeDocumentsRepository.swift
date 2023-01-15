@@ -11,7 +11,7 @@ import Combine
 import Foundation
 
 final class FakeDocumentsRepository: DocumentsRepository {
-    var readAnswer = Answer.successAnswer([Document].stub)
+    var readAnswer = Answer.success([Document].stub)
 
     func read(query: String) -> AnyPublisher<[Document], Error> {
         readAnswer

@@ -11,7 +11,7 @@ import Combine
 import Foundation
 
 final class FakeAddHistoryUseCase: UseCase {
-    private var answer = Answer.successAnswer(true)
+    var answer = Answer.success(true)
 
     func execute(with value: String) -> AnyPublisher<Bool, Error> {
         answer

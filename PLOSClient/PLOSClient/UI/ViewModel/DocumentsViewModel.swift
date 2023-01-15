@@ -51,7 +51,7 @@ final class DocumentsViewModel<Scheduler: Combine.Scheduler>: ObservableObject {
             }
         
         foundHistory.merge(with: updatedHistory)
-            .receive(on: DispatchQueue.main)
+            .receive(on: scheduler)
             .catch { [weak self] in
                 self?.error = ViewError($0)
                 return Just([History]()).eraseToAnyPublisher()
