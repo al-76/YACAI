@@ -12,5 +12,5 @@ protocol UseCase<Input, Output> {
     associatedtype Input
     associatedtype Output
 
-    func execute(with input: Input) -> AnyPublisher<Output, Error>
+    func callAsFunction(with input: Input) -> AnyPublisher<Output, Error>
 }

@@ -15,7 +15,7 @@ final class AddHistoryUseCase: UseCase {
         self.repository = repository
     }
         
-    func execute(with value: String) -> AnyPublisher<Bool, Error> {
+    func callAsFunction(with value: String) -> AnyPublisher<Bool, Error> {
         repository.read()
             .flatMap { [weak self] in
                 let item = History(id: value)

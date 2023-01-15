@@ -25,7 +25,7 @@ final class SearchDocumentUseCaseTests: XCTestCase {
         repository.readAnswer = Answer.success(.stub)
 
         // Act
-        let result = try await value(useCase.execute(with: "test"))
+        let result = try await value(useCase(with: "test"))
 
         // Assert
         XCTAssertEqual(result, .stub)
@@ -36,7 +36,7 @@ final class SearchDocumentUseCaseTests: XCTestCase {
         repository.readAnswer = Answer.fail()
 
         // Act
-        let result = await error(useCase.execute(with: "test"))
+        let result = await error(useCase(with: "test"))
 
         // Assert
         XCTAssertEqual(result as? TestError, .someError)

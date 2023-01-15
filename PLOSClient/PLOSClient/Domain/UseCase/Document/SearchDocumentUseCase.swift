@@ -15,7 +15,7 @@ final class SearchDocumentUseCase: UseCase {
         self.repository = repository
     }
 
-    func execute(with word: String) -> AnyPublisher<[Document], Error> {
+    func callAsFunction(with word: String) -> AnyPublisher<[Document], Error> {
         repository.read(query: word)
     }
 }

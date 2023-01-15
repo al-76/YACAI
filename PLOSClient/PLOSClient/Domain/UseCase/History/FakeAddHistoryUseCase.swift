@@ -13,7 +13,7 @@ import Foundation
 final class FakeAddHistoryUseCase: UseCase {
     var answer = Answer.success(true)
 
-    func execute(with value: String) -> AnyPublisher<Bool, Error> {
+    func callAsFunction(with value: String) -> AnyPublisher<Bool, Error> {
         answer
     }
 }

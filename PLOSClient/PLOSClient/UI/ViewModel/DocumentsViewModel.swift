@@ -35,7 +35,7 @@ final class DocumentsViewModel<Scheduler: Combine.Scheduler>: ObservableObject {
     private func bindInputToOutput() {
         let foundHistory = $searchHistory
             .compactMap { [weak self] in
-                self?.searchHistoryUseCase.execute(with: $0)
+                self?.searchHistoryUseCase(with: $0)
             }
             .switchToLatest()
 
@@ -43,7 +43,7 @@ final class DocumentsViewModel<Scheduler: Combine.Scheduler>: ObservableObject {
             .filter { !$0.isEmpty }
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .compactMap { [weak self] in
-                self?.addHistoryUseCase.execute(with: $0)
+                self?.addHistoryUseCase(with: $0)
             }
             .switchToLatest()
             .flatMap { _ in

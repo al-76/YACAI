@@ -25,7 +25,7 @@ final class SearchHistoryUseCaseTests: XCTestCase {
         repository.readAnswer = Answer.success(.stub)
 
         // Act
-        let result = try await value(useCase.execute(with: ""))
+        let result = try await value(useCase(with: ""))
 
         // Assert
         XCTAssertEqual(result, .stub.reversed())
@@ -36,7 +36,7 @@ final class SearchHistoryUseCaseTests: XCTestCase {
         repository.readAnswer = Answer.success(.stub)
 
         // Act
-        let result = try await value(useCase.execute(with: "Ribos"))
+        let result = try await value(useCase(with: "Ribos"))
 
         // Assert
         XCTAssertEqual(result, [.stub])
@@ -47,7 +47,7 @@ final class SearchHistoryUseCaseTests: XCTestCase {
         repository.readAnswer = Answer.fail()
 
         // Act
-        let result = await error(useCase.execute(with: ""))
+        let result = await error(useCase(with: ""))
 
         // Assert
         XCTAssertEqual(result as? TestError, .someError)

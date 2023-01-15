@@ -15,7 +15,7 @@ final class FakeSearchDocumentUseCase: UseCase {
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()
 
-    func execute(with word: String) -> AnyPublisher<[Document], Error> {
+    func callAsFunction(with word: String) -> AnyPublisher<[Document], Error> {
         answer
     }
 }

@@ -28,7 +28,7 @@ final class AddHistoryUseCaseTests: XCTestCase {
         repository.writeAnswer = Answer.success(true)
 
         // Act
-        let result = try await value(useCase.execute(with: "test"))
+        let result = try await value(useCase(with: "test"))
 
         // Assert
         XCTAssertEqual(result, true)
@@ -41,7 +41,7 @@ final class AddHistoryUseCaseTests: XCTestCase {
         repository.writeAnswer = Answer.success(true)
 
         // Act
-        let result = try await value(useCase.execute(with: item))
+        let result = try await value(useCase(with: item))
 
         // Assert
         XCTAssertEqual(result, false)
@@ -53,7 +53,7 @@ final class AddHistoryUseCaseTests: XCTestCase {
         repository.writeAnswer = Answer.fail()
 
         // Act
-        let result = await error(useCase.execute(with: "test"))
+        let result = await error(useCase(with: "test"))
 
         // Assert
         XCTAssertEqual(result as? TestError, .someError)
@@ -64,7 +64,7 @@ final class AddHistoryUseCaseTests: XCTestCase {
         repository.readAnswer = Answer.fail()
 
         // Act
-        let result = await error(useCase.execute(with: "test"))
+        let result = await error(useCase(with: "test"))
 
         // Assert
         XCTAssertEqual(result as? TestError, .someError)

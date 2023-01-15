@@ -32,7 +32,7 @@ final class DocumentListViewModel<Scheduler: Combine.Scheduler>: ObservableObjec
             .filter { !$0.isEmpty }
             .removeDuplicates()
             .compactMap { [weak self] value in
-                self?.searchDocumentUseCase.execute(with: value)
+                self?.searchDocumentUseCase(with: value)
             }
             .switchToLatest()
             .receive(on: scheduler)

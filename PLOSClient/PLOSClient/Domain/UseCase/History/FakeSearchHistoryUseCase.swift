@@ -13,7 +13,7 @@ import Foundation
 final class FakeSearchHistoryUseCase: UseCase {
     var answer = Answer.success([History].stub)
 
-    func execute(with query: String) -> AnyPublisher<[History], Error> {
+    func callAsFunction(with query: String) -> AnyPublisher<[History], Error> {
         answer
     }
 }
