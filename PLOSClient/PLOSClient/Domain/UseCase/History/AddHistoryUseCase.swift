@@ -16,6 +16,17 @@ final class AddHistoryUseCase: UseCase {
     }
         
     func execute(with value: String) -> AnyPublisher<Bool, Error> {
-        repository.write(item: History(id: value))
+        repository.read()
+            .flatMap { [weak self] in
+                let item = History(id: value)
+                guard let self,
+                      !$0.contains(item) else {
+                    return Just(false)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+                return self.repository.write(item: item)
+            }
+            .eraseToAnyPublisher()
     }
 }
