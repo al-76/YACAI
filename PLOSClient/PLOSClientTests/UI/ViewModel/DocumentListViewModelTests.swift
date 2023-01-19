@@ -20,7 +20,7 @@ final class DocumentListViewModelTests: XCTestCase {
                                           scheduler: ImmediateScheduler.shared)
     }
     
-    func testHistorySearch() throws {
+    func testHistorySearch() {
         // Arrange
         useCase.answer = Answer.success(.stub)
         
@@ -31,7 +31,7 @@ final class DocumentListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.documents, .stub)
     }
     
-    func testHistorySearchError() throws {
+    func testHistorySearchError() {
         // Arrange
         useCase.answer = Answer.fail()
         
